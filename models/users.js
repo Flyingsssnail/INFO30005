@@ -2,14 +2,16 @@
  * http://usejsdoc.org/
  */
 
-const database = require('./db');
 
-function allUsersFile(req, res) {
-	res.send(database);
-};
 
-function addUser(firstname, lastname) {
-	database.push({'firstname':firstname, 'lastname':lastname});
-};
+//********************  4.09
+var mongoose  = require ('mongoose');
+var UserSchema = mongoose.Schema({
+    "name":String,
+    "level":String,
+    "rating":String,
+    }
+);
 
-module.exports = {allUsersFile, addUser};
+mongoose.model ('users',UserSchema);
+
