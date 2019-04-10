@@ -1,0 +1,24 @@
+{
+  "name": "info30005",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flyingsssnail/INFO30005.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Flyingsssnail/INFO30005/issues"
+  },
+  "homepage": "https://github.com/Flyingsssnail/INFO30005#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.21"
+  }
+}
