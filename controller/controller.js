@@ -20,7 +20,7 @@ var createUsers = function(req,res){
     res.ended;
 };
 
-var getUsers = function(req,res){
+var getUser = function(req,res){
     res.send(Users.find({"id":req.body.id}));
     res.ended;
 };
@@ -29,10 +29,6 @@ var allUsers = function(req,res){
     res.send(Users);
     res.ended;
 };
-
-module.exports.createUsers = createUsers;
-module.exports.rateUsers = rateUsers;
-module.exports.findUsers = findUsers;
 
 
 // db
@@ -43,3 +39,10 @@ function newID() {
         console.log('User count: %d', count);
     });
 };
+
+
+module.exports.createUsers = createUsers;
+module.exports.getUser = getUser;
+module.exports.allUsers = allUsers;
+
+

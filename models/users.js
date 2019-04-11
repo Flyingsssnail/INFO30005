@@ -1,6 +1,7 @@
 /**
  * http://usejsdoc.org/
  */
+//********************  4.09
 const gender = {
     HIDDEN:0,
     MALE: 1,
@@ -8,7 +9,7 @@ const gender = {
     OTHER: 3
 };
 
-//********************  4.09
+
 var mongoose  = require ('mongoose');
 var UserSchema = mongoose.Schema({
     "id":Number,
@@ -18,5 +19,5 @@ var UserSchema = mongoose.Schema({
     }
 );
 
-mongoose.model ('users',UserSchema);
+module.exports = mongoose.model ('users',UserSchema);
 
