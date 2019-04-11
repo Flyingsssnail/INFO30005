@@ -2,16 +2,18 @@ var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 
 var createUsers = function(req,res){
+	
     var user = new Users({
-        "id":newID(),
+        "id":0,
         "name":req.body.name,
         "gender":req.body.gender,
         "exp":0
     });
     
-    Users.create(user, function(err,newUser){
+    Users.create(user, function(err){
         if (err) {
             res.sendStatus(400);
+            res.ended;
         }
     });
 
@@ -33,12 +35,6 @@ var allUsers = function(req,res){
 
 // db
 // hardcode
-
-function newID() {
-    return Users.count({}, function (err, count) {
-        console.log('User count: %d', count);
-    });
-};
 
 
 module.exports.createUsers = createUsers;
