@@ -1,3 +1,4 @@
 /node_modules
 /.idea
-/.project
+.project
+.DS_Store
