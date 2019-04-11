@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
+const db = require('./models/db');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

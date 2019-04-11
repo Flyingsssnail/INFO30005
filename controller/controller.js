@@ -8,7 +8,7 @@ var createUsers = function(req,res){
         "gender":req.body.gender,
         "exp":0
     });
-
+    
     Users.create(user, function(err,newUser){
         if (err) {
             res.sendStatus(400);

@@ -6,7 +6,9 @@
 
 var mongoose  = require ('mongoose');
 
-mongoose.connect('mongodb+srv://Cyclone:ZF_qBFT4\\d.yFnxm@cluster0-dlhws.mongodb.net/test?retryWrites=true',function(err) {
+const uri = 'mongodb+srv://junlongw@student.unimelb.edu.au:ZF_qBFT4\d.yFnxm@cluster0-dlhws.mongodb.net/test?retryWrites=true';
+
+mongoose.connect(uri, { useNewUrlParser: true }, function(err) {
 	if (!err) {
 		console.log('Connect to mongo');
 	} else {

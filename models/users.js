@@ -11,6 +11,8 @@ const gender = {
 
 
 var mongoose  = require ('mongoose');
+
+
 var UserSchema = mongoose.Schema({
     "id":Number,
     "name":String,
@@ -19,5 +21,5 @@ var UserSchema = mongoose.Schema({
     }
 );
 
-module.exports = mongoose.model ('users',UserSchema);
+module.exports = mongoose.model('users',UserSchema);
 
