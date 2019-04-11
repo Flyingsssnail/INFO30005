@@ -9,7 +9,8 @@ var mongoose  = require ('mongoose');
 var UserSchema = mongoose.Schema({
     "name":String,
     "level":String,
-    "rating":String,
+    "gender":String,
+    "age":Number,
     }
 );
 

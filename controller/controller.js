@@ -1,32 +1,27 @@
 var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 
-var createUsers = function(req,res){
-    var users = new Users({
+
+var createUser = function(req,res){
+    var user = new Users({
         "name":req.body.name,
         "level":req.body.level,
-        "rating":req.body.rating,
+        "gender":req.body.gender,
+        "age":req.body.age,
     });
-
-    users.save(function(err,newUser){
-        if (!err) {
-            res.send(newUsers);
-        }
-        else{
-            res.sendStatus(400);
+    Users.create(user, function(err,newUser){
+        if (err) {
+            res.sendStatus(400);   
         }
     });
+    
+    res.send(`You have successfully registered.
+	${user}`);
 };
 
-
-var rateUsers = function(req,res){
-
+var getUsers = function(req,res){
+	res.send(Users);
 };
 
-var findUsers = function(req,res){
-
-};
-
-module.exports.createUsers = createUsers;
-module.exports.rateUsers = rateUsers;
-module.exports.findUsers = findUsers;
+module.exports.createUser = createUser;
+module.exports.getUsers = getUsers;

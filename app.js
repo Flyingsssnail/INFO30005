@@ -15,15 +15,7 @@ app.use(bodyParser.json());
 var routes  = require ('./routes/routes.js');
 app.use('/',routes);
 
-//orders
-app.get('/people', function (req, res){
-	users.allUsersFile(req, res);
-});
-
-
 //***********************4.2
-
-
 
 // port listen to 3000
 const PORT = process.env.PORT || 3000;

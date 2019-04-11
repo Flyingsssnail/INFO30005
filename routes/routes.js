@@ -3,16 +3,13 @@ var router  = express.Router();
 var controller  = require ('../controller/controller.js');
 
 //new Users
-router.post ('/api',controller.createUsers);
-
-//rate Users
-router.get ('/api',controller.rateUsers);
+router.post ('/api',controller.createUser);
 
 //find Users
-router.get ('/api',controller.findUsers);
+router.get ('/api/all',controller.getUsers);
 
 
-//There is more need to be installed
+//There are more need to be installed
 
 
 module.exports = router;
