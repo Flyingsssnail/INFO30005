@@ -4,7 +4,7 @@ var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
 
-
+// register user
 function createUser(req,res){
 	
 	var genderArray = ["female", "male", "hidden", "other"];
