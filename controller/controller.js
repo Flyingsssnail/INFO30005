@@ -4,7 +4,6 @@ var Users = mongoose.model('users');
 var createUsers = function(req,res){
 	
     var user = new Users({
-        "id":0,
         "name":req.body.name,
         "gender":req.body.gender,
         "exp":0

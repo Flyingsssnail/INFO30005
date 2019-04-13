@@ -2,8 +2,6 @@
  * http://usejsdoc.org/
  */
 
-
-
 var mongoose  = require ('mongoose');
 
 const uri = 'mongodb+srv://Cyclone:Cyclone123456@cluster0-dlhws.mongodb.net/test?retryWrites=true';
