@@ -8,8 +8,7 @@ Required inputs for POST are author,title&content.
 - link "/" to welcome page
 - link "/api/u/register" to create user with JSON format.
 - link "/api/u/all" to get all users files.
-- link "/api/u/:id" to get specified user file.
-- link "/api/search" to find user or post with similar keyword.
+- link "/api/search" to ambiguously find user or post with specified keyword.
 	Query format:
 		POST e.g. /search?type=post&method=author&key=cyclone
 		USER e.g. /search?type=user&key=cyclone

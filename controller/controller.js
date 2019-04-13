@@ -56,14 +56,6 @@ function createPost(req,res){
     return res.send(post);
 };
 
- // find by id
-function getUser(req,res){
-    res.send(Users.findOne({_id : req.body.id}, function (err, resu)  {
-        return err ? res.send("User not exist!") : res.send(resu);
-    }));
-    
-};
-
 // find all user
 var allUsers = function(req,res){
     Users.find(function(err, users) {
