@@ -1,22 +1,23 @@
-var express = require ('express');
-var router  = express.Router();
-var controller  = require ('../controller/controller.js');
+var express = require('express');
+var router = express.Router();
+var controller = require('../controller/controller.js');
 
-//create new Users
-router.post ('/api/u/register',controller.createUser);
+// welcome page
+router.get('/', controller.init);
 
-//find all Users
-router.get ('/api/u/all',controller.allUsers);
+// create new Users
+router.post('/api/u/register', controller.createUser);
 
-//find one user by id
-router.get ('/api/u/:id',controller.getUser);
+// find all Users
+router.get('/api/u/all', controller.allUsers);
 
-//find one user by name
-router.get ('/api/search', controller.searching);
+// find one user by id
+router.get('/api/u/:id', controller.getUser);
 
-//There are more need to be installed
-router.post ('/api/p/post',controller.createPost);
+// find one user by name
+router.get('/api/search', controller.searching);
+
+// There are more need to be installed
+router.post('/api/p/post', controller.createPost);
 
 module.exports = router;
-
-

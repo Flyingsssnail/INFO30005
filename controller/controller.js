@@ -2,6 +2,11 @@ var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
 
+// welcome page
+function init(req, res) {
+	res.send("WELCOME!");
+}
+
 // register user
 function createUser(req,res){
 	
@@ -105,6 +110,7 @@ function searching(req, res) {
     res.ended;
 };
 
+module.exports.init = init;
 
 module.exports.createUser = createUser;
 module.exports.getUser = getUser;
