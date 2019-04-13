@@ -22,16 +22,29 @@ var createUsers = function(req,res){
     res.ended;
 };
 
+ // find by id
 var getUser = function(req,res){
     res.send(Users.find({":id":req.body.id}));
     res.ended;
 };
 
+// find all user
 var allUsers = function(req,res){
     res.send(Users);
     res.ended;
 };
 
+//find by name
+var oneUser = function(req, res) {
+    var username = req.params.name;
+    Users.find({name: username}, function(err,username){
+        if(!err) {
+            res.send(username);
+        }else{
+            res.sendStatus(404);
+        }
+    });
+};
 
 // db
 // hardcode
@@ -40,5 +53,6 @@ var allUsers = function(req,res){
 module.exports.createUsers = createUsers;
 module.exports.getUser = getUser;
 module.exports.allUsers = allUsers;
+module.exports.oneUser =oneUser;
 
 
