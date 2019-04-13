@@ -6,7 +6,7 @@ var controller  = require ('../controller/controller.js');
 router.post ('/api/u/register',controller.createUsers);
 
 //find Users
-router.get ('/api/u/',controller.getUser);
+router.get ('/api/u/:id',controller.getUser);
 router.get ('/api/u/all',controller.allUsers);
 
 

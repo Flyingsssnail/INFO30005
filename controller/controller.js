@@ -23,7 +23,7 @@ var createUsers = function(req,res){
 };
 
 var getUser = function(req,res){
-    res.send(Users.find({"id":req.body.id}));
+    res.send(Users.find({":id":req.body.id}));
     res.ended;
 };
 
