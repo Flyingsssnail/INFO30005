@@ -1,13 +1,6 @@
-/**
- * http://usejsdoc.org/
- */
+var mongoose  = require ('mongoose');
 
-
-const mongoose  = require ('mongoose');
-
-
-const UserSchema = mongoose.Schema({
-    "id":Number,
+var UserSchema = mongoose.Schema({
     "name":String,
     "gender":String,
     "exp":Number

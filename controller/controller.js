@@ -1,5 +1,3 @@
-import * as params from "mongoose";
-
 var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
@@ -37,12 +35,12 @@ function createUser(req,res){
 function createPost(req,res){
 
     var post = new Posts({
-        "id":0,
-        "author":Users.findOne({id : req.param.userid}, function (err, usr) { return usr }),
+        //Users.findOne({_id: req.query.id}, function (err, usr) { return usr })
+        "author":req.query.name,
         "postDate":Date.now,
         "editDate":Date.now,
-        "title":req.param.title,
-        "content":req.param.content,
+        "title":req.query.title,
+        "content":req.query.content,
         // TODO param array to array
         "tag":[],
         "rating":Number.NaN,
@@ -61,7 +59,10 @@ function createPost(req,res){
 
  // find by id
 function getUser(req,res){
-    res.send(Users.find({id : req.body.id}));
+    res.send(Users.findOne({_id : req.body.id}, function (err, resu)  {
+        err ? res.send("User not exist!") : res.send(resu);
+        res.ended;
+    }));
     res.ended;
 };
 
@@ -79,8 +80,9 @@ var allUsers = function(req,res){
 
 //find by name
 function searching(req, res) {
-    if (req.params.type === 'user') {
-        Posts.find({name: { '$regex' : req.params.key, '$options' : 'i' }}, function(err,result){
+    if (req.query.type === 'user') {
+        console.log('1');
+        Users.find({name: { $regex : req.query.key, $options : 'i' }}, function(err, result){
             if(!err) {
                 res.send(result);
             }else{
@@ -88,10 +90,11 @@ function searching(req, res) {
             }
         });
 
-    } else if (req.params.type === 'post') {
+    } else if (req.query.type === 'post') {
+        console.log('2');
 
-        // TODO req.params.method -> array, search by multiple method
-        Posts.find({[req.params.method]: { '$regex' : req.params.key, '$options' : 'i' }}, function(err,result){
+        // TODO req.query.method -> array, search by multiple method
+        Posts.find({[req.query.method]: { '$regex' : req.query.key, '$options' : 'i' }}, function(err,result){
             if(!err) {
                 res.send(result);
             }else{

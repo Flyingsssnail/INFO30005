@@ -9,15 +9,13 @@ router.post ('/api/u/register',controller.createUser);
 router.get ('/api/u/all',controller.allUsers);
 
 //find one user by id
-//router.get ('/api/u/:id',controller.getUser);
+router.get ('/api/u/:id',controller.getUser);
 
 //find one user by name
 router.get ('/api/search', controller.searching);
 
 //There are more need to be installed
 router.post ('/api/p/post',controller.createPost);
-
-
 
 module.exports = router;
 
