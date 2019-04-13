@@ -39,7 +39,7 @@ function createPost(req,res){
     var post = new Posts({
         // Users.findOne({_id: req.query.id}, function (err, usr) { return usr
 		// })
-        "author":req.query.name,
+        "author":req.query.author,
         "title":req.query.title,
         "content":req.query.content,
         // TODO param array to array
