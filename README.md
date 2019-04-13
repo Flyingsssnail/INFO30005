@@ -1,18 +1,17 @@
-# INFO30005
+﻿# INFO30005
 
-Heroko
+Required inputs for USER are name&gender.
 
-• Create a remote repository on GitHub
-• Push your app to this repository (make sure not to push your node_modules folder)
-• Log into Heroku from the command line with
-	heroku login
-• Create a Heroku project with
-	heroku create
-• Push your code to Heroku with git push
-	heroku master
-• Check out your website with
-	heroku open 
+Required inputs for POST are author,title&content.
 
 
+- link "/" to welcome page
+- link "/api/u/register" to create user with JSON format.
+- link "/api/u/all" to get all users files.
+- link "/api/u/:id" to get specified user file.
+- link "/api/search" to find user or post with similar keyword.
+	Query format:
+		POST e.g. /search?type=post&method=author&key=cyclone
+		USER e.g. /search?type=user&key=cyclone
 
-
+- link "/api/p/post" to post with QUERY format.
