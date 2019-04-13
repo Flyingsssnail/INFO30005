@@ -14,7 +14,7 @@ function createUser(req,res){
 	
 	// only specified string in genderArray are allowed to be entered;
 	
-	if (genderArray.indexOf(req.body.gender) == -1) {
+	if (genderArray.indexOf(req.body.gender) === -1) {
 		return res.sendStatus(406);
 	}
 	
