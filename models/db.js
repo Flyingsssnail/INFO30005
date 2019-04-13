@@ -16,3 +16,4 @@ mongoose.connect(uri, { useNewUrlParser: true }, function(err) {
 });
 
 require ('./users.js');
+require('./posts.js');

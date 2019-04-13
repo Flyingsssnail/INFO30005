@@ -1,20 +1,18 @@
-const mongoose  = require ('mongoose');
+var mongoose  = require ('mongoose');
 
-const PostSchema = mongoose.Schema({
-        "id":Number,
-        "author":String,
-        "postDate":Date,
-        "editDate":Date,
-        "title":String,
-        "content":String,
-        // TODO
-        // "content":HTMLCollection,
-        // "comments":[HTMLCollection],
-        "tag":[String],
-        "rating":Number,
+var PostSchema = mongoose.Schema({
+    "author":String,
+    "postDate":Date,
+    "editDate":Date,
+    "title":String,
+    "content":String,
+    // TODO
+    // "content":HTMLCollection,
+    // "comments":[HTMLCollection],
+    "tag":[String],
+    "rating":Number
     }
 );
 
-
-module.exports = model('search',PostSchema);
+module.exports = mongoose.model('posts',PostSchema);
 
