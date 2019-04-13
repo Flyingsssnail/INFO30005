@@ -84,7 +84,6 @@ function searching(req, res) {
 module.exports.init = init;
 
 module.exports.createUser = createUser;
-module.exports.getUser = getUser;
 module.exports.allUsers = allUsers;
 
 module.exports.searching = searching;
