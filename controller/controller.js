@@ -4,7 +4,7 @@ var Posts = mongoose.model('posts');
 
 // welcome page
 function init(req, res) {
-	res.send("WELCOME!");
+	return res.send("WELCOME!");
 }
 
 // register user
@@ -15,8 +15,7 @@ function createUser(req,res){
 	// only specified string in genderArray are allowed to be entered;
 	
 	if (genderArray.indexOf(req.body.gender) == -1) {
-		res.send("Sorry, your gender cannot be recognized by the website.");
-		res.sendStatus(406);
+		return res.sendStatus(406);
 	}
 	
     var user = new Users({
@@ -27,72 +26,57 @@ function createUser(req,res){
     
     Users.create(user, function(err){
         if (err) {
-            res.sendStatus(400);
-            res.ended;
+            return res.sendStatus(400);
         }
     });
 
-    res.send('You have successfully registered.${user}');
-    res.ended;
+    return res.send(`You have successfully registered.${user}`);
 };
 
 
 function createPost(req,res){
 
     var post = new Posts({
-        //Users.findOne({_id: req.query.id}, function (err, usr) { return usr })
+        // Users.findOne({_id: req.query.id}, function (err, usr) { return usr
+		// })
         "author":req.query.name,
-        "postDate":Date.now,
-        "editDate":Date.now,
         "title":req.query.title,
         "content":req.query.content,
         // TODO param array to array
         "tag":[],
-        "rating":Number.NaN,
+        "rating":0,
     });
 
     Posts.create(post, function(err){
         if (err) {
-            res.sendStatus(400);
-            res.ended;
+            return res.sendStatus(400);
         }
     });
 
-    res.send(post);
-    res.ended;
+    return res.send(post);
 };
 
  // find by id
 function getUser(req,res){
     res.send(Users.findOne({_id : req.body.id}, function (err, resu)  {
-        err ? res.send("User not exist!") : res.send(resu);
-        res.ended;
+        return err ? res.send("User not exist!") : res.send(resu);
     }));
-    res.ended;
+    
 };
 
 // find all user
 var allUsers = function(req,res){
     Users.find(function(err, users) {
-    	if (!err) {
-    		res.send(users);
-    	}
-    	else {
-    		res.sendStatus(404);
-    	}
+    	return err? res.sendStatus(404) : res.send(users);
     });
 };
 
-//find by name
+// find by name
 function searching(req, res) {
     if (req.query.type === 'user') {
         console.log('1');
         Users.find({name: { $regex : req.query.key, $options : 'i' }}, function(err, result){
-            if(!err) {
-                res.send(result);
-            }else{
-                res.sendStatus(404);
-            }
+        	return err ? res.sendStatus(404) : res.send(result);
         });
 
     } else if (req.query.type === 'post') {
@@ -100,14 +84,9 @@ function searching(req, res) {
 
         // TODO req.query.method -> array, search by multiple method
         Posts.find({[req.query.method]: { '$regex' : req.query.key, '$options' : 'i' }}, function(err,result){
-            if(!err) {
-                res.send(result);
-            }else{
-                res.sendStatus(404);
-            }
+            return err ? res.sendStatus(404) : res.send(result);
         });
     }
-    res.ended;
 };
 
 module.exports.init = init;
