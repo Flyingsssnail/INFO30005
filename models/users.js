@@ -10,10 +10,10 @@
 //};
 
 
-var mongoose  = require ('mongoose');
+const mongoose  = require ('mongoose');
 
 
-var UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
     "id":Number,
     "name":String,
     "gender":Number,

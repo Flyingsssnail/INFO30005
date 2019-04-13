@@ -3,7 +3,7 @@ var router  = express.Router();
 var controller  = require ('../controller/controller.js');
 
 //create new Users
-router.post ('/api/u/register',controller.createUsers);
+router.post ('/api/u/register',controller.createUser);
 
 //find all Users
 router.get ('/api/u/all',controller.allUsers);
@@ -12,9 +12,10 @@ router.get ('/api/u/all',controller.allUsers);
 router.get ('/api/u/:id',controller.getUser);
 
 //find one user by name
-router.get ('/api/u/:name', controller.oneUser);
+router.get ('/api/search', controller.searching);
 
 //There are more need to be installed
+router.post ('/api/p/post',controller.createPost);
 
 
 

@@ -1,7 +1,11 @@
+import * as params from "mongoose";
+
 var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
+var Posts = mongoose.model('posts');
 
-var createUsers = function(req,res){
+
+function createUser(req,res){
 	
     var user = new Users({
         "id":0,
@@ -17,42 +21,79 @@ var createUsers = function(req,res){
         }
     });
 
-    res.send(`You have successfully registered.
-	${user}`);
+    res.send('You have successfully registered.${user}');
+    res.ended;
+};
+
+
+function createPost(req,res){
+
+    var post = new Posts({
+        "id":0,
+        "author":Users.findOne({id : req.param.userid}, function (err, usr) { return usr }),
+        "postDate":Date.now,
+        "editDate":Date.now,
+        "title":req.param.title,
+        "content":req.param.content,
+        // TODO param array to array
+        "tag":[],
+        "rating":Number.NaN,
+    });
+
+    Posts.create(post, function(err){
+        if (err) {
+            res.sendStatus(400);
+            res.ended;
+        }
+    });
+
+    res.send(post);
     res.ended;
 };
 
  // find by id
-var getUser = function(req,res){
-    res.send(Users.find({":id":req.body.id}));
+function getUser(req,res){
+    res.send(Users.find({id : req.body.id}));
     res.ended;
 };
 
 // find all user
-var allUsers = function(req,res){
+function allUsers(req,res){
     res.send(Users);
     res.ended;
 };
 
 //find by name
-var oneUser = function(req, res) {
-    var username = req.params.name;
-    Users.find({name: username}, function(err,username){
-        if(!err) {
-            res.send(username);
-        }else{
-            res.sendStatus(404);
-        }
-    });
+function searching(req, res) {
+    if (req.params.type === 'user') {
+        Posts.find({name: { '$regex' : req.params.key, '$options' : 'i' }}, function(err,result){
+            if(!err) {
+                res.send(result);
+            }else{
+                res.sendStatus(404);
+            }
+        });
+
+    } else if (req.params.type === 'post') {
+
+        // TODO req.params.method -> array, search by multiple method
+        Posts.find({[req.params.method]: { '$regex' : req.params.key, '$options' : 'i' }}, function(err,result){
+            if(!err) {
+                res.send(result);
+            }else{
+                res.sendStatus(404);
+            }
+        });
+    }
+    res.ended;
 };
 
-// db
-// hardcode
 
-
-module.exports.createUsers = createUsers;
+module.exports.createUser = createUser;
 module.exports.getUser = getUser;
 module.exports.allUsers = allUsers;
-module.exports.oneUser =oneUser;
 
+module.exports.searching = searching;
+
+module.exports.createPost = createPost;
 
