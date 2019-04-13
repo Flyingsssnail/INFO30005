@@ -9,7 +9,7 @@ router.post ('/api/u/register',controller.createUsers);
 router.get ('/api/u/all',controller.allUsers);
 
 //find one user by id
-router.get ('/api/u/:id',controller.getUser);
+//router.get ('/api/u/:id',controller.getUser);
 
 //find one user by name
 router.get ('/api/u/:name', controller.oneUser);
