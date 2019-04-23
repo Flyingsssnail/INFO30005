@@ -13,4 +13,9 @@ Required inputs for POST are author,title&content.
 		POST e.g. /search?type=post&method=author&key=cyclone
 		USER e.g. /search?type=user&key=cyclone
 
-- link "/api/p/post" to post with QUERY format.
+- link "/api/p/post" to post with QUERY format
+
+
+npm install @tinymce/tinymce-vue -S
+npm install tinymce -S
+npm install -g npm
