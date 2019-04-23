@@ -15,6 +15,9 @@ router.get('/api/u/all', controller.allUsers);
 router.get('/api/search', controller.searching);
 
 // There are more need to be installed
-router.post('/api/p/post', controller.createPost);
+router.post('/api/post', controller.createPost);
+
+router.get('/api/post', controller.getPost);
+router.get('/api/post_edit', controller.editPost);
 
 module.exports = router;

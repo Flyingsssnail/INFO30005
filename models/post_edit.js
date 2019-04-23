@@ -128,10 +128,9 @@ Vue.component("vue-tinymce",{
 });
 
 var vm=new Vue({
-  el:"#example",
+  el:"#textedit",
   data:{
-    content:"test content",
-    content1:"text1 content1",
+    content:"Edit your post here",
     tinymceOptions:tinymceOptions
    }
 });
