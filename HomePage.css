@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+}
+
+body {
+  background-image: url("./images/leaf.jpg");
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-position: top center;
+  font-family: 'Montserrat';
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.header {
+  background-color: #b1d574;
+  padding: 10px 20px;
+  text-align: right;
+  opacity: 0.7;
+}
+
+.header a {
+  float: right center;
+  display: inline-block;
+  color: #f2f2f2;
+  text-decoration: none;
+}
+
+.header a:hover {
+  background-color: #15802D;
+  color: white;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #b1d574;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #213f13;
+  text-align: right;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.topnav a:hover {
+  background-color: #15802D;
+  color: white;
+}
+
+.flex-container {
+  display: flex;
+  margin: 20px auto;
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  width: 100%;
+  height: 100%;
+  background-color: #213f1300;
+  -webkit-justify-content: center;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  align-content: center;
+}
+
+.flex-item {
+  display: block;
+  align-items: stretch;
+  background-color: #213f1300;
+  widht:40%;
+  margin: 10px 15px;
+}
+
+.flex-item a {
+  -webkit-align-self: stretch;
+  flex: 1;
+}
+
+.column {
+  overflow: hidden;
+  background-color: #189034;
+  margin: 20px auto;
+  float: center;
+  text-align: center;
+  opacity: 0.8;
+  color: #f2f2f2;
+  border:2px solid;
+  border-radius:25px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
