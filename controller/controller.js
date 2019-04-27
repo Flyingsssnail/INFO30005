@@ -33,12 +33,17 @@ function createUser(req,res){
     return res.send(`You have successfully registered.${user}`);
 };
 
-function getPost(req,res) {
-    res.sendfile('post.html', {'root': './'});
-}
-
-function editPost(req,res) {
-    res.sendfile('post_edit.html', {'root': './'});
+function loggedin (req, res) {
+    // var cookie = req.cookies.cookieName;
+    // if (cookie === undefined)
+    // {
+    //     return undefined;
+    // }
+    // else
+    // {
+    //     res.cookie('username', username, { maxAge: 900000, httpOnly: true });
+    //     // console.log('user name: %s', username);
+    // }
 }
 
 function createPost(req,res){
@@ -96,7 +101,5 @@ module.exports.allUsers = allUsers;
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
-module.exports.getPost = getPost;
-module.exports.editPost = editPost;
 
 

@@ -17,7 +17,13 @@ router.get('/api/search', controller.searching);
 // There are more need to be installed
 router.post('/api/post', controller.createPost);
 
-router.get('/api/post', controller.getPost);
-router.get('/api/post_edit', controller.editPost);
+// router.get('/api/post', controller.getPost);
+// router.get('/api/post_edit', controller.editPost);
+
+// router.get('/api/login', controller.login);
+
+// router.post('/api/login', controller.loggedin);
+
+// router.get('/api/login', controller.login);
 
 module.exports = router;

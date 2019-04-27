@@ -7,6 +7,9 @@ const db = require('./models/db');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// app.use(express.cookieParser());
+app.use(express.static(__dirname + '/public'));
+
 //set up our route
 var routes  = require ('./routes/routes.js');
 app.use('/',routes);

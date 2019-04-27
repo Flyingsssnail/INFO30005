@@ -19,8 +19,10 @@
   "dependencies": {
     "@tinymce/tinymce-vue": "^2.0.0",
     "body-parser": "^1.18.3",
+    "connect": "^3.6.6",
     "express": "^4.16.4",
     "mongoose": "^5.4.21",
+    "tinymce-vue": "^1.0.0",
     "vue": "^2.6.10",
     "vue-cli": "^2.9.6",
     "webpack": "^4.30.0"
