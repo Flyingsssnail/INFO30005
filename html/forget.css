@@ -1,0 +1,26 @@
+html, body {
+    background:url('https://cdn.pixabay.com/photo/2019/04/13/01/41/ecological-footprint-4123696_1280.jpg');
+    margin:0px;
+    font-family: 'Ubuntu', sans-serif;
+    background-size: 100% 110%;
+}
+
+
+fieldset {
+    position: absolute;
+    left:300px;
+    width:50%;
+    padding:10px;
+    margin:10px;
+    color:black;
+    border: solid 10px;
+    border-color: black;
+    opacity: 0.8;
+    background-color:grey;
+
+}
+legend {
+    color:black;
+    font-weight:800;
+    font-size:xx-large;
+}
