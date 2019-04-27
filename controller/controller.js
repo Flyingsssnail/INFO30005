@@ -33,6 +33,13 @@ function createUser(req,res){
     return res.send(`You have successfully registered.${user}`);
 };
 
+function getPost(req,res) {
+    res.sendfile('post.html', {'root': './'});
+}
+
+function editPost(req,res) {
+    res.sendfile('post_edit.html', {'root': './'});
+}
 
 function createPost(req,res){
 
@@ -89,4 +96,7 @@ module.exports.allUsers = allUsers;
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
+module.exports.getPost = getPost;
+module.exports.editPost = editPost;
+
 
