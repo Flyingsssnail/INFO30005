@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/Flyingsssnail/INFO30005#readme",
   "dependencies": {
+    "@tinymce/tinymce-vue": "^2.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongoose": "^5.4.21"
+    "grunt-cli": "^1.3.2",
+    "mongoose": "^5.4.21",
+    "tinymce": "^5.0.3",
+    "vue": "^2.6.10"
   }
 }
