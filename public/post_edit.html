@@ -25,18 +25,29 @@
     </div>
 </div>
 <div id="nouser" style="display: none;">Please <a href="login.html">log in</a> first!</div>
+<button id="show" onclick="show()">SWITCH LOGGED IN (FOR DEV)</button>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 <script src='https://unpkg.com/vue/dist/vue.js'></script>
 <script src='http://cdn.tinymce.com/4/tinymce.min.js'></script>
 
-<script  src="models/post_edit.js"></script>
+<script  src="post_edit.js"></script>
 
 
 <script>
     if (document.getElementById('username').textContent === 'None') {
         document.getElementById('textedit').style.display = "none";
         document.getElementById('nouser').style.display = "block";
+    };
+    function show() {
+        document.getElementById('textedit').style.display = "block";
+        document.getElementById('nouser').style.display = "none";
+        document.getElementById('show').setAttribute("onClick", "hide()");
+    };
+    function hide() {
+        document.getElementById('textedit').style.display = "none";
+        document.getElementById('nouser').style.display = "block";
+        document.getElementById('show').setAttribute("onClick", "show()");
     };
 </script>
 

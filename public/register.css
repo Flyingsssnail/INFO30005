@@ -29,7 +29,7 @@ fieldset {
 }
 
 html, body {
-    background:url('https://cdn.pixabay.com/photo/2019/04/13/01/41/ecological-footprint-4123696_1280.jpg') no-repeat center 0;
+    background:url('./images/login.jpeg') no-repeat center 0;
     margin:0px;
     font-family: 'Ubuntu', sans-serif;
     background-size: 100% 110%;
