@@ -1,0 +1,36 @@
+.container {
+    width:500px;
+    height:500px;
+    margin:auto;
+}
+
+
+.input-group {
+    text-align: center;
+}
+
+.radio {
+    width: 450px;
+    margin: auto;
+}
+
+.btn {
+    background:green;
+    border:0;
+    padding:9px 14px;
+    color:#f3f3f3;
+    border-radius:4px;
+    font-size:0.9em;
+}
+
+fieldset {
+    background-color: grey;
+    filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;
+}
+
+html, body {
+    background:url('https://cdn.pixabay.com/photo/2019/04/13/01/41/ecological-footprint-4123696_1280.jpg') no-repeat center 0;
+    margin:0px;
+    font-family: 'Ubuntu', sans-serif;
+    background-size: 100% 110%;
+}
