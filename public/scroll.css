@@ -1,0 +1,36 @@
+
+#container
+{
+height: 500px;
+width: 100%;
+background-color: #64646400;
+overflow: hidden;
+position: relative;
+#overflow-x: scroll;
+}
+
+#thumbs
+{
+height: auto;
+background-color: #64646400;
+position: absolute;
+width: auto;
+overflow: hidden;
+white-space: nowrap;
+padding: 0 10px;
+}
+
+#thumbs div
+{
+  padding: 0;
+  line-height: auto;
+  width: 500px;
+  background-color: #64646400;
+  margin: 0 10px;
+  display: inline-block;
+  text-align: center;
+  font-size:3em;
+  font-weight: bold;
+  color: #FFF;
+}
+
