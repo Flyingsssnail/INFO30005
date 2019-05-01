@@ -20,7 +20,9 @@ router.post('/api/post', controller.createPost);
 // router.get('/api/post', controller.getPost);
 // router.get('/api/post_edit', controller.editPost);
 
-// router.get('/api/login', controller.login);
+router.get('/api/login', function(req, res) {
+    res.render('login', { message: 'hello', username: 'steven', password: '1234' });
+});
 
 // router.post('/api/login', controller.loggedin);
 

@@ -8,17 +8,20 @@
 
 <div class ="login" >
     <h0 id ="app" class = "login-header">
-        {{message}}</h0>
+        <%= message %>
+    </h0>
 </div>
 <br>
 <main class ="login-form">
 
 
     <h3 id = "username">
-    {{message}}</h3>
+        <%= username %>
+        </h3>
     <input id = "user" type="text" placeholder="Username"/><br>
     <h3 id = "password" >
-        {{message}}</h3>
+       <%= password %>
+       </h3>
     <input id = "pass" type="password" placeholder="Password"/><br>
 <br>
     <input type="button" value="Login" onclick="wronguser()" class="login-button"/>
