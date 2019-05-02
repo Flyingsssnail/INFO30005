@@ -14,14 +14,16 @@ html, body {
 .login-header {
     border-style: hidden;
     text-align:center;
+    position:relative;
+    left: 25%;
     font-size:500%;
     width:50%;
     color:black;
 
 }
 .login-form {
-    position: absolute;
-    left:530px;
+    position: relative;
+    left:35%;
     width:30%;
     background-color:grey;
     text-align: center;
