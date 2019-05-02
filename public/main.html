@@ -5,12 +5,15 @@
 <head>
 	<title>hail to recycle!</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<link rel="stylesheet" href="main.css">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<link rel="stylesheet" href="test/ShiftButton.css">
-	<script src="../test/ShiftButton.js"></script>
+	<link rel="stylesheet" href="scroll.css">
 	<link rel="stylesheet" href="button.css">
-"
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="./scroll.js"></script>
+
 </head>
 
 <body>
@@ -55,23 +58,17 @@
 -->
 	<div class="flex-container">
 
-		<div class="flex-item" style="width: 10%; opacity: 0.5">
-			<!--TODO-->
-			<a href="post.html"><img src="./images/arrow-left.png" style="width:100%; padding-top: 100%;"></a>
+		<div id="container">
+		    <div id="thumbs">
+			    <div><img src="./images/leaf.jpg" style="width:100%; height: 100%;"></div>
+			    <div><img src="./images/forest_background.jpg" style="width: 100%; height: 100%;"></div>
+			    <div><img src="./images/arts1.jpg" style="width: 100%; height: 100%;"></div>
+			    <div><img src="./images/arts2.jpg" style="width: 100%; height: 100%;"></div>
+			    <div><img src="./images/arts3.jpg" style="width: 100%; height: 100%;"></div>
+			    <div><img src="./images/arts4.jpg" style="width: 100%; height: 100%;"></div>
+		    </div>
 		</div>
-
-		<div class="flex-item">
-			<!--TODO-->
-			<a href="post.html"><img src="./images/forest_background.jpg" style="width: 100%; height: 100%;"></a>
-		</div>
-
-		<div class="flex-item">
-			<a href="#"><img src="./images/forest_background.jpg" style="width: 100%; height: 100%;"></a>
-		</div>
-
-		<div class="flex-item" style="width: 10%; opacity: 0.5">
-			<a href="#"><img src="./images/arrow-right.png" style="width:100%; padding-top: 100%;"></a>
-		</div>
+	
 	</div>
 </body>
 </html>
