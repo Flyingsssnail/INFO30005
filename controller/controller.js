@@ -109,7 +109,7 @@ function finduser(req,res){
     var user = new Users();
     Users.find({name: req.query.name}, function(err, result){
         return err ? res.sendStatus(404) :
-            res.render('login',{result: result });
+            res.render('otheruser',{result: result });
     });
 }
 module.exports.init = init;

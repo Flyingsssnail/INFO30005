@@ -13,17 +13,45 @@
     <div class="row cf">
         <div id="card1" class="card four col">
             <div class="image-wrapper"></div>
-            <h3 class="name">Martin</h3>
+            <h3 class="name">
+                <% result.forEach(function(element) { %>
+                    <%= element.name%>
+                <% })%>
+            </h3>
             <div class="info cf">
-                <div class="four col"><span class="number">58</span>Posts</div>
-                <div class="four col"><span class="number">4800</span>Collects</div>
-                <div class="four col"><span class="number">86</span>Likes</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.post%>
+                        <% })%>
+                    </span>Posts</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.collect%>
+                        <% })%>
+                    </span>Collects</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.likes%>
+                        <% })%>
+                    </span>Likes</div>
             </div>
             <br><br>
             <div class="info cf">
-                <div class="four col"><span class="number">77</span>Following</div>
-                <div class="four col"><span class="number">777</span>Followed</div>
-                <div class="four col"><span class="number">4396</span>Liked</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.following%>
+                        <% })%>
+                    </span>Following</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.followers%>
+                        <% })%>
+                    </span>Followers</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.liked%>
+                        <% })%>
+                    </span>Liked</div>
             </div>
         </div>
 
@@ -46,12 +74,30 @@
             </div>
             <div class="options">
                 <ul>
-                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Rank:</li>
-                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>Level:</li>
-                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>Gender:</li>
-                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Phone:</li>
-                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>E-mail:</li>
-                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>BD:</li>
+                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Rank:
+                        <% result.forEach(function(element) { %>
+                            <%= element.rank%>
+                        <% })%></li>
+                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>Level:
+                        <% result.forEach(function(element) { %>
+                            <%= element.exp%>
+                        <% })%></li>
+                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>Gender:
+                        <% result.forEach(function(element) { %>
+                            <%= element.gender%>
+                        <% })%></li>
+                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Phone:
+                        <% result.forEach(function(element) { %>
+                            <%= element.phone%>
+                        <% })%></li>
+                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>E-mail:
+                        <% result.forEach(function(element) { %>
+                            <%= element.email%>
+                        <% })%></li>
+                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>BD:
+                        <% result.forEach(function(element) { %>
+                            <%= element.BD%>
+                        <% })%></li>
 
                 </ul>
             </div>
