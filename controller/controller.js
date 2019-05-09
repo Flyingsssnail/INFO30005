@@ -1,6 +1,7 @@
 var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
+var Reply = mongoose.model('reply');
 
 // welcome page
 function init(req, res) {
@@ -44,7 +45,8 @@ function createUser(req,res){
 };
 
 function loggedin (req, res) {
-    // var cookie = req.cookies.cookieName;
+    // var cookie = req.headers.cookies.username;
+    // dehash(cookie);
     // if (cookie === undefined)
     // {
     //     return undefined;
@@ -58,17 +60,18 @@ function loggedin (req, res) {
 
 function createPost(req,res){
 
+    console.log(req);
+    // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
-        // Users.findOne({_id: req.query.id}, function (err, usr) { return usr
-		// })
-        "author":req.query.author,
-        "title":req.query.title,
-        "content":req.query.content,
-        // TODO param array to array
+
+
+        // "author":usr.name,
+        "title":req.body.title,
+        "content":req.body.post_edit,
         "tag":[],
         "rating":0,
+        "reply":[],
     });
-
     Posts.create(post, function(err){
         if (err) {
             return res.sendStatus(400);
@@ -76,6 +79,16 @@ function createPost(req,res){
     });
 
     return res.send(post);
+    // return $resource('alls/:issuename', {issuename: '@issuename'},
+    //     {
+    //
+    //         get:{ method: 'GET',
+    //             query: {
+    //                 Model: '',
+    //                 Color: ''
+    //             }, isArray:true }
+    //
+    //     });
 };
 
 // find all user
@@ -121,4 +134,5 @@ module.exports.searching = searching;
 
 module.exports.createPost = createPost;
 module.exports.finduser = finduser;
+
 
