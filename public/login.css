@@ -1,7 +1,7 @@
 
 
 html, body {
-    background:url('./images/login.jpeg');
+    background:url('../images/login.jpeg');
     margin:0px;
     font-family: 'Ubuntu', sans-serif;
     background-size: 100% 110%;

@@ -19,3 +19,8 @@ Required inputs for POST are author,title&content.
 npm install @tinymce/tinymce-vue -S
 npm install tinymce -S
 npm install -g npm
+
+
+<% for (const name of names) { %>
+    <li><%= name.name %></li>
+<% } %>
