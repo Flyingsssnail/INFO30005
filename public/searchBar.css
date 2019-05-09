@@ -1,9 +1,6 @@
 /*--------------------------------------------------------------
  - SEARCH FORM
 --------------------------------------------------------------*/
-.searchform {
-	position: absolute;
-}
 
 .searchform input, .searchform button {
 	float: left
@@ -36,6 +33,7 @@
 }
 
 .searchform button {
+	color: #fff;
 	background: rgb(52,172,152);
 	background: -moz-linear-gradient(top, rgba(52,172,152,1) 0%, rgba(38,145,144,1) 100%);
 	background: -webkit-linear-gradient(left top, left bottom, rgba(52,172,152,1), rgba(38,145,144,1));
@@ -47,7 +45,7 @@
 	border: none;
 	cursor: pointer;
 	font-family: ff-tisa-web-pro, Georgia, sans-serif;
-	padding: 5px;
+	padding: 3px;
 	width:106px;
 	box-shadow: 0 0 2px #2692dd inset;
 	-moz-box-shadow: 0 0 2px #2692dd inset;

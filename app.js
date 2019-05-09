@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.use('/uploads', serveStatic(__dirname + '/uploads'));
 app.use(serveStatic(__dirname + '/public'));
 
+app.set('view engine', 'ejs');
+
 //set up our route
 var routes  = require ('./routes/routes.js');
 app.use('/',routes);

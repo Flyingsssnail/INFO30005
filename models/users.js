@@ -3,7 +3,17 @@ var mongoose  = require ('mongoose');
 var UserSchema = mongoose.Schema({
     "name":String,
     "gender":String,
-    "exp":Number
+    "exp":Number,
+    "phone":Number,
+    "rank":Number,
+    "email":String,
+    "BD":Number,
+    "post":Number,
+    "collect": Number,
+    "following":Number,
+    "liked":Number,
+    "likes":Number,
+    "followers":Number,
     }
 );
 

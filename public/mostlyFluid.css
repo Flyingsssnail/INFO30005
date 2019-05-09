@@ -284,17 +284,6 @@ li#forum a { background-image: url(./img/about.png); }
  - responsive design section
   --------------------------------
 */
-@media (min-width: 600px) and (max-width: 991px) {
-  #header {
-    width: 25%;
-  }
-
-  #content {
-    width: 75%;
-  }
-
-}
-
 @media only screen and (min-width: 1176px) {
   body {
     width: 1080px;
@@ -339,5 +328,3 @@ li#forum a { background-image: url(./img/about.png); }
   #featured #nav li p { display: inline; }  
   } /* CLOSE WIDE LAYOUT */
 }
-
-
