@@ -1,7 +1,7 @@
 
 
 html, body {
-    background:url('./images/login.jpeg');
+    background:url('images/login.jpeg');
     margin:0px;
     font-family: 'Ubuntu', sans-serif;
     background-size: 100% 110%;
@@ -14,14 +14,16 @@ html, body {
 .login-header {
     border-style: hidden;
     text-align:center;
+    position:relative;
+    left: 25%;
     font-size:500%;
     width:50%;
     color:black;
 
 }
 .login-form {
-    position: absolute;
-    left:530px;
+    position: relative;
+    left:35%;
     width:30%;
     background-color:grey;
     text-align: center;
