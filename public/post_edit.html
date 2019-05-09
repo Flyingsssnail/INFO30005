@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <div id="username" hidden>None</div>
     <!--Logged in-->
     <!--<div id="user" hidden>User ID</div>-->
+    <div id="username" hidden>None</div>
 
 
 </head>
@@ -17,7 +17,11 @@
 
     <div class="row">
         <div class="col-md-6">
-            <vue-tinymce class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>
+            <form id="post-content" method="post">
+                <input type="text" name="title" required><br>
+                <vue-tinymce name="post_edit" class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>
+                <input type="submit" value="Submit">
+            </form>
         </div>
         <div class="col-md-6">
 

@@ -6,9 +6,7 @@ var PostSchema = mongoose.Schema({
     "editDate":{type:Date, default: Date.now},
     "title":String,
     "content":String,
-    // TODO
-    // "content":HTMLCollection,
-    // "comments":[HTMLCollection],
+    "reply":[String],
     "tag":[String],
     "rating":Number
     }
