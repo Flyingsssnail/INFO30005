@@ -21,7 +21,17 @@ function createUser(req,res){
     var user = new Users({
         "name":req.body.name,
         "gender":req.body.gender,
-        "exp":0
+        "exp":0,
+        "phone":0,
+        "rank":0,
+        "email":req.body.email,
+        "BY":0,
+        "post":0,
+        "collect": 0,
+        "following":0,
+        "liked":0,
+        "likes":0,
+        "followers":0,
     });
     
     Users.create(user, function(err){
@@ -93,6 +103,15 @@ function searching(req, res) {
     }
 };
 
+
+function finduser(req,res){
+    console.log('hi');
+    var user = new Users();
+    Users.find({name: req.query.name}, function(err, result){
+        return err ? res.sendStatus(404) :
+            res.render('login',{result: result });
+    });
+}
 module.exports.init = init;
 
 module.exports.createUser = createUser;
@@ -101,5 +120,5 @@ module.exports.allUsers = allUsers;
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
-
+module.exports.finduser = finduser;
 
