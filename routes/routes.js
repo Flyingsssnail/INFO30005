@@ -5,6 +5,30 @@ var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
 
+const multer = require('multer');
+var path = require('path');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        console.log(file.mimetype);
+        cb(null, Date.now() + path.extname(file.originalname)) //Appending .jpg
+    }
+});
+
+const upload = multer({storage : storage});
+
+router.post('/upload', upload.single('image'), (req, res) => {
+    // console.log(res.mimetype);
+
+    if(req.file) {
+        res.json(req.file);
+    }
+    else throw 'error';
+});
+
 // welcome page
 router.get('/', controller.init);
 

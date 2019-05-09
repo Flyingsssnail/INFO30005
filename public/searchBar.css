@@ -1,0 +1,61 @@
+/*--------------------------------------------------------------
+ - SEARCH FORM
+--------------------------------------------------------------*/
+.searchform {
+	position: absolute;
+}
+
+.searchform input, .searchform button {
+	float: left
+}
+.searchform input {
+	background-color: #fff;
+	font-family: ff-tisa-web-pro, Georgia, sans-serif;
+	font-style: italic;
+	box-shadow: 0 0 4px rgba(0,0,0,.4) inset, 1px 1px 1px rgba(255,255,255,.75);
+	-moz-box-shadow: 0 0 4px rgba(0,0,0,.4) inset, 1px 1px 1px rgba(255,255,255,.75);
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0,.4) inset, 1px 1px 1px rgba(255,255,255,.75);
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px
+}
+.searchform input:focus {
+	outline: none;
+	box-shadow:0 0 4px #0d76be inset;
+	-moz-box-shadow:0 0 4px #0d76be inset;
+	-webkit-box-shadow:0 0 4px #0d76be inset;
+}
+.searchform input::-webkit-input-placeholder {
+	font-style: italic;
+	line-height: 15px
+}
+
+.searchform input:-moz-placeholder {
+ 	font-style: italic;
+	line-height: 15px
+}
+
+.searchform button {
+	background: rgb(52,172,152);
+	background: -moz-linear-gradient(top, rgba(52,172,152,1) 0%, rgba(38,145,144,1) 100%);
+	background: -webkit-linear-gradient(left top, left bottom, rgba(52,172,152,1), rgba(38,145,144,1));
+	background: -webkit-linear-gradient(top, rgba(52,172,152,1) 0%,rgba(38,145,144,1) 100%);
+	background: -o-linear-gradient(top, rgba(52,172,152,1) 0%,rgba(38,145,144,1) 100%);
+	background: -ms-linear-gradient(top, rgba(52,172,152,1) 0%,rgba(38,145,144,1) 100%);
+	background: linear-gradient(to bottom, rgba(52,172,152,1) 0%,rgba(38,145,144,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#34adec', endColorstr='#2691dc',GradientType=0 );
+	border: none;
+	cursor: pointer;
+	font-family: ff-tisa-web-pro, Georgia, sans-serif;
+	padding: 5px;
+	width:106px;
+	box-shadow: 0 0 2px #2692dd inset;
+	-moz-box-shadow: 0 0 2px #2692dd inset;
+	-webkit-box-shadow: 0 0 2px #2692dd inset;
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+}
+.searchform button:hover {
+	opacity: 0.8;
+}

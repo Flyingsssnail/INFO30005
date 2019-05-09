@@ -3,12 +3,14 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
 const db = require('./models/db');
+var serveStatic = require('serve-static');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // app.use(express.cookieParser());
-app.use(express.static(__dirname + '/public'));
+app.use('/uploads', serveStatic(__dirname + '/uploads'));
+app.use(serveStatic(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 

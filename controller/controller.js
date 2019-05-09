@@ -4,7 +4,7 @@ var Posts = mongoose.model('posts');
 
 // welcome page
 function init(req, res) {
-	return res.send("WELCOME!");
+	return res.sendfile('public/main.html');
 }
 
 // register user

@@ -1,74 +1,110 @@
+
 <!DOCTYPE html>
-
-
 <html>
 <head>
-	<title>hail to recycle!</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link rel="stylesheet" href="main.css">
-	<link rel="stylesheet" href="scroll.css">
-	<link rel="stylesheet" href="button.css">
-
+	<title>tests</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+	<link rel="stylesheet" href="mostlyFluid.css">
+	<link rel="stylesheet" href="searchBar.css">
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script src="./scroll.js"></script>
-
+	<script type="text/javascript" src="./js/jquery.cycle.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="./js/featured.js"></script>
 </head>
 
 <body>
-	<div class="header">
-		<a href="#">about us</a>
-	</div>
-
-	<div class="topnav">
-		<a href="#"><img src="./images/home.png" style="padding:0;height:16px;width:18px;"></a>
-		<a href="#">What to do with...</a>
-		<a href="#">Recycle Knowledge</a>
-		<a href="#">Reduce Waste</a>
-	</div>
-
-	<br>
-	<div class="row">
-		<div class="column" style="width:65%;">
-			<h2>Let's Make Earth Great Again!</h2>
-
-
-			<ul>
-				<li><a href="../view/login.ejs" class="round green">Login<span class="round">That is, if you already have an account.</span></a></li>
-			    <li><a href="register.html" class="round yellow">Sign Up<span class="round">Only if you really, really want to. </span></a></li>
-			</ul> 
-<!--				<a href="#" class="button">Sign up</a>
-  				<a href="#" class="button">Sign in</a>-->
+	<div class="container">
+		<div id="header">
+				<h1 id="branding">recycle</h1>
+				<nav>
+					<ul>
+						<li id="library">
+							<a href="#">library</a>
+						</li>
+						<li id="forum">
+							<a href="#">forum</a>
+						</li>
+						<li>
+							<form class="searchform">
+  								<input type="text" placeholder="a tag or part of a title">
+  								<button type="submit">Search</button>
+							</form>
+						</li>
+					</ul>
+				</nav>
 		</div>
-	</div>
-<!--
-			<div class="buttons-ctn">
-				<a href="" class="button button--left"><span>Left</span></a> 
-				<a href="" class="button button--right"><span>Right</span></a>
-			</div>
-			<div class="button__content button__content--left">
-				<h2>You chose left!</h2>
-				<a href="">Signup for nothing here</a>
-			</div>
-			<div class="button__content button__content--right">
-				<h2>You chose right!</h2>
-				<a href="">Signup for nothing here</a>
-			</div>
+
+		<div id="content">
+			<section id="featured">
+				<div id="slides">
+					<section id="slide-1">
+						<iframe width="896" height="445" src="https://www.youtube.com/embed/-Yp1KKWpPpU" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</section>
+					<section id="slide-2">
+						<iframe width="896" height="445" src="https://www.youtube.com/embed/me_bGPVrxkI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</section>
+					<section id="slide-3" class="alt">
+						<img src="./slides/utensil-flower.jpg" alt="Sameple">
+						<a href="#">
+							<h1>Rusty Cutlery?</h1>
+							<h2>Browse our forum for fantastic artefacts posts.</h2>
+						</a>
+						<p class="credit">
+							<a href="#">google image</a>
+						</p>
+					</section>
+					<section id="slide-4" class="alt">
+						<img src="./slides/recycle-bin.jpg" alt="Sample">
+						<a href="#">
+							<h1>How to deal with waste?</h1>
+							<h2>Browse our library for more information</h2>
+						</a>
+						<p class="credit">
+							<a href="#">google image</a>
+						</p>
+				</div>
+				<div id="nav">
+					<ul>
+						<li id="feature-1">
+							<a href="#">
+								<h3>Why are we doing this?</h3>
+							</a>
+						</li>
+						<li id="feature-2">
+							<a href="#">
+								<h3>Waste Artefacts</h3>
+								<h>A way to reduce waste!</h>
+							</a>
+						</li>
+						<li id="feature-3">
+							<a href="#">
+								<h3>Forum</h3>
+								<p>Recycle & enjoy and more</p>
+							</a>
+						</li>
+						<li id="feature-4" >
+							<a href="#">
+								<h3>Library</h3>
+								<p>How to correctly dump trash</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</div>
+<!--		
+		<div class="content">
+			<h1><img src="./img/arrow.jpg" alt="this should be a picture including text to motivate people"></h1>
+		</div>
 -->
-	<div class="flex-container">
-
-		<div id="container">
-		    <div id="thumbs">
-			    <div><img src="./images/leaf.jpg" style="width:100%; height: 100%;"></div>
-			    <div><img src="./images/forest_background.jpg" style="width: 100%; height: 100%;"></div>
-			    <div><img src="./images/arts1.jpg" style="width: 100%; height: 100%;"></div>
-			    <div><img src="./images/arts2.jpg" style="width: 100%; height: 100%;"></div>
-			    <div><img src="./images/arts3.jpg" style="width: 100%; height: 100%;"></div>
-			    <div><img src="./images/arts4.jpg" style="width: 100%; height: 100%;"></div>
-		    </div>
+		<div id="siteinfo">
+			<p style="font-size: 10px;">
+				Privacy Policy | Terms of Use | Contact<br>@ 2019 Cyclone Int., all rights not reserved.
+				<span style="float: right; font-size: 8px;"><- Unclickable! :)</span>
+			</p>
 		</div>
-	
+
+
 	</div>
 </body>
 </html>
