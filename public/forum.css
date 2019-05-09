@@ -1,0 +1,138 @@
+* {
+	box-sizing: border-box;
+}
+
+ul {
+	list-style: none;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: #34AC98;
+}
+a:hover, a:focus { color: #fff; }
+
+body {
+	width: 1176px;
+	height: 100%;
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 28px 24px 0;
+	font-family: ff-tisa-web-pro, Georgia, sans-serif;
+	-webkit-text-size-adjust: 100%;
+}
+
+.forum {
+	margin: 0;
+}
+
+
+#topnav, #background, #m_nav, #content {
+	position: relative;
+	width: 100%;
+	display: block;
+}
+
+#topnav {
+	overflow: hidden;
+	background-color: #fff;
+}
+
+
+#topnav a {
+	border-radius: 8px;
+	float: left;
+	display: block;
+	text-align: center;
+	padding: 12px 14px;
+	font-size: 20px;
+	text-decoration: none;
+}
+
+#topnav a:hover {
+	background-color: #34ac98;
+}
+
+#topnav .searchform {
+	float: left;
+	display: block;
+	padding: 12px 14px;
+}
+
+#background {
+	height: 290px;
+	margin-top: 30px;
+	margin-bottom: -20px;
+	overflow: hidden;
+	background: url(./img/green-world.jpg) left bottom no-repeat;
+}
+
+#background h2 {
+	padding-top: 180px;
+	text-indent: 50px;
+	text-align: left;
+	font-style: italic;
+	color: #cae9ea;
+	opacity: 0.6;
+	letter-spacing: 2px;
+	text-shadow: 0px 1px black;
+}
+
+#background div {
+	height: 290px;
+}
+
+#m_nav a {
+	z-index: 2;
+	position: absolute;
+	border-style: outset;
+	margin-left: 25px;
+	font-size: 17px;
+	padding: 10px 14px;
+	border-radius: 6px;
+	float: left;
+	display: block;
+	background-color: #8ab595;
+	color: white;
+}
+
+#content {
+	margin-top: 20px;
+	display: block;
+	border-radius: 8px;
+}
+
+#content section {
+	padding: 12px 20px;
+	display: block;
+	background-color: rgba(197, 238, 208, 0.3);
+	border-radius: 8px;
+	width: 50%;
+	overflow: hidden;
+	border-style: inset;
+}
+
+
+#content #artefacts {
+	float: left;
+	border-right: 6px none transparent;
+}
+
+#content #stories {
+	float: right;
+}
+
+h2 {
+	font-style: italic;
+	color: darkseagreen;
+}
+
+content li {
+	display: block;
+	min-height: 200px;
+}
+
+li a:hover, focus {
+	color: #34ac98;
+	opacity: 0.6;
+}
