@@ -1,0 +1,77 @@
+input[type=text], textarea {
+@include transition(all 0.30s ease-in-out);
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+}
+
+input[type=text]:focus, textarea:focus {
+@include box-shadow(0 0 5px rgba(81, 203, 238, 1));
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+label {
+    width: 150px;
+    float: left;
+}
+
+body {
+    padding: 20px;
+}
+
+.btn {
+    background:green;
+    border:0;
+    padding:9px 14px;
+    color:#f3f3f3;
+    border-radius:4px;
+    font-size: 16px;
+}
+
+.upload {
+    background-color: #1D1F20;
+    font-size: 62.5%; /* 1rem = 10px */
+    margin: 2rem 4rem;
+}
+
+/* Hide original appearance */
+.choose-file {
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0.1px;
+    z-index: -1;
+}
+
+/* Style both input field and label */
+.choose-file + .upload-file {
+    background-color: forestgreen;
+    box-sizing: border-box;
+    color: #fff;
+    display: block;
+    font-family: Sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.choose-file:focus + .upload-file,
+.choose-file + .upload-file:hover {
+    background-color: lightgreen;
+}
+
+
+label.upload-file::before {
+    content: "Choose file";
+}
+
+/* This appears after a file is chosen. */
+.choose-file:valid + .upload-file::before {
+    content: "1 file chosen";
+}
