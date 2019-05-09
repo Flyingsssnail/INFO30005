@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 // app.use(express.cookieParser());
 app.use(express.static(__dirname + '/public'));
 
+app.set('view engine', 'ejs');
+
 //set up our route
 var routes  = require ('./routes/routes.js');
 app.use('/',routes);
