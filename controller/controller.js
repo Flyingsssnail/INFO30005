@@ -1,9 +1,8 @@
 var mongoose  = require ('mongoose');
+var util = require('util');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
 var Reply = mongoose.model('reply');
-var util = require('util');
-
 
 // welcome page
 function init(req, res) {
@@ -16,9 +15,6 @@ function createUser(req,res){
     console.log(req);
 	var genderArray = ["female", "male", "hidden", "other"];
 
-	if (req.body.password[0] != req.body.password[1]) {
-	    
-    }
 	// only specified string in genderArray are allowed to be entered;
 	
 	if (genderArray.indexOf(req.body.gender) === -1) {
@@ -118,12 +114,31 @@ function searching(req, res) {
     }
 };
 
+function addreply(req, res) {
 
-function finduser(req,res){
+    var reply = new Reply({
+        "author":req.headers.cookie.username,
+        "parentPost":req.query.postid,
+        "content":req.body.content,
+    });
+
+    Posts.findOne({_id: req.query.postid}), function (err, user) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        user.reply.append(reply._id);
+    };
+    Reply.create(reply, function(err){
+        if (err) {
+            return res.sendStatus(400);
+        }
+    });
+}
+
+function userprofile(req,res){
     console.log('hi');
     var user = new Users();
-    Users.find({name: req.query.name}, function(err, result){
-        return err ? res.sendStatus(404) :
+    Users.findOne({_id: req.header.cookie.username}, function(err, result){
             res.render('otheruser',{result: result });
     });
 }
@@ -135,6 +150,7 @@ module.exports.allUsers = allUsers;
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
-module.exports.finduser = finduser;
+module.exports.userprofile = userprofile;
 
+module.exports.addreply = addreply;
 

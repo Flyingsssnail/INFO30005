@@ -8,7 +8,6 @@ var serveStatic = require('serve-static');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.use(express.cookieParser());
 app.use('/uploads', serveStatic(__dirname + '/uploads'));
 app.use(serveStatic(__dirname + '/public'));
 

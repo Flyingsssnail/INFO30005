@@ -44,9 +44,10 @@ router.get('/api/search', controller.searching);
 // There are more need to be installed
 router.post('/post_edit.html', controller.createPost);
 
+router.post('/forum/post', controller.addreply);
 // router.get('/api/post', controller.getPost);
 // router.get('/api/post_edit', controller.editPost);
-router.get('/login', controller.finduser);
+router.get('/profile', controller.userprofile);
    /* function(req, res) {
     console.log('hi');
     var user = new Users();
