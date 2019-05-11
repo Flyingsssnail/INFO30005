@@ -1,5 +1,5 @@
 body {
-  width: 896px;
+  width: 80%;
   height: 100%;
   min-height: 100%;
   margin: 0 auto;
@@ -31,7 +31,7 @@ a:hover, a:active { outline: none; }
 
 /* ----- LINKS ----- */
 
-a, a:link, a:visited {
+a, a:link {
   text-decoration: none;
   color: #34AC98;
 }
@@ -106,11 +106,11 @@ nav li {
 }
 
 nav a {
+  color: #34AC98;
   height: 28px;
   padding: 4px 0 0 44px;
   display: block;
   font-style: italic;
-  color: #222;
   -webkit-transition: all .2s ease;
      -moz-transition: all .2s ease;
        -o-transition: all .2s ease;
@@ -325,6 +325,6 @@ li#forum a { background-image: url(./img/about.png); }
   }
   #featured #nav h3 { font-size: 1.125em; }
   #featured #nav li { text-align: left; }
-  #featured #nav li p { display: inline; }  
-  } /* CLOSE WIDE LAYOUT */
+  #featured #nav li p { display: inline; }
+  /* CLOSE WIDE LAYOUT */
 }

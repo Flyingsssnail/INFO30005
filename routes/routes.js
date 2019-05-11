@@ -47,6 +47,12 @@ router.post('/post_edit.html', controller.createPost);
 // router.get('/api/post', controller.getPost);
 // router.get('/api/post_edit', controller.editPost);
 router.get('/login', controller.finduser);
+
+// forum
+router.get('/forum', controller.forum);
+router.get('/forum/stories', controller.stories);
+router.get('/forum/artifacts', controller.artifacts);
+router.get('/forum/post', controller.postpage);
    /* function(req, res) {
     console.log('hi');
     var user = new Users();
