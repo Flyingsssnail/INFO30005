@@ -6,7 +6,7 @@ ul {
 	list-style: none;
 }
 
-a, a:link, a:visited {
+a, a:link {
   text-decoration: none;
   color: #34AC98;
 }
@@ -82,9 +82,14 @@ body {
 	height: 290px;
 }
 
+#m_nav {
+	width: 100%;
+	float: left;
+	display: block;
+}
+
 #m_nav a {
 	z-index: 2;
-	position: absolute;
 	border-style: outset;
 	margin-left: 25px;
 	font-size: 17px;
@@ -113,9 +118,8 @@ body {
 }
 
 
-#content #artefacts {
+#content #artifacts {
 	float: left;
-	border-right: 6px none transparent;
 }
 
 #content #stories {
@@ -127,12 +131,30 @@ h2 {
 	color: darkseagreen;
 }
 
-content li {
+#content li {
 	display: block;
-	min-height: 200px;
+	min-height: 70px;
 }
 
 li a:hover, focus {
 	color: #34ac98;
 	opacity: 0.6;
+}
+
+#content #page-nav a {
+	z-index: 2;
+	position: absolute;
+	border-style: outset;
+	margin-left: 25px;
+	font-size: 17px;
+	padding: 10px 14px;
+	border-radius: 6px;
+	float: left;
+	display: block;
+	background-color: #8ab595;
+	color: white;
+}
+
+#content #page-nav a:active {
+	color: #277aec;
 }

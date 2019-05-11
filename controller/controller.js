@@ -3,12 +3,13 @@ const util = require('util');
 const Users = mongoose.model('users');
 const Posts = mongoose.model('posts');
 const Reply = mongoose.model('reply');
+var ejs = require('ejs');
 
 const genderArray = ["female", "male", "hidden", "other"];
 
 // welcome page
-function init(req, res) {
-	return res.sendfile('public/main.html');
+function init(req, res) {;
+    return res.sendfile('public/main.html');
 }
 
 // register user
@@ -76,6 +77,7 @@ function createPost(req,res){
     var post = new Posts({
         "author":req.headers.cookie.username,
         "title":req.body.title,
+        "type": String,
         "content":req.body.post_edit,
         "tag":[],
         "rating":0,
@@ -146,6 +148,103 @@ function userprofile(req,res){
             res.render('otheruser',{result: result });
     });
 }
+
+function forum(req, res) {
+
+    var artifactsArray = [];
+    var storiesArray = [];
+
+    Posts.find(function (err, posts) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        posts.forEach(function (element) {
+            var artifacts = 0;
+            var stories = 0;
+            if (artifacts <= 4 && element.type === "artifacts") {
+                artifactsArray.push(element);
+            }
+            if (stories <= 4 && element.type === "stories") {
+                storiesArray.push(element);
+            }
+        });
+    });
+
+    return res.render('forumpage', {
+        artifactsArray: artifactsArray,
+        storiesArray: storiesArray,
+    });
+}
+
+function stories(req, res) {
+
+    var total = 0;
+    var array = [];
+    var storiesArray = [];
+    Posts.find(function (err, posts) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        posts.forEach(function(element) {
+            if (element.type === "stories") {
+                total++;
+            }
+            if (element.type === "stories" && array.length <= req.query.page * 12) {
+                storiesArray.push(element);
+            }
+        });
+
+        for (var i = (req.query.page - 1)  * 12; i < req.query.page * 12; i++) {
+            storiesArray.push(array[i]);
+        }
+    });
+
+
+    res.render('forum', {
+        section: "stories",
+        array: storiesArray,
+        total: total,
+    });
+};
+
+function artifacts(req, res) {
+
+    var total = 0;
+    var array = [];
+    var artifactsArray = [];
+    Posts.find(function (err, posts) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+
+        posts.forEach(function(element) {
+            if (element.type === "artifacts") {
+                total++;
+            }
+            if (element.type === "artifacts" && array.length <= req.query.page * 12) {
+                array.push(element);
+            }
+        });
+
+        for (var i = (req.query.page - 1)  * 12; i < req.query.page * 12; i++) {
+            artifactsArray.push(array[i]);
+        }
+    });
+
+    res.render('forum', {
+        section: "artifacts",
+        array: artifactsArray,
+        total: total,
+    });
+};
+
+function postpage(req, res) {
+    Posts.find({_id: req.query.postId}, function(err, result){
+        return err ? res.sendStatus(404) :
+            res.render('post',{result: result });
+    });
+};
+
 module.exports.init = init;
 
 module.exports.createUser = createUser;
@@ -157,6 +256,9 @@ module.exports.createPost = createPost;
 module.exports.userprofile = userprofile;
 
 module.exports.addreply = addreply;
+module.exports.forum = forum;
+module.exports.postpage = postpage;
+module.exports.artifacts = artifacts;
+module.exports.stories = stories;
 
 module.exports.login = login;
-

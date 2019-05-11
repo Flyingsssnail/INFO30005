@@ -59,6 +59,10 @@ router.get('/register', function (req, res) {
 
 router.post('/login', controller.login);
 
+router.get('/forum', controller.forum);
+router.get('/forum/stories', controller.stories);
+router.get('/forum/artifacts', controller.artifacts);
+router.get('/forum/post', controller.postpage);
    /* function(req, res) {
     console.log('hi');
     var user = new Users();
