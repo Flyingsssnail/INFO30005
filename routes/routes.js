@@ -33,7 +33,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 router.get('/', controller.init);
 
 // create new Users
-router.post('/api/u/register', controller.createUser);
+router.post('/register.html', controller.createUser);
 
 // find all Users
 router.get('/api/u/all', controller.allUsers);
@@ -44,11 +44,16 @@ router.get('/api/search', controller.searching);
 // There are more need to be installed
 router.post('/post_edit.html', controller.createPost);
 
+router.post('/forum/post', controller.addreply);
 // router.get('/api/post', controller.getPost);
 // router.get('/api/post_edit', controller.editPost);
-router.get('/login', controller.finduser);
+router.get('/profile', controller.userprofile);
 
-// forum
+router.get('/login', function (req, res) {
+    res.sendfile(path.join(__dirname + '/../public/login.html'))
+});
+router.post('/login', controller.login);
+
 router.get('/forum', controller.forum);
 router.get('/forum/stories', controller.stories);
 router.get('/forum/artifacts', controller.artifacts);

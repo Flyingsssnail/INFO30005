@@ -1,8 +1,11 @@
-var mongoose  = require ('mongoose');
+const mongoose  = require ('mongoose');
+const util = require('util');
+const Users = mongoose.model('users');
+const Posts = mongoose.model('posts');
+const Reply = mongoose.model('reply');
 var ejs = require('ejs');
-var Users = mongoose.model('users');
-var Posts = mongoose.model('posts');
-var Reply = mongoose.model('reply');
+
+const genderArray = ["female", "male", "hidden", "other"];
 
 // welcome page
 function init(req, res) {;
@@ -11,18 +14,21 @@ function init(req, res) {;
 
 // register user
 function createUser(req,res){
-	
-	var genderArray = ["female", "male", "hidden", "other"];
-	
-	// only specified string in genderArray are allowed to be entered;
-	
-	if (genderArray.indexOf(req.body.gender) === -1) {
-		return res.sendStatus(406);
-	}
+
+    console.log(req);
+
+	Users.findOne({email: req.body.email}, function (err, usr) {
+        if (usr) {
+            // TODO email already taken
+            // return res.
+        }
+    });
 	
     var user = new Users({
+        "firstname":req.body.firstname ? req.body.first_name :"",
+        "lastname":req.body.lastname ? req.body.last_name:"",
         "name":req.body.name,
-        "gender":req.body.gender,
+        "gender":req.body.gender? req.body.gender : genderArray[2],
         "exp":0,
         "phone":0,
         "rank":0,
@@ -34,6 +40,7 @@ function createUser(req,res){
         "liked":0,
         "likes":0,
         "followers":0,
+        "password":req.body.password,
     });
     
     Users.create(user, function(err){
@@ -41,32 +48,34 @@ function createUser(req,res){
             return res.sendStatus(400);
         }
     });
-
-    return res.send(`You have successfully registered.${user}`);
+    res.cookie(username,user._id, {maxAge: 900000, httpOnly: true});
+    res.redirect('/');
+    res.end();
 };
 
-function loggedin (req, res) {
-    // var cookie = req.headers.cookies.username;
-    // dehash(cookie);
-    // if (cookie === undefined)
-    // {
-    //     return undefined;
-    // }
-    // else
-    // {
-    //     res.cookie('username', username, { maxAge: 900000, httpOnly: true });
-    //     // console.log('user name: %s', username);
-    // }
+function login (req, res) {
+
+    Users.findOne({email: req.body.email}, function (err, usr) {
+        // TODO encrypt password
+        if (req.body.password != usr.password) {
+            // TODO password not match error
+            // return
+        } else {
+            res.cookie(username,usr._id, {maxAge: 900000, httpOnly: true});
+            var redir = req.query.orig ? req.query.orig : "/";
+            res.redirect(redir);
+            res.end();
+        }
+    });
+
 }
 
 function createPost(req,res){
-
+    // set cookie command in browser document.cookie="keyofcookie=valueofcookie"
     console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
-
-
-        // "author":usr.name,
+        "author":req.headers.cookie.username,
         "title":req.body.title,
         "type": String,
         "content":req.body.post_edit,
@@ -80,17 +89,10 @@ function createPost(req,res){
         }
     });
 
-    return res.send(post);
-    // return $resource('alls/:issuename', {issuename: '@issuename'},
-    //     {
-    //
-    //         get:{ method: 'GET',
-    //             query: {
-    //                 Model: '',
-    //                 Color: ''
-    //             }, isArray:true }
-    //
-    //     });
+    var redir = util.format('/forum/post?postid=%s', post._id);
+    res.redirect(redir);
+    res.end();
+
 };
 
 // find all user
@@ -118,12 +120,31 @@ function searching(req, res) {
     }
 };
 
+function addreply(req, res) {
 
-function finduser(req,res){
+    var reply = new Reply({
+        "author":req.headers.cookie.username,
+        "parentPost":req.query.postid,
+        "content":req.body.content,
+    });
+
+    Posts.findOne({_id: req.query.postid}), function (err, user) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        user.reply.append(reply._id);
+    };
+    Reply.create(reply, function(err){
+        if (err) {
+            return res.sendStatus(400);
+        }
+    });
+}
+
+function userprofile(req,res){
     console.log('hi');
     var user = new Users();
-    Users.find({name: req.query.name}, function(err, result){
-        return err ? res.sendStatus(404) :
+    Users.findOne({_id: req.header.cookie.username}, function(err, result){
             res.render('otheruser',{result: result });
     });
 }
@@ -232,9 +253,12 @@ module.exports.allUsers = allUsers;
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
-module.exports.finduser = finduser;
+module.exports.userprofile = userprofile;
 
+module.exports.addreply = addreply;
 module.exports.forum = forum;
 module.exports.postpage = postpage;
 module.exports.artifacts = artifacts;
 module.exports.stories = stories;
+
+module.exports.login = login;
