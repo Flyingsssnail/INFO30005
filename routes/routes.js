@@ -33,7 +33,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 router.get('/', controller.init);
 
 // create new Users
-router.post('/api/u/register', controller.createUser);
+router.post('/register.html', controller.createUser);
 
 // find all Users
 router.get('/api/u/all', controller.allUsers);

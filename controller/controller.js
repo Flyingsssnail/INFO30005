@@ -2,6 +2,8 @@ var mongoose  = require ('mongoose');
 var Users = mongoose.model('users');
 var Posts = mongoose.model('posts');
 var Reply = mongoose.model('reply');
+var util = require('util');
+
 
 // welcome page
 function init(req, res) {
@@ -10,9 +12,13 @@ function init(req, res) {
 
 // register user
 function createUser(req,res){
-	
+
+    console.log(req);
 	var genderArray = ["female", "male", "hidden", "other"];
-	
+
+	if (req.body.password[0] != req.body.password[1]) {
+	    
+    }
 	// only specified string in genderArray are allowed to be entered;
 	
 	if (genderArray.indexOf(req.body.gender) === -1) {
@@ -20,8 +26,10 @@ function createUser(req,res){
 	}
 	
     var user = new Users({
-        "name":req.body.name,
-        "gender":req.body.gender,
+        "firstname":req.body.firstname? req.body.first_name :"",
+        "lastname":req.body.lastname ? req.body.last_name:"",
+        "name":req.body.nickname,
+        "gender":req.body.gender? req.body.gender : genderArray[2],
         "exp":0,
         "phone":0,
         "rank":0,
@@ -40,8 +48,9 @@ function createUser(req,res){
             return res.sendStatus(400);
         }
     });
-
-    return res.send(`You have successfully registered.${user}`);
+    res.cookie(username,user._id, {maxAge: 900000, httpOnly: true});
+    res.redirect('/');
+    res.end();
 };
 
 function loggedin (req, res) {
@@ -60,12 +69,12 @@ function loggedin (req, res) {
 
 function createPost(req,res){
 
-    console.log(req);
+    //console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
 
 
-        // "author":usr.name,
+        // "author":usr.name ,
         "title":req.body.title,
         "content":req.body.post_edit,
         "tag":[],
@@ -78,17 +87,10 @@ function createPost(req,res){
         }
     });
 
-    return res.send(post);
-    // return $resource('alls/:issuename', {issuename: '@issuename'},
-    //     {
-    //
-    //         get:{ method: 'GET',
-    //             query: {
-    //                 Model: '',
-    //                 Color: ''
-    //             }, isArray:true }
-    //
-    //     });
+    var redir = util.format('/forum/post?postid=%s', post._id);
+    res.redirect(redir);
+    res.end();
+
 };
 
 // find all user
