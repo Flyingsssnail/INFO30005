@@ -8,9 +8,7 @@
 
 <div class ="login" >
     <h1 id ="app" class = "login-header">
-        <% result.forEach(function(element) { %>
-        <%= element.name%>
-        <% })%>
+      LOGIN
     </h1>
 </div>
 <br>
@@ -18,24 +16,24 @@
 
 
     <h3 id = "username">
-    {{message}}</h3>
+    Username</h3>
     <input id = "user" type="text" placeholder="Username"/><br>
     <h3 id = "password" >
-        {{message}}</h3>
+        Password</h3>
     <input id = "pass" type="password" placeholder="Password"/><br>
 <br>
     <input type="button" value="Login" onclick="wronguser()" class="login-button"/>
     <br>
 
-    <a class="help" href="../public/register.html">Sign up!</a><br>
+    <a class="help" href="register.html">Sign up!</a><br>
     <br>
-    <a href="../public/forget.html" class="help">forget your password?</a>
+    <a href="forget.html" class="help">forget your password?</a>
     <br>
     <br>
 
 </main>
 <br>
 
-<script src="../public/login.js"></script>
+<script src="login.js"></script>
 </body>
 </html>
