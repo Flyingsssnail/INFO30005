@@ -1,34 +1,33 @@
-var mongoose  = require ('mongoose');
-var Users = mongoose.model('users');
-var Posts = mongoose.model('posts');
-var Reply = mongoose.model('reply');
-var util = require('util');
+const mongoose  = require ('mongoose');
+const util = require('util');
+const Users = mongoose.model('users');
+const Posts = mongoose.model('posts');
+const Reply = mongoose.model('reply');
+var ejs = require('ejs');
 
+const genderArray = ["female", "male", "hidden", "other"];
 
 // welcome page
-function init(req, res) {
-	return res.sendfile('public/main.html');
+function init(req, res) {;
+    return res.sendfile('public/main.html');
 }
 
 // register user
 function createUser(req,res){
 
     console.log(req);
-	var genderArray = ["female", "male", "hidden", "other"];
 
-	if (req.body.password[0] != req.body.password[1]) {
-	    
-    }
-	// only specified string in genderArray are allowed to be entered;
-	
-	if (genderArray.indexOf(req.body.gender) === -1) {
-		return res.sendStatus(406);
-	}
+	Users.findOne({email: req.body.email}, function (err, usr) {
+        if (usr) {
+            // TODO email already taken
+            // return res.
+        }
+    });
 	
     var user = new Users({
-        "firstname":req.body.firstname? req.body.first_name :"",
+        "firstname":req.body.firstname ? req.body.first_name :"",
         "lastname":req.body.lastname ? req.body.last_name:"",
-        "name":req.body.nickname,
+        "name":req.body.name,
         "gender":req.body.gender? req.body.gender : genderArray[2],
         "exp":0,
         "phone":0,
@@ -41,6 +40,7 @@ function createUser(req,res){
         "liked":0,
         "likes":0,
         "followers":0,
+        "password":req.body.password,
     });
     
     Users.create(user, function(err){
@@ -53,29 +53,31 @@ function createUser(req,res){
     res.end();
 };
 
-function loggedin (req, res) {
-    // var cookie = req.headers.cookies.username;
-    // dehash(cookie);
-    // if (cookie === undefined)
-    // {
-    //     return undefined;
-    // }
-    // else
-    // {
-    //     res.cookie('username', username, { maxAge: 900000, httpOnly: true });
-    //     // console.log('user name: %s', username);
-    // }
+function login (req, res) {
+
+    Users.findOne({email: req.body.email}, function (err, usr) {
+        // TODO encrypt password
+        if (req.body.password != usr.password) {
+            // TODO password not match error
+            // return
+        } else {
+            res.cookie(username,usr._id, {maxAge: 900000, httpOnly: true});
+            var redir = req.query.orig ? req.query.orig : "/";
+            res.redirect(redir);
+            res.end();
+        }
+    });
+
 }
 
 function createPost(req,res){
-
-    //console.log(req);
+    // set cookie command in browser document.cookie="keyofcookie=valueofcookie"
+    console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
-
-
-        // "author":usr.name ,
+        "author":req.headers.cookie.username,
         "title":req.body.title,
+        "type": String,
         "content":req.body.post_edit,
         "tag":[],
         "rating":0,
@@ -118,15 +120,131 @@ function searching(req, res) {
     }
 };
 
+function addreply(req, res) {
 
-function finduser(req,res){
+    var reply = new Reply({
+        "author":req.headers.cookie.username,
+        "parentPost":req.query.postid,
+        "content":req.body.content,
+    });
+
+    Posts.findOne({_id: req.query.postid}), function (err, user) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        user.reply.append(reply._id);
+    };
+    Reply.create(reply, function(err){
+        if (err) {
+            return res.sendStatus(400);
+        }
+    });
+}
+
+function userprofile(req,res){
     console.log('hi');
     var user = new Users();
-    Users.find({name: req.query.name}, function(err, result){
-        return err ? res.sendStatus(404) :
+    Users.findOne({_id: req.header.cookie.username}, function(err, result){
             res.render('otheruser',{result: result });
     });
 }
+
+function forum(req, res) {
+
+    var artifactsArray = [];
+    var storiesArray = [];
+
+    Posts.find(function (err, posts) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        posts.forEach(function (element) {
+            var artifacts = 0;
+            var stories = 0;
+            if (artifacts <= 4 && element.type === "artifacts") {
+                artifactsArray.push(element);
+            }
+            if (stories <= 4 && element.type === "stories") {
+                storiesArray.push(element);
+            }
+        });
+    });
+
+    return res.render('forumpage', {
+        artifactsArray: artifactsArray,
+        storiesArray: storiesArray,
+    });
+}
+
+function stories(req, res) {
+
+    var total = 0;
+    var array = [];
+    var storiesArray = [];
+    Posts.find(function (err, posts) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+        posts.forEach(function(element) {
+            if (element.type === "stories") {
+                total++;
+            }
+            if (element.type === "stories" && array.length <= req.query.page * 12) {
+                storiesArray.push(element);
+            }
+        });
+
+        for (var i = (req.query.page - 1)  * 12; i < req.query.page * 12; i++) {
+            storiesArray.push(array[i]);
+        }
+    });
+
+
+    res.render('forum', {
+        section: "stories",
+        array: storiesArray,
+        total: total,
+    });
+};
+
+function artifacts(req, res) {
+
+    var total = 0;
+    var array = [];
+    var artifactsArray = [];
+    Posts.find(function (err, posts) {
+        if (err) {
+            return res.sendStatus(404);
+        }
+
+        posts.forEach(function(element) {
+            if (element.type === "artifacts") {
+                total++;
+            }
+            if (element.type === "artifacts" && array.length <= req.query.page * 12) {
+                array.push(element);
+            }
+        });
+
+        for (var i = (req.query.page - 1)  * 12; i < req.query.page * 12; i++) {
+            artifactsArray.push(array[i]);
+        }
+    });
+
+    res.render('forum', {
+        section: "artifacts",
+        array: artifactsArray,
+        total: total,
+    });
+};
+
+function postpage(req, res) {
+    Posts.find({_id: req.query.postId}, function(err, result){
+        return err ? res.sendStatus(404) :
+            res.render('post',{result: result });
+    });
+};
+
 module.exports.init = init;
 
 module.exports.createUser = createUser;
@@ -135,6 +253,12 @@ module.exports.allUsers = allUsers;
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
-module.exports.finduser = finduser;
+module.exports.userprofile = userprofile;
 
+module.exports.addreply = addreply;
+module.exports.forum = forum;
+module.exports.postpage = postpage;
+module.exports.artifacts = artifacts;
+module.exports.stories = stories;
 
+module.exports.login = login;

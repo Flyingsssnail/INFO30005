@@ -44,9 +44,20 @@ router.get('/api/search', controller.searching);
 // There are more need to be installed
 router.post('/post_edit.html', controller.createPost);
 
+router.post('/forum/post', controller.addreply);
 // router.get('/api/post', controller.getPost);
 // router.get('/api/post_edit', controller.editPost);
-router.get('/login', controller.finduser);
+router.get('/profile', controller.userprofile);
+
+router.get('/login', function (req, res) {
+    res.sendfile(path.join(__dirname + '/../public/login.html'))
+});
+router.post('/login', controller.login);
+
+router.get('/forum', controller.forum);
+router.get('/forum/stories', controller.stories);
+router.get('/forum/artifacts', controller.artifacts);
+router.get('/forum/post', controller.postpage);
    /* function(req, res) {
     console.log('hi');
     var user = new Users();

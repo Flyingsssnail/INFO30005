@@ -1,0 +1,24 @@
+#user #description {
+    width: 20%;
+    float: left;
+}
+
+#content #post {
+    width: 100%;
+}
+
+#user {
+    border-bottom-style: ridge;
+}
+
+#reply {
+    float: right;
+    border-radius: 8px;
+    height: 20px;
+    width: 20px;
+}
+
+#post-section #comment {
+    float: right;
+    width: 80%;
+}
