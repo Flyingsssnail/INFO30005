@@ -16,6 +16,7 @@ var UserSchema = mongoose.Schema({
     "liked":Number,
     "likes":Number,
     "followers":Number,
+    "password":String,
     }
 );
 

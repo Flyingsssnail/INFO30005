@@ -6,21 +6,54 @@
     <!--Logged in-->
     <!--<div id="user" hidden>User ID</div>-->
     <div id="username" hidden>None</div>
-
+    <link rel="stylesheet" type="text/css" href="postforum.css">
 
 </head>
 
 <body>
 <div id="textedit">
-    <input type="text" v-model="content" class="form-control" />
+    <!--<input type="text" v-model="content" class="form-control" />-->
 
 
     <div class="row">
         <div class="col-md-6">
             <form id="post-content" method="post">
-                <input type="text" name="title" required><br>
-                <vue-tinymce name="post_edit" class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>
-                <input type="submit" value="Submit">
+                <h1>New Post</h1>
+
+                <div class="group" >
+                    <label for="title" >Title</label>
+                    <input type="text" style="width:100%" name="title" id="title" value="" placeholder="Title">
+                </div>
+
+                <div class="group">
+                    <label for="tag">@Tags</label>
+                    <input type="text" style="width:100%" name="tag" id="tag"  placeholder="@tags">
+                </div>
+
+                <div class="group">
+                    <label for="cost">Cost</label>
+                    <textarea style="width:100%" name="cost" id="cost" placeholder="Materials"></textarea>
+                </div>
+
+                <div class="group">
+                    <label for="textarea">Steps</label>
+                    <textarea style="width:100%" name="textarea" id="steps" placeholder="Steps..."></textarea>
+                </div>
+
+                <div></div>
+                <div class="group">
+
+                    <vue-tinymce name="post_edit" class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>
+                </div>
+
+                <br/>
+
+                <div class="group">
+                    <div style="text-align: right;"><button type="submit" class="btn" >Submit </button></div>
+                </div>
+                <!--<input type="text" name="title" required><br>-->
+                <!--<vue-tinymce name="post_edit" class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>-->
+                <!--<input type="submit" value="Submit">-->
             </form>
         </div>
         <div class="col-md-6">
@@ -28,8 +61,8 @@
         </div>
     </div>
 </div>
-<div id="nouser" style="display: none;">Please <a href="../view/login.ejs">log in</a> first!</div>
-<button id="show" onclick="show()">SWITCH LOGGED IN (FOR DEV)</button>
+<!--<div id="nouser" style="display: none;">Please <a href="../view/login.ejs">log in</a> first!</div>-->
+<!--<button id="show" onclick="show()">SWITCH LOGGED IN (FOR DEV)</button>-->
 <script src='./js/jquery.min.js'></script>
 <script src='./js/bootstrap.min.js'></script>
 <script src='./js/vue.js'></script>
@@ -38,22 +71,22 @@
 <script  src="post_edit.js"></script>
 
 
-<script>
-    if (document.getElementById('username').textContent === 'None') {
-        document.getElementById('textedit').style.display = "none";
-        document.getElementById('nouser').style.display = "block";
-    };
-    function show() {
-        document.getElementById('textedit').style.display = "block";
-        document.getElementById('nouser').style.display = "none";
-        document.getElementById('show').setAttribute("onClick", "hide()");
-    };
-    function hide() {
-        document.getElementById('textedit').style.display = "none";
-        document.getElementById('nouser').style.display = "block";
-        document.getElementById('show').setAttribute("onClick", "show()");
-    };
-</script>
+<!--<script>-->
+    <!--if (document.getElementById('username').textContent === 'None') {-->
+        <!--document.getElementById('textedit').style.display = "none";-->
+        <!--document.getElementById('nouser').style.display = "block";-->
+    <!--};-->
+    <!--function show() {-->
+        <!--document.getElementById('textedit').style.display = "block";-->
+        <!--document.getElementById('nouser').style.display = "none";-->
+        <!--document.getElementById('show').setAttribute("onClick", "hide()");-->
+    <!--};-->
+    <!--function hide() {-->
+        <!--document.getElementById('textedit').style.display = "none";-->
+        <!--document.getElementById('nouser').style.display = "block";-->
+        <!--document.getElementById('show').setAttribute("onClick", "show()");-->
+    <!--};-->
+<!--</script>-->
 
 
 </body>

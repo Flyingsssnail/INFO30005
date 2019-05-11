@@ -8,7 +8,8 @@ var PostSchema = mongoose.Schema({
     "content":String,
     "reply":[String],
     "tag":[String],
-    "rating":Number
+    "rating":Number,
+    "type": String
     }
 );
 
