@@ -5,6 +5,9 @@ const app = express();
 const db = require('./models/db');
 var serveStatic = require('serve-static');
 
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

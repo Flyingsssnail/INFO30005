@@ -99,6 +99,7 @@ Vue.component("vue-tinymce",{
 var vm=new Vue({
 	el:"#textedit",
 	data:{
+		content:"",
 		tinymceOptions:tinymceOptions
 	}
 });

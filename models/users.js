@@ -17,6 +17,8 @@ var UserSchema = mongoose.Schema({
     "likes":Number,
     "followers":Number,
     "password":String,
+    "avatar":{type:String, default: 'images/default.png'},
+
     }
 );
 

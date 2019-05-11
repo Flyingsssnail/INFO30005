@@ -16,39 +16,38 @@
 
 
     <div class="row">
-        <div class="col-md-6" style=" margin: 6% 15%;">
+        <div class="col-md-6" style=" margin: 3% 15%;">
             <form id="post-content" method="post">
                 <h1>New Post</h1>
 
                 <div class="group" >
-                    <h2>Title</h2>
-                    <input type="text" style="width:100%" name="title" id="title" value="" placeholder="Title">
+                    <input type="text" style="width:100%" name="title" id="title" value="" placeholder="Title" required>
                 </div>
 
                 <div class="group">
-                    <h2>Type</h2>
+                    <h3>Type</h3>
                         <label>
-                            <input type="radio" name="type" value=0 /> artifacts
+                            <input type="radio" name="type" value="artifacts" checked/> Artifacts
                         </label>
                         <label>
-                            <input type="radio" name="type" value=1 /> stories
+                            <input type="radio" name="type" value="stories" /> Stories
                         </label>
                 </div>
                 <br>
-                <div class="group">
-                    <h2>Cost</h2>
-                    <textarea style="width:100%" name="cost" id="cost" placeholder="Materials"></textarea>
-                </div>
 
                 <div class="group">
-                    <h2>Steps</h2>
-                    <textarea style="width:100%" name="textarea" id="steps" placeholder="Steps..."></textarea>
-                </div>
+                    <h3>Body</h3>
+                    <vue-tinymce placeholder="Edit your post here
 
-                <div></div>
-                <div class="group">
-                    <h2>Body</h2>
-                    <vue-tinymce placeholder="Edit your post here" name="post_edit" class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>
+
+Material:
+        ...
+
+Steps:
+        1. ...
+
+Description:
+        ..." name="post_edit" class="form-control required" v-model="content" :options="tinymceOptions"></vue-tinymce>
                 </div>
 
                 <br/>
