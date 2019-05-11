@@ -77,11 +77,11 @@ function createPost(req,res){
     var post = new Posts({
         "author":req.headers.cookie.username,
         "title":req.body.title,
-        "type": String,
         "content":req.body.post_edit,
         "tag":[],
         "rating":0,
         "reply":[],
+        "type": req.body.type === "0" ? "artifacts" : "stories",
     });
     Posts.create(post, function(err){
         if (err) {
@@ -178,6 +178,7 @@ function forum(req, res) {
 
 function stories(req, res) {
 
+    var page = req.query.page;
     var total = 0;
     var array = [];
     var storiesArray = [];
@@ -204,11 +205,13 @@ function stories(req, res) {
         section: "stories",
         array: storiesArray,
         total: total,
+        currentpage: page,
     });
 };
 
 function artifacts(req, res) {
 
+    var page = req.query.page;
     var total = 0;
     var array = [];
     var artifactsArray = [];
@@ -235,6 +238,7 @@ function artifacts(req, res) {
         section: "artifacts",
         array: artifactsArray,
         total: total,
+        currentpage: page,
     });
 };
 
