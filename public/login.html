@@ -8,22 +8,20 @@
 
 <div class ="login" >
     <h1 id ="app" class = "login-header">
-      LOGIN
+        LOGIN
     </h1>
 </div>
 <br>
 <main class ="login-form">
 
-
-    <h3 id = "username">
-    Username</h3>
-    <input id = "user" type="text" placeholder="Username"/><br>
-    <h3 id = "password" >
-        Password</h3>
-    <input id = "pass" type="password" placeholder="Password"/><br>
-<br>
-    <input type="button" value="Login" onclick="wronguser()" class="login-button"/>
-    <br>
+    <form>
+        <h3 id = "username">Username</h3>
+        <input id = "user" type="text" placeholder="Username" required/><br>
+        <h3 id = "password" >Password</h3>
+        <input id = "pass" type="password" placeholder="Password" required/><br><br>
+        <input type="submit" value="Login" class="login-button"/>
+        <br>
+    </form>
 
     <a class="help" href="register.html">Sign up!</a><br>
     <br>

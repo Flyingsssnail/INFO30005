@@ -48,6 +48,12 @@ router.post('/forum/post', controller.addreply);
 // router.get('/api/post', controller.getPost);
 // router.get('/api/post_edit', controller.editPost);
 router.get('/profile', controller.userprofile);
+
+router.get('/login', function (req, res) {
+    res.sendfile(path.join(__dirname + '/../public/login.html'))
+});
+router.post('/login', controller.login);
+
    /* function(req, res) {
     console.log('hi');
     var user = new Users();
