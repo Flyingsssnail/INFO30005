@@ -28,7 +28,7 @@
 				<ul>
 					<% array.forEach(function(element) { %>
 						<li>
-							<a href="/forum/post?postId=<%= element._id %>"><%= element.title %> | <%= element.author %> | <%= element.reply.length %>
+							<a href="/forum/post?postId=<%= element._id %>&page=1"><%= element.title %> | <%= element.author %> | <%= element.reply.length %>
 								<span><p><%= element.content %></p></span>
 							</a>
 						</li>

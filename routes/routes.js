@@ -42,7 +42,7 @@ router.get('/api/u/all', controller.allUsers);
 router.get('/api/search', controller.searching);
 
 // There are more need to be installed
-router.post('/post_edit.html', controller.createPost);
+router.post('/edit_post', controller.createPost);
 
 router.post('/forum/post', controller.addreply);
 // router.get('/api/post', controller.getPost);

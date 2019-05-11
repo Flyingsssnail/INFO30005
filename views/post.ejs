@@ -18,40 +18,47 @@
     <% include templates/nav.ejs %>
     <% include templates/background.ejs %>
     <% include templates/root.ejs %>
+    <% include templates/comment.ejs %>
 
     <div id="content">
         <section id="post">
             <header>
-                <h2>This is a post title</h2>
+                <h2><%= post.title %></h2>
             </header>
+<!--            main post section-->
             <div id="user">
                 <div id="description">
-                    <h1>name</h1>
-                    <h3>some details</h3>
+                    <h1><%= author_info.name %></h1>
+                    <h3><%= author_info.gender %> | <%= author_info.rank %> | <%= author_info.exp %></h3>
+                    <h3><%= author_info.post %> | <%= author_info.likes %> | </h3>
                 </div>
                 <div id="post-section">
                     <form id="reply">
                         <button onclick="reply">Reply</button>
                     </form>
                     <p>
-                        This is the content of the post.
+                        <%= post.content %>
                     </p>
                 </div>
             </div>
-
-            <div id="user">
-                <div id="description">
-                    <h1>name</h1>
-                    <h3>some details</h3>
+<!--            reply section-->
+            <% array_info.forEach(function(user) { %>
+                <div id="user">
+                    <div id="description">
+                        <h1><%= user.name %></h1>
+                        <h3><%= user.gender %> | <%= user.rank %> | <%= user.exp %></h3>
+                        <h3><%= user.post %> | <%= user.likes %> | </h3>
+                    </div>
+                    <div id="comment">
+                        <form id="reply">
+                            <button onclick="reply">Reply</button>
+                        </form>
+                        <p>
+                            <%= commentsArray.content %>
+                        </p>
+                    </div>
                 </div>
-                <div id="comment">
-                    <form id="reply">
-                        <button onclick="reply">Reply</button>
-                    </form>
-                    <p>comment</p>
-                </div>
-            </div>
-
+            <% }); %>
         </section>
     </div>
 </div>
