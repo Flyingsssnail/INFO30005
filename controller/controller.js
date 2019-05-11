@@ -71,18 +71,19 @@ function login (req, res) {
 }
 
 function createPost(req,res){
-    // set cookie command in browser document.cookie="keyofcookie=valueofcookie"
-    console.log(req);
+    // set cookie command in browser document.cookie="username=123456"
+    //console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
-        "author":req.headers.cookie.username,
+        "author":req.cookies.username,
         "title":req.body.title,
         "content":req.body.post_edit,
         "tag":[],
         "rating":0,
         "reply":[],
-        "type": ((req.body.type === "0") ? "artifacts" : "stories"),
+        "type": req.body.type,
     });
+    console.log(post.type);
     Posts.create(post, function(err){
         if (err) {
             return res.sendStatus(400);
@@ -123,7 +124,7 @@ function searching(req, res) {
 function addreply(req, res) {
 
     var reply = new Reply({
-        "author":req.headers.cookie.username,
+        "author":req.cookies.username,
         "parentPost":req.query.postid,
         "content":req.body.content,
     });
@@ -143,8 +144,8 @@ function addreply(req, res) {
 
 function userprofile(req,res){
     console.log('hi');
-    var user = new Users();
-    Users.findOne({_id: req.header.cookie.username}, function(err, result){
+    // var user = new Users();
+    Users.findOne({_id: req.cookies.username}, function(err, result){
             res.render('otheruser',{result: result });
     });
 }
