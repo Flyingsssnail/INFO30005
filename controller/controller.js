@@ -71,18 +71,19 @@ function login (req, res) {
 }
 
 function createPost(req,res){
-    // set cookie command in browser document.cookie="keyofcookie=valueofcookie"
-    console.log(req);
+    // set cookie command in browser document.cookie="username=123456"
+    //console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
-        "author":req.headers.cookie.username,
+        "author":req.cookies.username,
         "title":req.body.title,
-        "type": String,
         "content":req.body.post_edit,
         "tag":[],
         "rating":0,
         "reply":[],
+        "type": req.body.type,
     });
+    console.log(post.type);
     Posts.create(post, function(err){
         if (err) {
             return res.sendStatus(400);
@@ -123,7 +124,7 @@ function searching(req, res) {
 function addreply(req, res) {
 
     var reply = new Reply({
-        "author":req.headers.cookie.username,
+        "author":req.cookies.username,
         "parentPost":req.query.postid,
         "content":req.body.content,
     });
@@ -143,12 +144,13 @@ function addreply(req, res) {
 
 function userprofile(req,res){
     console.log('hi');
-    var user = new Users();
-    Users.findOne({_id: req.header.cookie.username}, function(err, result){
+    // var user = new Users();
+    Users.findOne({_id: req.cookies.username}, function(err, result){
             res.render('otheruser',{result: result });
     });
 }
 
+// open forum homepage
 function forum(req, res) {
 
     var artifactsArray = [];
@@ -175,9 +177,10 @@ function forum(req, res) {
         storiesArray: storiesArray,
     });
 }
-
+// open stories section
 function stories(req, res) {
 
+    var page = req.query.page;
     var total = 0;
     var array = [];
     var storiesArray = [];
@@ -186,15 +189,16 @@ function stories(req, res) {
             return res.sendStatus(404);
         }
         posts.forEach(function(element) {
+            // record the total number of stories posts
             if (element.type === "stories") {
                 total++;
             }
-            if (element.type === "stories" && array.length <= req.query.page * 12) {
+            if (element.type === "stories" && array.length <= req.query.page * 9) {
                 storiesArray.push(element);
             }
         });
-
-        for (var i = (req.query.page - 1)  * 12; i < req.query.page * 12; i++) {
+        // only need atmost 9 pages
+        for (var i = (req.query.page - 1)  * 9; i < req.query.page * 9 && i < array.length; i++) {
             storiesArray.push(array[i]);
         }
     });
@@ -204,11 +208,14 @@ function stories(req, res) {
         section: "stories",
         array: storiesArray,
         total: total,
+        currentpage: page,
     });
 };
 
+// open artifacts section
 function artifacts(req, res) {
 
+    var page = req.query.page;
     var total = 0;
     var array = [];
     var artifactsArray = [];
@@ -218,15 +225,16 @@ function artifacts(req, res) {
         }
 
         posts.forEach(function(element) {
+            // record the total number of artifacts posts
             if (element.type === "artifacts") {
                 total++;
             }
-            if (element.type === "artifacts" && array.length <= req.query.page * 12) {
+            if (element.type === "artifacts" && array.length <= req.query.page * 9) {
                 array.push(element);
             }
         });
-
-        for (var i = (req.query.page - 1)  * 12; i < req.query.page * 12; i++) {
+        // only need atmost 9 pages
+        for (var i = (req.query.page - 1)  * 9; i < req.query.page * 9 && i < array.length; i++) {
             artifactsArray.push(array[i]);
         }
     });
@@ -235,13 +243,59 @@ function artifacts(req, res) {
         section: "artifacts",
         array: artifactsArray,
         total: total,
+        currentpage: page,
     });
 };
 
+// open single post page
 function postpage(req, res) {
-    Posts.find({_id: req.query.postId}, function(err, result){
-        return err ? res.sendStatus(404) :
-            res.render('post',{result: result });
+    Posts.find({_id: req.query.postId}, function(err, post){
+        if (err) return res.sendStatus(404);
+
+        var currentpage = req.query.page;
+        var total = 0;
+        var commentsArray = [];
+        var author_info;
+        var array_info = [];
+
+        // get all the replies
+        Reply.find(function(err, comments) {
+           if (err) return res.sendStatus(404);
+
+           // find the post's comments and record the nummber
+           comments.forEach(function(comment) {
+               if (comment.parentPost === post._id) {
+                   total++;
+                   commentsArray.push(comment);
+               }
+           });
+        });
+
+        // get the author information
+        Users.find({_id: post.author}, function(err, user) {
+            if (err) return res.sendStatus(404);
+
+            author_info = user;
+            console.log(author_info);
+        });
+
+        // get the information of poeple who comment
+        commentsArray.forEach(function(comment) {
+            Users.find({_id: comment.author}, function(err, user) {
+                if (err) return res.sendStatus(404);
+
+                array_info.push(user);
+            })
+        })
+
+        return res.render('post',{
+            author_info: author_info,
+            array_info: array_info,
+            post: post,
+            commentsArray: commentsArray,
+            currentpage: currentpage,
+            total: total
+        });
     });
 };
 

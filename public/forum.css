@@ -89,7 +89,8 @@ body {
 }
 
 #m_nav a {
-	z-index: 2;
+	z-index: 11;
+	position: absolute;
 	border-style: outset;
 	margin-left: 25px;
 	font-size: 17px;
@@ -140,21 +141,18 @@ li a:hover, focus {
 	color: #34ac98;
 	opacity: 0.6;
 }
-
-#content #page-nav a {
+#page-nav a {
 	z-index: 2;
-	position: absolute;
+	margin: 5px 8px -50px 0px;
 	border-style: outset;
-	margin-left: 25px;
 	font-size: 17px;
-	padding: 10px 14px;
-	border-radius: 6px;
-	float: left;
+	padding: 5px 10px;
+	border-radius: 10px;
+	float: right;
 	display: block;
 	background-color: #8ab595;
 	color: white;
 }
-
-#content #page-nav a:active {
+#page-nav a:active {
 	color: #277aec;
 }

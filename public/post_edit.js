@@ -6,7 +6,8 @@ var tinymceOptions={
 		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
 		'searchreplace wordcount visualblocks visualchars code fullscreen',
 		'insertdatetime nonbreaking save table contextmenu directionality',
-		'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+		'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc',
+		'placeholder'
 	],
 	toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
 	toolbar2: 'forecolor backcolor emoticons | link image',
@@ -98,7 +99,7 @@ Vue.component("vue-tinymce",{
 var vm=new Vue({
 	el:"#textedit",
 	data:{
-		content:"Edit your post here",
+		content:"",
 		tinymceOptions:tinymceOptions
 	}
 });

@@ -33,7 +33,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 router.get('/', controller.init);
 
 // create new Users
-router.post('/register.html', controller.createUser);
+router.post('/register', controller.createUser);
 
 // find all Users
 router.get('/api/u/all', controller.allUsers);
@@ -42,7 +42,7 @@ router.get('/api/u/all', controller.allUsers);
 router.get('/api/search', controller.searching);
 
 // There are more need to be installed
-router.post('/post_edit.html', controller.createPost);
+router.post('/edit_post', controller.createPost);
 
 router.post('/forum/post', controller.addreply);
 // router.get('/api/post', controller.getPost);
@@ -52,6 +52,11 @@ router.get('/profile', controller.userprofile);
 router.get('/login', function (req, res) {
     res.sendfile(path.join(__dirname + '/../public/login.html'))
 });
+
+router.get('/register', function (req, res) {
+    res.sendfile(path.join(__dirname + '/../views/register.ejs'))
+});
+
 router.post('/login', controller.login);
 
 router.get('/forum', controller.forum);
