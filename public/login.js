@@ -43,7 +43,7 @@ function post(){
         password:document.getElementsByName('password')[0].value
     };
     Ajax({
-        url:'/',
+        url:'/login',
         method:'POST',
         success:function(text){
             document.getElementById('msg').innerText=text;
