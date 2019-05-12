@@ -4,9 +4,9 @@
 <head>
     <title>tests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-    <link rel="stylesheet" href="../searchBar.css">
-    <link rel="stylesheet" href="../public/forum.css">
-    <link rel="stylesheet" href="../post.css">
+    <link rel="stylesheet" href="/searchBar.css">
+    <link rel="stylesheet" href="/forum.css">
+    <link rel="stylesheet" href="/post.css">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
@@ -28,14 +28,15 @@
 <!--            main post section-->
             <div id="user">
                 <div id="description">
-                    <h1><%= author_info.name %></h1>
-                    <h3><%= author_info.gender %> | <%= author_info.rank %> | <%= author_info.exp %></h3>
-                    <h3><%= author_info.post %> | <%= author_info.likes %> | </h3>
+                    <h3><%= author_info.name %></h3>
+                    <h5><%= author_info.gender %> | <%= author_info.rank %> | <%= author_info.exp %></h5>
+                    <h5><%= author_info.post %> | <%= author_info.likes %> | </h5>
                 </div>
                 <div id="post-section">
                     <form id="reply">
                         <button onclick="reply">Reply</button>
                     </form>
+                    <br>
                     <p>
                         <%= post.content %>
                     </p>
@@ -45,14 +46,15 @@
             <% array_info.forEach(function(user) { %>
                 <div id="user">
                     <div id="description">
-                        <h1><%= user.name %></h1>
-                        <h3><%= user.gender %> | <%= user.rank %> | <%= user.exp %></h3>
-                        <h3><%= user.post %> | <%= user.likes %> | </h3>
+                        <h3><%= user.name %></h3>
+                        <h5><%= user.gender %> | <%= user.rank %> | <%= user.exp %></h5>
+                        <h5><%= user.post %> | <%= user.likes %> | </h5>
                     </div>
                     <div id="comment">
                         <form id="reply">
                             <button onclick="reply">Reply</button>
                         </form>
+                        <br>
                         <p>
                             <%= commentsArray.content %>
                         </p>

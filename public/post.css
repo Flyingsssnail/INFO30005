@@ -1,4 +1,7 @@
 #user #description {
+    padding: 5px 10px;
+    border-right-style: ridge;
+    border-right-color: rgba(225, 229, 235, 0.3);
     width: 20%;
     float: left;
 }
@@ -8,17 +11,27 @@
 }
 
 #user {
+    word-wrap: break-word;
+    color: #34AC98;
     border-bottom-style: ridge;
 }
 
-#reply {
+#reply button {
+    color: #8ab595;
     float: right;
-    border-radius: 8px;
-    height: 20px;
-    width: 20px;
+    border-radius: 4px;
+    margin: 6px 6px 0 0;
+    background-color: royalblue;
 }
 
-#post-section #comment {
+#post-section, #comment {
     float: right;
     width: 80%;
+}
+
+#post-section p {
+    margin: 10px;
+}
+#comment p {
+    margin: 10px;
 }
