@@ -3,14 +3,22 @@ const util = require('util');
 const Users = mongoose.model('users');
 const Posts = mongoose.model('posts');
 const Reply = mongoose.model('reply');
-var ejs = require('ejs');
 
 const genderArray = ["female", "male", "hidden", "other"];
 
 // welcome page
-function init(req, res) {;
+function init(req, res) {
     return res.sendfile('public/main.html');
 }
+
+function signin(req, res) {
+    return res.render('login', {});
+}
+
+function register(req, res) {
+    return res.sendFile('/../public/register.html');
+}
+
 
 // register user
 function createUser(req,res){
@@ -57,7 +65,7 @@ function login (req, res) {
 
     Users.findOne({email: req.body.email}, function (err, usr) {
         // TODO encrypt password
-        if (req.body.password != usr.password) {
+        if (err || (req.body.password !== usr.password)) {
             // TODO password not match error
             // return
         } else {
@@ -97,22 +105,22 @@ function createPost(req,res){
 };
 
 // find all user
-var allUsers = function(req,res){
-    Users.find(function(err, users) {
-    	return err? res.sendStatus(404) : res.send(users);
-    });
-};
+// var allUsers = function(req,res){
+//     Users.find(function(err, users) {
+//     	return err? res.sendStatus(404) : res.send(users);
+//     });
+// };
 
 // find by name
 function searching(req, res) {
     if (req.query.type === 'user') {
-        console.log('1');
+        // console.log('1');
         Users.find({name: { $regex : req.query.key, $options : 'i' }}, function(err, result){
         	return err ? res.sendStatus(404) : res.send(result);
         });
 
     } else if (req.query.type === 'post') {
-        console.log('2');
+        // console.log('2');
 
         // TODO req.query.method -> array, search by multiple method
         Posts.find({[req.query.method]: { '$regex' : req.query.key, '$options' : 'i' }}, function(err,result){
@@ -143,7 +151,7 @@ function addreply(req, res) {
 }
 
 function userprofile(req,res){
-    console.log('hi');
+    // console.log('hi');
     // var user = new Users();
     Users.findOne({_id: req.cookies.username}, function(err, result){
             res.render('otheruser',{result: result });
@@ -286,7 +294,7 @@ function postpage(req, res) {
 
                 array_info.push(user);
             })
-        })
+        });
 
         return res.render('post',{
             author_info: author_info,
@@ -301,18 +309,19 @@ function postpage(req, res) {
 
 module.exports.init = init;
 
+module.exports.login = login;
+module.exports.signin = signin;
+module.exports.register = register;
 module.exports.createUser = createUser;
-module.exports.allUsers = allUsers;
+module.exports.userprofile = userprofile;
 
 module.exports.searching = searching;
 
 module.exports.createPost = createPost;
-module.exports.userprofile = userprofile;
+module.exports.postpage = postpage;
 
 module.exports.addreply = addreply;
+
 module.exports.forum = forum;
-module.exports.postpage = postpage;
 module.exports.artifacts = artifacts;
 module.exports.stories = stories;
-
-module.exports.login = login;
