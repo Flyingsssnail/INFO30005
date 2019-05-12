@@ -77,3 +77,10 @@ label.upload-file::before {
 .choose-file:valid + .upload-file::before {
     content: "1 file chosen";
 }
+
+html, body {
+    background:url('./images/recycle.png') no-repeat center 0;
+    margin:0px;
+    font-family: 'Ubuntu', sans-serif;
+    background-size: auto;
+}

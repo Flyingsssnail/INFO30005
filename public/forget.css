@@ -24,3 +24,12 @@ legend {
     font-weight:800;
     font-size:xx-large;
 }
+
+.btn {
+    background:green;
+    border:0;
+    padding:9px 14px;
+    color:#f3f3f3;
+    border-radius:4px;
+    font-size:0.8em;
+}
