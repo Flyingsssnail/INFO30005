@@ -2,7 +2,6 @@
 function Ajax(json){
     var url=json.url;
     var method=json.method;
-    var success=json.success;
     var obj=json.obj;
     var request=null;
     if(window.XMLHttpRequest){
@@ -17,12 +16,16 @@ function Ajax(json){
     }
     if(request!=null){
         request.onreadystatechange=function(){
-            if(request.readyState==4&&request.status==200){
-                var text=request.responseText;
-                success(text);
-            }else{
+            if(request.status===401){
+                document.getElementById('msg').innerText="Invalid Email or Password!";
+            }else if (request.status===200){
+                if (request.redirect !== undefined && request.redirect) {
+                    window.location.href = request.redirect_url;
+                } else {
+                    window.location.href = '/forum';
+                }
             }
-        }
+        };
         request.open(method,url,true);
         request.send(JSON.stringify(obj));
     }
@@ -36,9 +39,6 @@ function post(){
     Ajax({
         url:'/login',
         method:'POST',
-        success:function(text){
-            document.getElementById('msg').innerText=text;
-        },
         obj:obj
-    })
+    });
 }

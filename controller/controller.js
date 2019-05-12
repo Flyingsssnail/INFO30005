@@ -1,4 +1,5 @@
 const mongoose  = require ('mongoose');
+
 const util = require('util');
 const Users = mongoose.model('users');
 const Posts = mongoose.model('posts');
@@ -10,57 +11,58 @@ const genderArray = ["female", "male", "hidden", "other"];
 function createUser(req,res){
 
     console.log(req);
+    req.on('data', function (data) {
+        var obj = JSON.parse(data);
+        Users.findOne({email: obj.email}, function (err, usr) {
+            if (usr) {
+                return res.sendStatus(422);
+            } else {
+                return varified(obj, usr, res);
+            }
+        });
+    });
+}
 
-	Users.findOne({email: req.body.email}, function (err, usr) {
-        if (usr) {
-            // TODO email already taken
-            // return res.
-        }
-    });
-	
+function varified(obj, usr, res) {
+
     var user = new Users({
-        "firstname":req.body.firstname ? req.body.first_name :"",
-        "lastname":req.body.lastname ? req.body.last_name:"",
-        "name":req.body.name,
-        "gender":req.body.gender? req.body.gender : genderArray[2],
-        "exp":0,
-        "phone":0,
-        "rank":0,
-        "email":req.body.email,
-        "BY":0,
-        "post":0,
-        "collect": 0,
-        "following":0,
-        "liked":0,
-        "likes":0,
-        "followers":0,
-        "password":req.body.password,
+        "firstname": obj.firstname ? obj.firstname : "",
+        "lastname": obj.lastname ? obj.lastname: "",
+        "name": obj.name,
+        "gender": obj.gender ? obj.gender : genderArray[2],
+        "email": obj.email,
+        "password": obj.password,
     });
-    
+
     Users.create(user, function(err){
         if (err) {
             return res.sendStatus(400);
         }
     });
-
     res.cookie('username',user._id.toString(), {maxAge: 900000, httpOnly: true});
-    res.redirect('/');
+    // res.redirect('/');
     res.end();
-};
+}
 
 function login (req, res) {
-    console.log(req);
-    Users.findOne({email: req.body.email}, function (err, usr) {
-        // TODO encrypt password
-        if (err || (req.body.password !== usr.password)) {
-            // TODO password not match error
-            // return
-        } else {
-            res.cookie(username,usr._id, {maxAge: 900000, httpOnly: true});
-            var redir = req.query.orig ? req.query.orig : "/";
-            res.redirect(redir);
-            res.end();
-        }
+    req.on('data', function (data) {
+        var obj = JSON.parse(data);
+        Users.findOne({email: obj.email}, function (err, usr) {
+            // TODO encrypt password
+            console.log(usr);
+            if (err || (obj.password !== usr.password)) {
+                // console.log("no");
+                return res.sendStatus(401);
+            } else {
+                // console.log("yes");
+                res.cookie("username", usr._id.toString(), {maxAge: 900000, httpOnly: true});
+                var redir = req.query.orig ? req.query.orig : "/";
+                res.redirect(redir);
+                res.end();
+                return true;
+            }
+        });
+
     });
 
 }
@@ -68,7 +70,7 @@ function login (req, res) {
 function createPost(req,res){
 
     // set cookie command in browser document.cookie="username=123456"
-    console.log(req);
+    // console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
         "author":req.cookies.username,
@@ -78,8 +80,9 @@ function createPost(req,res){
         "rating":0,
         "reply":[],
         "type": req.body.type,
+
     });
-    console.log(post.type);
+
     Posts.create(post, function(err){
         if (err) {
             return res.sendStatus(400);
@@ -90,8 +93,7 @@ function createPost(req,res){
     res.redirect(redir);
     res.end();
 
-};
-
+}
 // find all user
 // var allUsers = function(req,res){
 //     Users.find(function(err, users) {
@@ -115,8 +117,7 @@ function searching(req, res) {
             return err ? res.sendStatus(404) : res.send(result);
         });
     }
-};
-
+}
 function addreply(req, res) {
 
     var reply = new Reply({
@@ -206,8 +207,7 @@ function stories(req, res) {
         total: total,
         currentpage: page,
     });
-};
-
+}
 // open artifacts section
 function artifacts(req, res) {
 
@@ -241,11 +241,10 @@ function artifacts(req, res) {
         total: total,
         currentpage: page,
     });
-};
-
+}
 // open single post page
 function postpage(req, res) {
-    Posts.find({_id: req.query.postId}, function(err, post){
+    Posts.findOne({_id: req.query.postid}, function(err, post){
         if (err) return res.sendStatus(404);
 
         var currentpage = req.query.page;
@@ -254,10 +253,10 @@ function postpage(req, res) {
         var author_info;
         var array_info = [];
 
+        console.log(post);
+
         // get all the replies
         Reply.find(function(err, comments) {
-           if (err) return res.sendStatus(404);
-
            // find the post's comments and record the nummber
            comments.forEach(function(comment) {
                if (comment.parentPost === post._id) {
@@ -272,29 +271,26 @@ function postpage(req, res) {
             if (err) return res.sendStatus(404);
 
             author_info = user;
-            console.log(author_info);
-        });
+            // get the information of poeple who comment
+            commentsArray.forEach(function(comment) {
+                Users.find({_id: comment.author}, function(err, user) {
+                    if (err) return res.sendStatus(404);
 
-        // get the information of poeple who comment
-        commentsArray.forEach(function(comment) {
-            Users.find({_id: comment.author}, function(err, user) {
-                if (err) return res.sendStatus(404);
+                    array_info.push(user);
+                })
+            });
 
-                array_info.push(user);
-            })
-        });
-
-        return res.render('post',{
-            author_info: author_info,
-            array_info: array_info,
-            post: post,
-            commentsArray: commentsArray,
-            currentpage: currentpage,
-            total: total
+            return res.render('post',{
+                author_info: author_info,
+                array_info: array_info,
+                post: post,
+                commentsArray: commentsArray,
+                currentpage: currentpage,
+                total: total
+            });
         });
     });
-};
-
+}
 module.exports.login = login;
 module.exports.createUser = createUser;
 module.exports.userprofile = userprofile;

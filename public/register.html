@@ -8,8 +8,6 @@
 <body>
 <div class="container">
 
-    <form class="well_form-horizontal" action="" method="post"  id="register_page">
-
         <fieldset>
 
             <!-- Form Name -->
@@ -22,7 +20,7 @@
                 <label class="col-md-4 control-label">Name</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <input  name="name" placeholder="Name" class="form-control"  type="text" required="required">
+                        <input  name="name" placeholder="Name" class="form-control"  type="text" required>
                     </div>
                 </div>
             </div>
@@ -32,7 +30,7 @@
                 <label class="col-md-4 control-label">First Name</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <input  name="first_name" placeholder="First Name" class="form-control"  type="text">
+                        <input name="firstname" placeholder="First Name" class="form-control"  type="text">
                     </div>
                 </div>
             </div>
@@ -43,7 +41,7 @@
                 <label class="col-md-4 control-label" >Last Name</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <input name="last_name" placeholder="Last Name" class="form-control"  type="text">
+                        <input name="lastname" placeholder="Last Name" class="form-control"  type="text">
                     </div>
                 </div>
             </div>
@@ -53,16 +51,17 @@
                 <label class="col-md-4 control-label">E-Mail</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text" required="required">
+                        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text" required>
                     </div>
                 </div>
             </div>
+            <p style="color: red" id='msg'></p>
 
             <div class="form-group">
                 <label class="col-md-4 control-label">Password</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <input type="password" placeholder="Password" id="password" required>
+                        <input name="password" type="password" placeholder="Password" id="password" required>
 
                     </div>
                 </div>
@@ -107,11 +106,10 @@
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4">
-                    <div style="text-align: center;"><button type="submit" class="btn" >Submit </button></div>
+                    <div style="text-align: center;"><button type="button" onclick="post()" class="btn" >Submit </button></div>
                 </div>
             </div>
         </fieldset>
-    </form>
 </div>
 <script src = 'register.css'></script>
 <script>
@@ -129,5 +127,7 @@
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
 </script>
+<script src="register.js"></script>
+
 </body>
 </html>

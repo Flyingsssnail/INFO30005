@@ -6,13 +6,14 @@
 <body>
 
 
-    <form action="" >
-        <div class ="login" >
-            <h1 id ="app" class = "login-header">
-                LOGIN
-            </h1>
-        </div>
-        <br>
+<form action="" >
+<div class ="login" >
+    <h1 id ="app" class = "login-header">
+LOGIN
+    </h1>
+</div>
+<br>
+<main class ="login-form">
 
     <h3 id = "email">
     Email</h3>
@@ -20,8 +21,9 @@
     <h3 id = "password" >
         Password</h3>
     <input id = "pass" type="password" name="password" placeholder="Password" required/><br>
-<br>
-    <input type="button" value="Login" onclick='post()' class="login-button"/>
+    <p style="color: red" id='msg'></p>
+    <br>
+    <input type="button" value="Login" onclick="post()" class="login-button"/>
     <br>
 
     <a class="help" href="/register.html">Sign up!</a><br>
@@ -30,29 +32,9 @@
     <br>
     <br>
 
-            <input id = "user" type="text" name="name" placeholder="Username"/>
-            <br>
-
-            <h3 id = "password" >
-                password
-            </h3>
-            <input id = "pass" type="password" name="password" placeholder="Password"/>
-            <br>
-            <br>
-
-            <input type="button" value="Login" onclick="wronguser()" class="login-button"/>
-            <br>
-
-            <a class="help" href="/register">Sign up!</a><br>
-            <br>
-            <a href="forget.html" class="help">forget your password?</a>
-            <br>
-            <br>
-
-        </main>
-        <br>
-    </form>
-    <p id='msg'></p>
-    <script src="login.js"></script>
+</main>
+<br>
+</form>
+<script src="login.js"></script>
 </body>
 </html>
