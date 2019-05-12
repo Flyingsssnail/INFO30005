@@ -103,13 +103,16 @@ function createPost(req,res){
 
 // find by name
 function searching(req, res) {
+    // search for user
     if (req.query.type === 'user') {
         // console.log('1');
         Users.find({name: { $regex : req.query.key, $options : 'i' }}, function(err, result){
         	return err ? res.sendStatus(404) : res.send(result);
         });
 
-    } else if (req.query.type === 'post') {
+    }
+    // search for posts
+    else if (req.query.type === 'post') {
         // console.log('2');
 
         // TODO req.query.method -> array, search by multiple method
@@ -150,6 +153,15 @@ function userprofile(req,res){
 // open forum homepage
 function forum(req, res) {
 
+    // add logged in information
+    var viewer = 0;
+    if (verifyLogin(req)) {
+        User.find({_id: req.cookies.username}, function(err, user) {
+            if (err) return res.sendStatus(404);
+            viewer = user;
+        });
+    }
+
     var artifactsArray = [];
     var storiesArray = [];
 
@@ -172,10 +184,20 @@ function forum(req, res) {
     return res.render('forumpage', {
         artifactsArray: artifactsArray,
         storiesArray: storiesArray,
+        viewer: viewer,
     });
 }
 // open stories section
 function stories(req, res) {
+
+    // add logged in information
+    var viewer = false;
+    if (verifyLogin(req)) {
+        User.find({_id: req.cookies.username}, function(err, user) {
+            if (err) return res.sendStatus(404);
+            viewer = user;
+        });
+    }
 
     var page = req.query.page;
     var total = 0;
@@ -206,10 +228,20 @@ function stories(req, res) {
         array: storiesArray,
         total: total,
         currentpage: page,
+        viewer: viewer
     });
 }
 // open artifacts section
 function artifacts(req, res) {
+    // add logged in information
+    var viewer = false;
+    if (verifyLogin(req)) {
+        User.find({_id: req.cookies.username}, function(err, user) {
+            if (err) return res.sendStatus(404);
+            viewer = user;
+        });
+    }
+
 
     var page = req.query.page;
     var total = 0;
@@ -240,6 +272,7 @@ function artifacts(req, res) {
         array: artifactsArray,
         total: total,
         currentpage: page,
+        viewer: viewer
     });
 }
 // open single post page
@@ -295,8 +328,8 @@ module.exports.login = login;
 module.exports.createUser = createUser;
 module.exports.userprofile = userprofile;
 
-module.exports.searching = searching;
-
+module.exports.searchPage = searchPage;
+module.exports.search = search;
 module.exports.createPost = createPost;
 module.exports.postpage = postpage;
 

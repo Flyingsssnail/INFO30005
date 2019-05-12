@@ -5,6 +5,38 @@ var controller = require('../controller/controller.js');
 const multer = require('multer');
 var path = require('path');
 
+
+// get section
+router.get('/', function (req, res) { res.sendFile(path.join(__dirname + '/../public/main.html')) });
+router.get('/profile', controller.userprofile);
+router.get('/login', function (req, res) { res.sendFile(path.join(__dirname + '/../public/login.html')) });
+router.get('/forum', controller.forum);
+router.get('/forum/stories', controller.stories);
+router.get('/forum/artifacts', controller.artifacts);
+router.get('/forum/post', controller.postpage);
+// find user or posts
+//router.get('/search', controller.searching);
+//router.get('/search', controller.searchPage);
+// get post page
+router.get('/post_edit', function (req, res) {
+    if (!req.cookies.username) {
+        res.redirect('/login');
+    } else {
+        res.sendFile(path.join(__dirname + '/../public/post_edit.html'));
+    }
+});
+
+// post section
+router.post('/register.html', controller.createUser);
+router.post('/post_edit', controller.createPost);
+router.post('/forum/post', controller.addreply);
+router.post('/login', controller.login);
+// router.post('/forum', controller.search);
+// router.post('/', controller.search);
+// router.post('/forum/stories', controller.search);
+// router.post('/forum/artifacts', controller.search);
+// router.post('/forum/post', controller.search);
+// upload images
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/')
@@ -26,37 +58,5 @@ router.post('/upload', upload.single('image'), (req, res) => {
     else throw 'error';
 });
 
-// welcome page
-router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/../public/main.html'))
-});
-// create new Users
-router.post('/register.html', controller.createUser);
-
-// find one user by name
-router.get('/search', controller.searching);
-
-// There are more need to be installed
-router.get('/post_edit', function (req, res) {
-    if (!req.cookies.username) {
-        res.redirect('/login');
-    } else {
-        res.sendFile(path.join(__dirname + '/../public/post_edit.html'));
-    }
-});
-router.post('/post_edit', controller.createPost);
-
-router.post('/forum/post', controller.addreply);
-router.get('/profile', controller.userprofile);
-
-router.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname + '/../public/login.html'))
-});
-router.post('/login', controller.login);
-
-router.get('/forum', controller.forum);
-router.get('/forum/stories', controller.stories);
-router.get('/forum/artifacts', controller.artifacts);
-router.get('/forum/post', controller.postpage);
-
+// export
 module.exports = router;

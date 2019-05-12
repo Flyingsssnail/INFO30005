@@ -2,13 +2,18 @@
 	<a href="/">Main</a>
 	<a href="/forum">Forum</a>
 	<form class="searchform">
-		<input type="text" placeholder=" a tag or part of a title">
+		<input type="text" name="keyword" placeholder=" Search for part of a title">
 		<button type="submit">Search</button>
 	</form>
 
 	<a href="/post_edit" style="float: right; background-color: #34ac98; color: white;">New Post</a>
-	<a href="/register.html" style="float: right;">Register</a>
-	<a id="login" href="/login?orig=" style="float: right;">Login</a>
+	<% if (viewer != 0) { %>
+		<a href="/profile" style="float: right;"><%= viewer.name %></a>
+		<img src=<%= viewer.avatar %>; alt="user token"; style="float: right;">
+	<% } else { %>
+		<a href="/register.html" style="float: right;">Register</a>
+		<a id="login" href="/login?orig=" style="float: right;">Login</a>
+	<% } %>
 
 	<script>
 		var link = document.getElementById("login"); // store the element
