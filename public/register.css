@@ -4,6 +4,9 @@
     margin:auto;
 }
 
+legend {
+    font-size: xx-large;
+}
 
 .input-group {
     text-align: center;
