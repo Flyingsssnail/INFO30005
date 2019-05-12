@@ -1,33 +1,3 @@
-var app = new Vue({
-    el:'#app',
-    data:{
-        message:'Login'
-    }
-});
-var username = new Vue({
-    el:'#username',
-    data:{
-        message:'Username'
-    }
-});
-
-var password =new Vue ({
-    el:'#password',
-    data:{
-        message:'Password'
-    }
-});
-
-function wronguser()
-{
-    var x=document.getElementById("user").value;
-    if(x==""||isNaN(x))
-    {
-        alert("Wrong username or password!");
-    }
-<<<<<<< HEAD
-=======
-}*/
 
 function Ajax(json){
     var url=json.url;
@@ -57,9 +27,10 @@ function Ajax(json){
         request.send(JSON.stringify(obj));
     }
 }
+
 function post(){
     obj={
-        name:document.getElementsByName('name')[0].value,
+        email:document.getElementsByName('email')[0].value,
         password:document.getElementsByName('password')[0].value
     };
     Ajax({
@@ -70,5 +41,4 @@ function post(){
         },
         obj:obj
     })
->>>>>>> master
 }

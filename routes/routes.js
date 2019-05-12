@@ -27,22 +27,31 @@ router.post('/upload', upload.single('image'), (req, res) => {
 });
 
 // welcome page
-router.get('/', controller.init);
-
+router.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/main.html'))
+});
 // create new Users
-router.post('/register', controller.createUser);
+router.post('/register.html', controller.createUser);
 
 // find one user by name
 router.get('/search', controller.searching);
 
 // There are more need to be installed
-router.post('/edit_post', controller.createPost);
+router.get('/post_edit', function (req, res) {
+    if (!req.cookies.username) {
+        res.redirect('/login');
+    } else {
+        res.sendFile(path.join(__dirname + '/../public/post_edit.html'));
+    }
+});
+router.post('/post_edit', controller.createPost);
 
 router.post('/forum/post', controller.addreply);
 router.get('/profile', controller.userprofile);
 
-router.get('/login', controller.signin);
-router.get('/register', controller.register);
+router.get('/login', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/login.html'))
+});
 router.post('/login', controller.login);
 
 router.get('/forum', controller.forum);

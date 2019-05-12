@@ -6,20 +6,6 @@ const Reply = mongoose.model('reply');
 
 const genderArray = ["female", "male", "hidden", "other"];
 
-// welcome page
-function init(req, res) {
-    return res.sendfile('public/main.html');
-}
-
-function signin(req, res) {
-    return res.render('login', {});
-}
-
-function register(req, res) {
-    return res.sendFile('/../public/register.html');
-}
-
-
 // register user
 function createUser(req,res){
 
@@ -56,41 +42,15 @@ function createUser(req,res){
             return res.sendStatus(400);
         }
     });
-    res.cookie(username,user._id, {maxAge: 900000, httpOnly: true});
+
+    res.cookie('username',user._id.toString(), {maxAge: 900000, httpOnly: true});
     res.redirect('/');
     res.end();
 };
 
 function login (req, res) {
-    req.on('data',function(data){
-        obj=JSON.parse(data);
-        console.log(obj);
-        if(obj.name.length==0)
-        {
-            res.send("e-mail can not be empty");
-            return false
-        }
-
-        if(obj.password.length==0)
-        {
-            res.send("password can not be empty");
-            return false
-        }
-
-        var regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-        if(!regex.test(obj.name)){
-            res.send("e-mail from is invalid");
-            return false;
-        }
-        else {
-            res.send('we are processing')
-            return false
-        }
-    })
-
+    console.log(req);
     Users.findOne({email: req.body.email}, function (err, usr) {
-
-
         // TODO encrypt password
         if (err || (req.body.password !== usr.password)) {
             // TODO password not match error
@@ -106,8 +66,9 @@ function login (req, res) {
 }
 
 function createPost(req,res){
+
     // set cookie command in browser document.cookie="username=123456"
-    //console.log(req);
+    console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
         "author":req.cookies.username,
@@ -334,11 +295,7 @@ function postpage(req, res) {
     });
 };
 
-module.exports.init = init;
-
 module.exports.login = login;
-module.exports.signin = signin;
-module.exports.register = register;
 module.exports.createUser = createUser;
 module.exports.userprofile = userprofile;
 
