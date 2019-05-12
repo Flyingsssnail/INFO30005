@@ -7,17 +7,24 @@
 
 <body>
 <main>
+    <div>
+
 <fieldset>
     <legend>Forget your password?</legend>
     <h3 >Enter your e-mail:</h3>
     <input id = "user" type="text" placeholder="E-mail"/><br>
     <br>
-    <input type="button" value="Submit" onclick="wronguser()" class="login-button"/>
+    <input type="button" value="Submit" class='btn' onclick="popup()" class="login-button"/>
 </fieldset>
 
 </div>
 </main>
 
-<script src="hello.js"></script>
+<script>
+    function popup()
+    {
+        alert("We have successfully sent your password! Please check your mail box.");
+    }
+</script>
 </body>
 </html>
