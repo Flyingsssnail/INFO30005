@@ -26,6 +26,10 @@
 					<h2>show people your artifacts!</h2>
 				</header>
 				<ul>
+					<% if (array.length === 0) { %>
+						<p> Sorry there is no existing post right now.</p>
+
+					<% } %>
 					<% array.forEach(function(element) { %>
 						<li>
 							<a href="/forum/post?postId=<%= element._id %>&page=1"><%= element.title %> | <%= element.author %> | <%= element.reply.length %>
@@ -33,12 +37,6 @@
 							</a>
 						</li>
 					<% }); %>
-					<li>
-						<a href="#">post2<span><p>here's a brief summary about this post</p></span></a>
-					</li>
-					<li>
-						<a href="#">post3<span><p>here's a brief summary about this post</p></span></a>
-					</li>
 				</ul>
 			</section>
 		</div>
