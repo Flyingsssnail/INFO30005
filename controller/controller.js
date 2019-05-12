@@ -62,8 +62,35 @@ function createUser(req,res){
 };
 
 function login (req, res) {
+    req.on('data',function(data){
+        obj=JSON.parse(data);
+        console.log(obj);
+        if(obj.name.length==0)
+        {
+            res.send("e-mail can not be empty");
+            return false
+        }
+
+        if(obj.password.length==0)
+        {
+            res.send("password can not be empty");
+            return false
+        }
+
+        var regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if(!regex.test(obj.name)){
+            res.send("e-mail from is invalid");
+            return false;
+        }
+        else {
+            res.send('we are processing')
+            return false
+        }
+    })
 
     Users.findOne({email: req.body.email}, function (err, usr) {
+
+
         // TODO encrypt password
         if (err || (req.body.password !== usr.password)) {
             // TODO password not match error
