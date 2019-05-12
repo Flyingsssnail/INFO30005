@@ -103,16 +103,13 @@ function createPost(req,res){
 
 // find by name
 function searching(req, res) {
-    // search for user
     if (req.query.type === 'user') {
         // console.log('1');
         Users.find({name: { $regex : req.query.key, $options : 'i' }}, function(err, result){
-        	return err ? res.sendStatus(404) : res.send(result);
+            return err ? res.sendStatus(404) : res.send(result);
         });
 
-    }
-    // search for posts
-    else if (req.query.type === 'post') {
+    } else if (req.query.type === 'post') {
         // console.log('2');
 
         // TODO req.query.method -> array, search by multiple method
@@ -146,7 +143,7 @@ function userprofile(req,res){
     // console.log('hi');
     // var user = new Users();
     Users.findOne({_id: req.cookies.username}, function(err, result){
-            res.render('otheruser',{result: result });
+        res.render('otheruser',{result: result });
     });
 }
 
@@ -154,7 +151,7 @@ function userprofile(req,res){
 function forum(req, res) {
 
     // add logged in information
-    var viewer = 0;
+    var viewer = false;
     if (verifyLogin(req)) {
         User.find({_id: req.cookies.username}, function(err, user) {
             if (err) return res.sendStatus(404);
@@ -184,12 +181,11 @@ function forum(req, res) {
     return res.render('forumpage', {
         artifactsArray: artifactsArray,
         storiesArray: storiesArray,
-        viewer: viewer,
+        viewer: viewer
     });
 }
 // open stories section
 function stories(req, res) {
-
     // add logged in information
     var viewer = false;
     if (verifyLogin(req)) {
@@ -241,8 +237,6 @@ function artifacts(req, res) {
             viewer = user;
         });
     }
-
-
     var page = req.query.page;
     var total = 0;
     var array = [];
@@ -277,6 +271,14 @@ function artifacts(req, res) {
 }
 // open single post page
 function postpage(req, res) {
+    // add logged in information
+    var viewer = false;
+    if (verifyLogin(req)) {
+        User.find({_id: req.cookies.username}, function(err, user) {
+            if (err) return res.sendStatus(404);
+            viewer = user;
+        });
+    }
     Posts.findOne({_id: req.query.postid}, function(err, post){
         if (err) return res.sendStatus(404);
 
@@ -290,13 +292,13 @@ function postpage(req, res) {
 
         // get all the replies
         Reply.find(function(err, comments) {
-           // find the post's comments and record the nummber
-           comments.forEach(function(comment) {
-               if (comment.parentPost === post._id) {
-                   total++;
-                   commentsArray.push(comment);
-               }
-           });
+            // find the post's comments and record the nummber
+            comments.forEach(function(comment) {
+                if (comment.parentPost === post._id) {
+                    total++;
+                    commentsArray.push(comment);
+                }
+            });
         });
 
         // get the author information
@@ -319,17 +321,24 @@ function postpage(req, res) {
                 post: post,
                 commentsArray: commentsArray,
                 currentpage: currentpage,
-                total: total
+                total: total,
+                viewer: viewer
             });
         });
     });
 }
+
+// verify login information
+function verifyLogin(req) {
+    return (typeof req.cookies.username === 'undefined') ? false : true;
+}
+
 module.exports.login = login;
 module.exports.createUser = createUser;
 module.exports.userprofile = userprofile;
 
-module.exports.searchPage = searchPage;
-module.exports.search = search;
+module.exports.searching = searching;
+
 module.exports.createPost = createPost;
 module.exports.postpage = postpage;
 
