@@ -151,9 +151,9 @@ function userprofile(req,res){
 function forum(req, res) {
 
     // add logged in information
-    var viewer = false;
+    var viewer = 0;
     if (verifyLogin(req)) {
-        User.find({_id: req.cookies.username}, function(err, user) {
+        Users.findOne({_id: req.cookies.username}, function(err, user) {
             if (err) return res.sendStatus(404);
             viewer = user;
         });
@@ -178,6 +178,8 @@ function forum(req, res) {
         });
     });
 
+    console.log(verifyLogin(req));
+    console.log(viewer);
     return res.render('forumpage', {
         artifactsArray: artifactsArray,
         storiesArray: storiesArray,
@@ -187,9 +189,9 @@ function forum(req, res) {
 // open stories section
 function stories(req, res) {
     // add logged in information
-    var viewer = false;
+    var viewer = 0;
     if (verifyLogin(req)) {
-        User.find({_id: req.cookies.username}, function(err, user) {
+        Users.findOne({_id: req.cookies.username}, function(err, user) {
             if (err) return res.sendStatus(404);
             viewer = user;
         });
@@ -230,9 +232,9 @@ function stories(req, res) {
 // open artifacts section
 function artifacts(req, res) {
     // add logged in information
-    var viewer = false;
+    var viewer = 0;
     if (verifyLogin(req)) {
-        User.find({_id: req.cookies.username}, function(err, user) {
+        Users.findOne({_id: req.cookies.username}, function(err, user) {
             if (err) return res.sendStatus(404);
             viewer = user;
         });
@@ -272,9 +274,9 @@ function artifacts(req, res) {
 // open single post page
 function postpage(req, res) {
     // add logged in information
-    var viewer = false;
+    var viewer = 0;
     if (verifyLogin(req)) {
-        User.find({_id: req.cookies.username}, function(err, user) {
+        Users.findOne({_id: req.cookies.username}, function(err, user) {
             if (err) return res.sendStatus(404);
             viewer = user;
         });
@@ -330,6 +332,7 @@ function postpage(req, res) {
 
 // verify login information
 function verifyLogin(req) {
+    console.log(typeof req.cookies.username);
     return (typeof req.cookies.username === 'undefined') ? false : true;
 }
 
