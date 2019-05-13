@@ -17,9 +17,9 @@
     <% include templates/nav.ejs %>
     <% include templates/background.ejs %>
     <% include templates/root.ejs %>
-    <% include templates/comment.ejs %>
 
     <div id="content">
+        <% include templates/comment.ejs %>
         <section id="post">
             <header>
                 <h2><%= post.title %></h2>
@@ -27,7 +27,7 @@
 <!--            main post section-->
             <div id="user">
                 <div id="description">
-                    <img src=<%= author_info.avatar %>; alt="user token">
+                    <img src=<%= author_info.avatar %> width="80" height="80" alt="user token">
                     <br>
                     <br>
                     <h3><%= author_info.name %></h3>
@@ -40,7 +40,7 @@
                     </form>
                     <br>
                     <p>
-                        <%= post.content %>
+                        <%- post.content %>
                     </p>
                 </div>
             </div>

@@ -118,6 +118,7 @@ function searching(req, res) {
         });
     }
 }
+
 function addreply(req, res) {
 
     var reply = new Reply({
@@ -148,6 +149,12 @@ function userprofile(req,res){
     });
 }
 
+function editprofile(req, res) {
+    Users.findOne({_id: req.cookies.username}, function(err, result) {
+        res.render('editprofile', {result: result});
+    })
+}
+
 // open forum homepage
 function forum(req, res) {
 
@@ -162,7 +169,6 @@ function forum(req, res) {
         posts.forEach(function (element) {
             if (artifactsArray.length <= 4 && element.type === "artifacts") {
                 artifactsArray.push(element);
-                console.log(artifactsArray);
             }
             if (storiesArray.length <= 4 && element.type === "stories") {
                 storiesArray.push(element);
@@ -295,66 +301,65 @@ function artifacts(req, res) {
 function postpage(req, res) {
     // add logged in information
     var viewer = findViewerInfo(req);
+    console.log(req.query.postId);
     Posts.findOne({_id: req.query.postid}, function(err, post){
         if (err) return res.sendStatus(404);
 
         var currentpage = req.query.page;
         var total = 0;
         var commentsArray = [];
-        var author_info;
         var array_info = [];
+        var author_info;
 
-        // get all the replies
-        Reply.find(function(err, comments) {
-            // find the post's comments and record the nummber
-            comments.forEach(function(comment) {
-                if (comment.parentPost === post._id) {
-                    total++;
-                    commentsArray.push(comment);
-                }
-            });
-        });
 
         // get the author information
-        Users.find({_id: post.author}, function(err, user) {
+        Users.findOne({_id: post.author}, function(err, user) {
             if (err) return res.sendStatus(404);
 
             author_info = user;
-            // get the information of poeple who comment
-            commentsArray.forEach(function(comment) {
-                Users.find({_id: comment.author}, function(err, user) {
-                    if (err) return res.sendStatus(404);
 
-                    array_info.push(user);
-                })
-            });
-            if (req.cookies.username) {
-                viewer.then(
-                    function(result) {
-                        return res.render('post', {
-                            author_info: author_info,
-                            array_info: array_info,
-                            post: post,
-                            commentsArray: commentsArray,
-                            currentpage: currentpage,
-                            total: total,
-                            viewer: true,
-                            viewerName: result.name,
-                            viewerAvatar: result.avatar
-                        });
+            // get all the replies
+            Reply.find(function(err, comments) {
+                // find the post's comments and record the number
+                comments.forEach(function(comment) {
+                    if (comment.parentPost === post._id) {
+                        total++;
+                        commentsArray.push(comment);
                     }
-                );
-            } else {
-                return res.render('post', {
-                    author_info: author_info,
-                    array_info: array_info,
-                    post: post,
-                    commentsArray: commentsArray,
-                    currentpage: currentpage,
-                    total: total,
-                    viewer: false
+                    Users.find({_id: comment.author}, function(err, user) {
+                        array_info.push(user);
+                    })
                 });
-            }
+
+                if (req.cookies.username) {
+                    viewer.then(
+                        function(result) {
+                            return res.render('post', {
+                                author_info: author_info,
+                                array_info: array_info,
+                                post: post,
+                                commentsArray: commentsArray,
+                                currentpage: currentpage,
+                                total: total,
+                                viewer: true,
+                                viewerName: result.name,
+                                viewerAvatar: result.avatar
+                            });
+                        }
+                    );
+                } else {
+                    return res.render('post', {
+                        author_info: author_info,
+                        array_info: array_info,
+                        post: post,
+                        commentsArray: commentsArray,
+                        currentpage: currentpage,
+                        total: total,
+                        viewer: false
+                    });
+                }
+            });
+
         });
     });
 }
@@ -377,3 +382,4 @@ module.exports.addreply = addreply;
 module.exports.forum = forum;
 module.exports.artifacts = artifacts;
 module.exports.stories = stories;
+module.exports.editprofile = editprofile;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel = "stylesheet" href="othercss.css">
+    <link rel = "stylesheet" href="/othercss.css">
     <title>Title</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
 
                 <h6>About me</h6>
                 <div >
-                    <textarea cols= "40" rows="5"  type="text"></textarea>
+                    <textarea cols= "30" rows="5"  type="text"></textarea>
                 </div>
             </div>
         </div>
@@ -29,19 +29,19 @@
         <!-- edit form column -->
         <div id="card2" class="card four col">
 
-            <h3>Personal info</h3>
+            <h3 style="padding: 0 10px;">Personal info</h3>
 
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" style="padding: 0 10px;">
                 <div class="form-group">
                     <h5>First name:</h5>
                     <div >
-                        <input class="form-control" type="text" value="First name">
+                        <input class="form-control" type="text" value="<%= result.firstname%>">
                     </div>
                 </div>
                 <div class="form-group">
                     <h5>Last name:</h5>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="Last name">
+                        <input class="form-control" type="text" value="<%= result.lastname %>">
                     </div>
                 </div>
                 <div class="form-group">
@@ -49,9 +49,21 @@
                 <div class="col-lg-8">
                     <div class="ui-select">
                         <select id="user_time_zone" class="form-control">
-                            <option value="Male">Male</option>
-                            <option value="Famale">Famale</option>
-                            <option value="Other">Other</option>
+                            <% if (result.gender === "Male") { %>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            <% } %>
+                            <% if (result.gender === "Female") { %>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Other">Other</option>
+                            <% } %>
+                            <% if (result.gender === "Other") { %>
+                                    <option value="Other">Other</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                            <% } %>
                         </select>
                     </div>
                 </div>
@@ -59,19 +71,19 @@
                 <div class="form-group">
                     <h5>Email:</h5>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" value="abc@mail.com">
+                        <input class="form-control" type="text" value="<%= result.email %>">
                     </div>
                 </div>
             </form>
         </div>
         <div id="card2" class="card four col">
 
-            <h3>More info</h3>
-            <form class="form-horizontal" role="form">
+            <h3 style="padding: 0 10px;">More info</h3>
+            <form class="form-horizontal" role="form" style="padding: 0 10px;">
                 <div class="form-group">
                     <h5>Phone:</h5>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" value="Phone">
+                        <input class="form-control" type="text" value="<%= result.phone %>">
                     </div>
                 </div>
                 <div class="form-group">
