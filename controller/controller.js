@@ -142,7 +142,7 @@ function addreply(req, res) {
 function userprofile(req,res){
     // console.log('hi');
     // var user = new Users();
-    Users.findOne({_id: req.cookies.username}, function(err, result){
+    Users.find({_id: req.cookies.username}, function(err, result){
         res.render('otheruser',{result: result });
     });
 }
@@ -150,53 +150,48 @@ function userprofile(req,res){
 // open forum homepage
 function forum(req, res) {
 
-    // add logged in information
-    var viewer = 0;
-    if (verifyLogin(req)) {
-        Users.findOne({_id: req.cookies.username}, function(err, user) {
-            if (err) return res.sendStatus(404);
-            viewer = user;
-        });
-    }
-
+    var viewer = findViewerInfo(req);
     var artifactsArray = [];
     var storiesArray = [];
-
+    // find post
     Posts.find(function (err, posts) {
         if (err) {
             return res.sendStatus(404);
         }
         posts.forEach(function (element) {
-            var artifacts = 0;
-            var stories = 0;
-            if (artifacts <= 4 && element.type === "artifacts") {
+            if (artifactsArray.length <= 4 && element.type === "artifacts") {
                 artifactsArray.push(element);
+                console.log(artifactsArray);
             }
-            if (stories <= 4 && element.type === "stories") {
+            if (storiesArray.length <= 4 && element.type === "stories") {
                 storiesArray.push(element);
             }
         });
-    });
-
-    console.log(verifyLogin(req));
-    console.log(viewer);
-    return res.render('forumpage', {
-        artifactsArray: artifactsArray,
-        storiesArray: storiesArray,
-        viewer: viewer
+        if (req.cookies.username) {
+            viewer.then(
+                function(result) {
+                    return res.render('forumpage', {
+                        artifactsArray: artifactsArray,
+                        storiesArray: storiesArray,
+                        viewer: true,
+                        viewerName: result.name,
+                        viewerAvatar: result.avatar
+                    });
+                }
+            );
+        } else {
+            return res.render('forumpage', {
+                artifactsArray: artifactsArray,
+                storiesArray: storiesArray,
+                viewer: false
+            });
+        }
     });
 }
 // open stories section
 function stories(req, res) {
     // add logged in information
-    var viewer = 0;
-    if (verifyLogin(req)) {
-        Users.findOne({_id: req.cookies.username}, function(err, user) {
-            if (err) return res.sendStatus(404);
-            viewer = user;
-        });
-    }
-
+    var viewer = findViewerInfo(req);
     var page = req.query.page;
     var total = 0;
     var array = [];
@@ -218,27 +213,36 @@ function stories(req, res) {
         for (var i = (req.query.page - 1)  * 9; i < req.query.page * 9 && i < array.length; i++) {
             storiesArray.push(array[i]);
         }
-    });
 
-
-    res.render('forum', {
-        section: "stories",
-        array: storiesArray,
-        total: total,
-        currentpage: page,
-        viewer: viewer
+        if (req.cookies.username) {
+            viewer.then(
+                function(result) {
+                    return res.render('forum', {
+                        section: "stories",
+                        array: storiesArray,
+                        total: total,
+                        currentpage: page,
+                        viewer: true,
+                        viewerName: result.name,
+                        viewerAvatar: result.avatar
+                    });
+                }
+            );
+        } else {
+            return res.render('forum', {
+                section: "stories",
+                array: storiesArray,
+                total: total,
+                currentpage: page,
+                viewer: false
+            });
+        }
     });
 }
 // open artifacts section
 function artifacts(req, res) {
     // add logged in information
-    var viewer = 0;
-    if (verifyLogin(req)) {
-        Users.findOne({_id: req.cookies.username}, function(err, user) {
-            if (err) return res.sendStatus(404);
-            viewer = user;
-        });
-    }
+    var viewer = findViewerInfo(req);
     var page = req.query.page;
     var total = 0;
     var array = [];
@@ -261,26 +265,35 @@ function artifacts(req, res) {
         for (var i = (req.query.page - 1)  * 9; i < req.query.page * 9 && i < array.length; i++) {
             artifactsArray.push(array[i]);
         }
-    });
-
-    res.render('forum', {
-        section: "artifacts",
-        array: artifactsArray,
-        total: total,
-        currentpage: page,
-        viewer: viewer
+        if (req.cookies.username) {
+            viewer.then(
+                function(result) {
+                    return res.render('forum', {
+                        section: "artifacts",
+                        array: artifactsArray,
+                        total: total,
+                        currentpage: page,
+                        viewer: true,
+                        viewerName: result.name,
+                        viewerAvatar: result.avatar
+                    });
+                }
+            );
+        } else {
+            return res.render('forum', {
+                section: "artifacts",
+                array: artifactsArray,
+                total: total,
+                currentpage: page,
+                viewer: false
+            });
+        }
     });
 }
 // open single post page
 function postpage(req, res) {
     // add logged in information
-    var viewer = 0;
-    if (verifyLogin(req)) {
-        Users.findOne({_id: req.cookies.username}, function(err, user) {
-            if (err) return res.sendStatus(404);
-            viewer = user;
-        });
-    }
+    var viewer = findViewerInfo(req);
     Posts.findOne({_id: req.query.postid}, function(err, post){
         if (err) return res.sendStatus(404);
 
@@ -289,8 +302,6 @@ function postpage(req, res) {
         var commentsArray = [];
         var author_info;
         var array_info = [];
-
-        console.log(post);
 
         // get all the replies
         Reply.find(function(err, comments) {
@@ -316,24 +327,39 @@ function postpage(req, res) {
                     array_info.push(user);
                 })
             });
-
-            return res.render('post',{
-                author_info: author_info,
-                array_info: array_info,
-                post: post,
-                commentsArray: commentsArray,
-                currentpage: currentpage,
-                total: total,
-                viewer: viewer
-            });
+            if (req.cookies.username) {
+                viewer.then(
+                    function(result) {
+                        return res.render('post', {
+                            author_info: author_info,
+                            array_info: array_info,
+                            post: post,
+                            commentsArray: commentsArray,
+                            currentpage: currentpage,
+                            total: total,
+                            viewer: true,
+                            viewerName: result.name,
+                            viewerAvatar: result.avatar
+                        });
+                    }
+                );
+            } else {
+                return res.render('post', {
+                    author_info: author_info,
+                    array_info: array_info,
+                    post: post,
+                    commentsArray: commentsArray,
+                    currentpage: currentpage,
+                    total: total,
+                    viewer: false
+                });
+            }
         });
     });
 }
 
-// verify login information
-function verifyLogin(req) {
-    console.log(typeof req.cookies.username);
-    return (typeof req.cookies.username === 'undefined') ? false : true;
+async function findViewerInfo(req) {
+    return await Users.findOne({_id: req.cookies.username});
 }
 
 module.exports.login = login;

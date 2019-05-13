@@ -1,10 +1,10 @@
 var mongoose  = require ('mongoose');
 
 var ReplySchema = mongoose.Schema({
-    "author":String,
+    "author":{type: String, ref: "users"},
     "parentPost":String,
     "postDate":{type:Date, default: Date.now},
-    "content":String,
+    "content":{type: String, ref: "posts"},
     }
 );
 
