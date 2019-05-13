@@ -1,26 +1,60 @@
 ﻿# INFO30005
 
-Required inputs for USER are name&gender.
 
-Required inputs for POST are author,title&content.
+In deliverable 4, the core functionalities that our group has chosen are Forum post and user profile.
+For forum post, we can create new post and browse other post. we can also reply other post.
+For user profile, we can create new user , view our own profile, and edit it if we need.
 
+ link "/" to our home page
+ link "/forum" to forum page
+ link "/login" to login page( you can use username:6, password:6)
+ link "/post_edit" to post page
+ link "/post_edit" to post page
 
-- link "/" to welcome page
-- link "/api/u/register" to create user with JSON format.
-- link "/api/u/all" to get all users files.
-- link "/api/search" to ambiguously find user or post with specified keyword.
-	Query format:
-		POST e.g. /search?type=post&method=author&key=cyclone
-		USER e.g. /search?type=user&key=cyclone
-
-- link "/api/p/post" to post with QUERY format
+ link "/profile" to post page if you have logged in 
 
 
-npm install @tinymce/tinymce-vue -S
-npm install tinymce -S
-npm install -g npm
+for forum and post functionality:
+In views,
+forumpage.ejs
+forum.ejs
+post.ejs
+searchPage.ejs
 
 
-<% for (const name of names) { %>
-    <li><%= name.name %></li>
-<% } %>
+in models:
+all js file used
+ 
+in routes,
+router.get('/forum', controller.forum);
+router.get('/forum/stories', controller.stories);
+router.get('/forum/artifacts', controller.artifacts);
+router.get('/forum/post', controller.postpage);
+router.get('/post_edit', function (req, res))
+router.post('/post_edit', controller.createPost);
+router.post('/forum/post', controller.addreply);
+
+
+for users functionality:
+In views,
+otheruser.ejs
+editprofile.ejs
+
+
+in models:
+db.js
+users.js
+
+in routes:
+router.get('/profile', controller.userprofile);
+router.get('/login', function (req, res));
+router.post('/register.html', controller.createUser);
+router.post('/login', controller.login);
+
+
+
+
+
+
+
+
