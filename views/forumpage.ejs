@@ -24,7 +24,7 @@
 					<% } %>
 					<% artifactsArray.forEach(function (element) { %>
 						<li>
-							<a href="/forum/post?postId= <%= element._id %>&page=1">
+							<a href="/forum/post?postId=<%= element._id %>&page=1">
 								<%= element.title %> | <%= element.author %> | <%= element.reply %>
 								<span><p><%= element.content %></p></span>
 							</a>
@@ -43,7 +43,7 @@
 					<% } %>
 					<% storiesArray.forEach(function(element) { %>
 						<li>
-							<a href="/forum/post?postId= <%= element._id %>">
+							<a href="/forum/post?postId=<%= element._id %>">
 								<%= element.title %> | <%= element.author %> | <%= element.reply%>
 								<span><p><%= element.content %></p></span>
 							</a>
