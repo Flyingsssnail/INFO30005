@@ -6,8 +6,9 @@
 		<button type="submit">Search</button>
 	</form>
 
-	<a href="/post_edit" style="float: right; background-color: #34ac98; color: white;">New Post</a>
+	<a href="/post_edit" style="float: right; background-color: #34ac98; color: white; height: 45px;">New Post</a>
 	<% if (viewer) { %>
+		<button onclick="logOut()" style="float: right; border-radius: 8px; height: 45px; background-color: #34ac98; color: white; border-style: none;" >Log Out</button>
 		<a href="/profile" style="float: right; color: black;"><%= viewerName %></a>
 		<img src="<%= viewerAvatar %>"; alt="user token"; style="float: right; width: 45px; height: 45px;">
 	<% } else { %>
@@ -16,6 +17,11 @@
 	<% } %>
 
 	<script>
+		function logOut() {
+			viewer = false;
+			document.cookie = "username=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
+			window.location.href = window.location.pathname;
+		}
 		var link = document.getElementById("login"); // store the element
 		var curHref = link.getAttribute('href'); // get its current href value
 		link.setAttribute('href', curHref + window.location.pathname);
