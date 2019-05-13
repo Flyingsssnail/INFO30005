@@ -143,7 +143,8 @@ function userprofile(req,res){
     // console.log('hi');
     // var user = new Users();
     Users.find({_id: req.cookies.username}, function(err, result){
-        res.render('otheruser',{result: result });
+        console.log(result);
+            res.render('otheruser',{result: result });
     });
 }
 
