@@ -9,7 +9,7 @@
 	<a href="/post_edit" style="float: right; background-color: #34ac98; color: white;">New Post</a>
 	<% if (viewer) { %>
 		<a href="/profile" style="float: right; color: black;"><%= viewerName %></a>
-		<img src=<%= viewerAvatar %>; alt="user token"; style="float: right;">
+		<img src="<%= viewerAvatar %>"; alt="user token"; style="float: right; width: 45px; height: 45px;">
 	<% } else { %>
 		<a href="/register.html" style="float: right;">Register</a>
 		<a id="login" href="/login?orig=" style="float: right;">Login</a>
