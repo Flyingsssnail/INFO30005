@@ -147,6 +147,12 @@ function userprofile(req,res){
     });
 }
 
+function editprofile(req, res) {
+    Users.findOne({_id: req.cookies.username}, function(err, result) {
+        res.render('editprofile', result);
+    })
+}
+
 // open forum homepage
 function forum(req, res) {
 
@@ -161,7 +167,6 @@ function forum(req, res) {
         posts.forEach(function (element) {
             if (artifactsArray.length <= 4 && element.type === "artifacts") {
                 artifactsArray.push(element);
-                console.log(artifactsArray);
             }
             if (storiesArray.length <= 4 && element.type === "stories") {
                 storiesArray.push(element);
@@ -313,7 +318,6 @@ function postpage(req, res) {
                 }
             });
         });
-
         // get the author information
         Users.find({_id: post.author}, function(err, user) {
             if (err) return res.sendStatus(404);
@@ -376,3 +380,4 @@ module.exports.addreply = addreply;
 module.exports.forum = forum;
 module.exports.artifacts = artifacts;
 module.exports.stories = stories;
+module.exports.editprofile = editprofile;
