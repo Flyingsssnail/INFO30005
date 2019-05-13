@@ -149,7 +149,7 @@ function userprofile(req,res){
 
 function editprofile(req, res) {
     Users.findOne({_id: req.cookies.username}, function(err, result) {
-        res.render('editprofile', result);
+        res.render('editprofile', {result: result});
     })
 }
 
