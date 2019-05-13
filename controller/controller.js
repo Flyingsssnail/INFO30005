@@ -299,7 +299,8 @@ function artifacts(req, res) {
 function postpage(req, res) {
     // add logged in information
     var viewer = findViewerInfo(req);
-    Posts.findOne({_id: req.query.postid}, function(err, post){
+    console.log(req.query.postId);
+    Posts.findOne({_id: req.query.postId}, function(err, post){
         if (err) return res.sendStatus(404);
 
         var currentpage = req.query.page;
@@ -310,7 +311,7 @@ function postpage(req, res) {
 
         // get all the replies
         Reply.find(function(err, comments) {
-            // find the post's comments and record the nummber
+            // find the post's comments and record the number
             comments.forEach(function(comment) {
                 if (comment.parentPost === post._id) {
                     total++;
