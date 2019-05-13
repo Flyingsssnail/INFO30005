@@ -301,7 +301,7 @@ function artifacts(req, res) {
 function postpage(req, res) {
     // add logged in information
     var viewer = findViewerInfo(req);
-    console.log(req.query.postId);
+    console.log(req.query.postid);
     Posts.findOne({_id: req.query.postid}, function(err, post){
         if (err) return res.sendStatus(404);
 
@@ -310,7 +310,6 @@ function postpage(req, res) {
         var commentsArray = [];
         var array_info = [];
         var author_info;
-
 
         // get the author information
         Users.findOne({_id: post.author}, function(err, user) {
