@@ -23,12 +23,7 @@
 						<p> Sorry there is no existing post right now.</p>
 					<% } %>
 					<% artifactsArray.forEach(function (element) { %>
-						<li>
-							<a href="/forum/post?postid=<%= element._id %>&page=1">
-								<%= element.title %> | <%= element.author %> | <%= element.reply %>
-								<span><p><%= element.content %></p></span>
-							</a>
-						</li>
+						<% include templates/postList.ejs %>
 					<% }); %>
 				</ul>
 			</section>
@@ -42,12 +37,7 @@
 						<p> Sorry there is no existing post right now.</p>
 					<% } %>
 					<% storiesArray.forEach(function(element) { %>
-						<li>
-							<a href="/forum/post?postid=<%= element._id %>">
-								<%= element.title %> | <%= element.author %> | <%= element.reply%>
-								<span><p><%= element.content %></p></span>
-							</a>
-						</li>
+						<% include templates/postList.ejs %>
 					<% }); %>
 				</ul>
 			</section>

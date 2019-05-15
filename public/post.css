@@ -1,10 +1,17 @@
 #user #description {
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-right-style: ridge;
     border-right-color: rgba(225, 229, 235, 0.3);
     width: 20%;
     float: left;
+    align-items: center;
+    justify-content: center;
 }
+
+#description #user_info {
+    margin: 20px
+}
+
 
 #content #post {
     width: 100%;
