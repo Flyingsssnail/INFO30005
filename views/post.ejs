@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>tests</title>
+    <title><%= post.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
     <link rel="stylesheet" href="/searchBar.css">
     <link rel="stylesheet" href="/forum.css">
@@ -31,8 +31,13 @@
                     <br>
                     <br>
                     <h3><%= author_info.name %></h3>
-                    <h5><%= author_info.gender %> | <%= author_info.rank %></h5>
-                    <h5><%= author_info.exp %> | <%= author_info.likes %></h5>
+                    <% if (author_info.gender != 'hidden') { %>
+                        <h5><%= author_info.gender %></h5>
+                    <% } %>
+
+                    <h5>Rank: <%= author_info.rank %></h5>
+                    <h5>EXP: <%= author_info.exp %></h5>
+                    <!--<h5><%= post.likes %></h5>-->
                 </div>
                 <div id="post-section">
                     <form id="reply">
@@ -63,6 +68,12 @@
                     </div>
                 </div>
             <% }); %>
+            <% include templates/comment.ejs %>
+            <div id="user">
+                <header>
+                    <h2><%= post.title %></h2>
+                </header>
+            </div>
         </section>
     </div>
 </div>

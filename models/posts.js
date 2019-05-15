@@ -6,9 +6,9 @@ var PostSchema = mongoose.Schema({
     "editDate":{type:Date, default: Date.now},
     "title":String,
     "content":String,
-    "reply":[String],
-    "tag":[String],
-    "rating":Number,
+    "reply":{type:[String], default:[]},
+    "tag":{type:[String], default:[]},
+    "likes":{type:Number, default:0},
     "type": String,
     }
 );

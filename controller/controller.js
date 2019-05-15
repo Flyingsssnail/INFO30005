@@ -76,11 +76,7 @@ function createPost(req,res){
         "author":req.cookies.username,
         "title":req.body.title,
         "content":req.body.post_edit,
-        "tag":[],
-        "rating":0,
-        "reply":[],
         "type": req.body.type,
-
     });
 
     Posts.create(post, function(err){
@@ -94,12 +90,6 @@ function createPost(req,res){
     res.end();
 
 }
-// find all user
-// var allUsers = function(req,res){
-//     Users.find(function(err, users) {
-//     	return err? res.sendStatus(404) : res.send(users);
-//     });
-// };
 
 // find by name
 function searching(req, res) {
