@@ -23,7 +23,7 @@
 
 			<section id="post">
 				<header>
-					<h2>show people your artifacts!</h2>
+					<h2 style="color: <%= (section === "artifacts" ? "orangered" : "deepskyblue") %>">show people your <%= section %>!</h2>
 				</header>
 				<ul>
 					<% if (array.length === 0) { %>
@@ -31,11 +31,7 @@
 
 					<% } %>
 					<% array.forEach(function(element) { %>
-						<li>
-							<a href="/forum/post?postid=<%= element._id %>&page=1"><%= element.title %> | <%= element.author %> | <%= element.reply.length %>
-								<span><p><%= element.content %></p></span>
-							</a>
-						</li>
+						<% include templates/postList.ejs %>
 					<% }); %>
 				</ul>
 			</section>

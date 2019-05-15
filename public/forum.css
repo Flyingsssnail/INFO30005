@@ -123,9 +123,19 @@ body {
 	float: left;
 }
 
+#content #artifacts h2 {
+	color: orangered;
+}
+
+#content #stories h2 {
+	color: deepskyblue;
+
+}
+
 #content #stories {
 	float: right;
 }
+
 
 h2 {
 	font-style: italic;
