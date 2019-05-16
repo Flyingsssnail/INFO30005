@@ -14,6 +14,11 @@ function createUser(req,res){
     req.on('data', function (data) {
         var obj = JSON.parse(data);
         Users.findOne({email: obj.email}, function (err, usr) {
+
+            var regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+            if(!regex.test(obj.email)){
+                return res.sendStatus(401);
+            }
             if (usr) {
                 return res.sendStatus(422);
             } else {
@@ -50,6 +55,10 @@ function login (req, res) {
         Users.findOne({email: obj.email}, function (err, usr) {
             // TODO encrypt password
             console.log(usr);
+
+
+
+
             if (err || (obj.password !== usr.password)) {
                 // console.log("no");
                 return res.sendStatus(401);
