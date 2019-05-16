@@ -14,7 +14,7 @@ function createUser(req,res){
     req.on('data', function (data) {
         var obj = JSON.parse(data);
         Users.findOne({email: obj.email}, function (err, usr) {
-
+            console.log('find1');
             var regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
             if(!regex.test(obj.email)){
                 return res.sendStatus(401);
@@ -53,11 +53,10 @@ function login (req, res) {
     req.on('data', function (data) {
         var obj = JSON.parse(data);
         Users.findOne({email: obj.email}, function (err, usr) {
+            console.log('find2');
+
             // TODO encrypt password
             console.log(usr);
-
-
-
 
             if (err || (obj.password !== usr.password)) {
                 // console.log("no");
@@ -67,6 +66,7 @@ function login (req, res) {
                 res.cookie("username", usr._id.toString(), {httpOnly: true});
                 var redir = req.query.orig ? req.query.orig : "/";
                 res.redirect(redir);
+
                 res.end();
                 return true;
             }
@@ -75,12 +75,16 @@ function login (req, res) {
 }
 
 function createPost(req,res){
-
+    var a = findViewerInfo(req).then(function (result) {
+        return result.name;
+    });
+    console.log(a);
     // set cookie command in browser document.cookie="username=123456"
     // console.log(req);
     // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
     var post = new Posts({
         "author":req.cookies.username,
+        "name" : "temp author",
         "title":req.body.title,
         "content":req.body.post_edit,
         "type": req.body.type,
@@ -92,6 +96,8 @@ function createPost(req,res){
         }
     });
 
+    findPostInfo(post);
+    console.log(post);
     var redir = util.format('/forum/post?postid=%s', post._id);
     res.redirect(redir);
     res.end();
@@ -103,6 +109,8 @@ function searching(req, res) {
     if (req.query.type === 'user') {
         // console.log('1');
         Users.find({name: { $regex : req.query.key, $options : 'i' }}, function(err, result){
+            console.log('find3');
+
             return err ? res.sendStatus(404) : res.send(result);
         });
 
@@ -111,6 +119,8 @@ function searching(req, res) {
 
         // TODO req.query.method -> array, search by multiple method
         Posts.find({[req.query.method]: { '$regex' : req.query.key, '$options' : 'i' }}, function(err,result){
+            console.log('find4');
+
             return err ? res.sendStatus(404) : res.send(result);
         });
     }
@@ -125,6 +135,8 @@ function addreply(req, res) {
     });
 
     Posts.findOne({_id: req.query.postid}), function (err, user) {
+        console.log('find5');
+
         if (err) {
             return res.sendStatus(404);
         }
@@ -141,13 +153,15 @@ function userprofile(req,res){
     // console.log('hi');
     // var user = new Users();
     Users.find({_id: req.cookies.username}, function(err, result){
-        console.log(result);
-            res.render('otheruser',{result: result });
+        //console.log(result);
+        console.log('find6');
+        res.render('otheruser',{result: result });
     });
 }
 
 function editprofile(req, res) {
     Users.findOne({_id: req.cookies.username}, function(err, result) {
+        console.log('find7');
         res.render('editprofile', {result: result});
     })
 }
@@ -155,15 +169,18 @@ function editprofile(req, res) {
 // open forum homepage
 function forum(req, res) {
 
-    var viewer = findViewerInfo(req);
+    var viewer = (req.cookies.username && req.cookies.username !== "")? findViewerInfo(req) : null;
     var artifactsArray = [];
     var storiesArray = [];
     // find post
     Posts.find(function (err, posts) {
+        console.log('find8');
+
         if (err) {
             return res.sendStatus(404);
         }
         posts.forEach(function (element) {
+
             if (artifactsArray.length <= 4 && element.type === "artifacts") {
                 artifactsArray.push(element);
             }
@@ -171,7 +188,8 @@ function forum(req, res) {
                 storiesArray.push(element);
             }
         });
-        if (req.cookies.username && req.cookies.username !== "") {
+        if (viewer) {
+            console.log(viewer);
             viewer.then(
                 function(result) {
                     return res.render('forumpage', {
@@ -195,12 +213,14 @@ function forum(req, res) {
 // open stories section
 function stories(req, res) {
     // add logged in information
-    var viewer = findViewerInfo(req);
+    var viewer = (req.cookies.username && req.cookies.username !== "")? findViewerInfo(req) : null;
     var page = req.query.page;
     var total = 0;
     var array = [];
     var storiesArray = [];
     Posts.find(function (err, posts) {
+        console.log('find9');
+
         if (err) {
             return res.sendStatus(404);
         }
@@ -218,7 +238,7 @@ function stories(req, res) {
             storiesArray.push(array[i]);
         }
 
-        if (req.cookies.username && req.cookies.username!== "") {
+        if (viewer) {
             viewer.then(
                 function(result) {
                     return res.render('forum', {
@@ -246,12 +266,14 @@ function stories(req, res) {
 // open artifacts section
 function artifacts(req, res) {
     // add logged in information
-    var viewer = findViewerInfo(req);
+    var viewer = (req.cookies.username && req.cookies.username !== "")? findViewerInfo(req) : null;
     var page = req.query.page;
     var total = 0;
     var array = [];
     var artifactsArray = [];
     Posts.find(function (err, posts) {
+        console.log('find10');
+
         if (err) {
             return res.sendStatus(404);
         }
@@ -269,7 +291,7 @@ function artifacts(req, res) {
         for (var i = (req.query.page - 1)  * 9; i < req.query.page * 9 && i < array.length; i++) {
             artifactsArray.push(array[i]);
         }
-        if (req.cookies.username && req.cookies.username!== "") {
+        if (viewer) {
             viewer.then(
                 function(result) {
                     return res.render('forum', {
@@ -297,9 +319,11 @@ function artifacts(req, res) {
 // open single post page
 function postpage(req, res) {
     // add logged in information
-    var viewer = findViewerInfo(req);
+    var viewer = (req.cookies.username && req.cookies.username !== "")? findViewerInfo(req) : null;
     console.log(req.query.postid);
     Posts.findOne({_id: req.query.postid}, function(err, post){
+        console.log('find11');
+
         if (err) return res.sendStatus(404);
 
         var currentpage = req.query.page;
@@ -310,12 +334,16 @@ function postpage(req, res) {
 
         // get the author information
         Users.findOne({_id: post.author}, function(err, user) {
+            console.log('find12');
+
             if (err) return res.sendStatus(404);
 
             author_info = user;
 
             // get all the replies
             Reply.find(function(err, comments) {
+                console.log('find13');
+
                 // find the post's comments and record the number
                 comments.forEach(function(comment) {
                     if (comment.parentPost === post._id) {
@@ -323,11 +351,13 @@ function postpage(req, res) {
                         commentsArray.push(comment);
                     }
                     Users.find({_id: comment.author}, function(err, user) {
+                        console.log('find14');
+
                         array_info.push(user);
                     })
                 });
 
-                if (req.cookies.username && req.cookies.username!=="") {
+                if (viewer) {
                     viewer.then(
                         function(result) {
                             return res.render('post', {
@@ -364,6 +394,10 @@ async function findViewerInfo(req) {
     return await Users.findOne({_id: req.cookies.username});
 }
 
+async function findPostInfo(post) {
+    return await Posts.findOne({_id: post._id});
+}
+
 module.exports.login = login;
 module.exports.createUser = createUser;
 module.exports.userprofile = userprofile;
@@ -379,3 +413,9 @@ module.exports.forum = forum;
 module.exports.artifacts = artifacts;
 module.exports.stories = stories;
 module.exports.editprofile = editprofile;
+
+
+function test(req, res) {
+    Posts.find({ _id: "5cdd65a83370f5312807bdab" }).remove( );
+}
+module.exports.test = test;

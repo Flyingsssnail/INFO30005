@@ -15,13 +15,14 @@ router.get('/forum/stories', controller.stories);
 router.get('/forum/artifacts', controller.artifacts);
 router.get('/forum/post', controller.postpage);
 router.get('/profile/edit', controller.editprofile);
+router.get('/test', controller.test);
 // find user or posts
 //router.get('/search', controller.searching);
 //router.get('/search', controller.searchPage);
 // get post page
 router.get('/post_edit', function (req, res) {
     if (!req.cookies.username) {
-        res.redirect('/login');
+        res.redirect('/login?orig=/post_edit');
     } else {
         res.sendFile(path.join(__dirname + '/../public/post_edit.html'));
     }

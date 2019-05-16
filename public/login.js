@@ -19,11 +19,7 @@ function Ajax(json){
             if(request.status===401){
                 document.getElementById('msg').innerText="Invalid Email or Password!";
             }else if (request.status===200){
-                if (request.redirect !== undefined && request.redirect) {
-                    window.location.href = request.redirect_url;
-                } else {
-                    window.location.href = '/forum';
-                }
+                window.location.href = window.location.search.substring(6 ,window.location.search.length);
             }
         };
         request.open(method,url,true);

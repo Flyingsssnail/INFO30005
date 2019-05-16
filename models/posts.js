@@ -1,7 +1,8 @@
 var mongoose  = require ('mongoose');
 
 var PostSchema = mongoose.Schema({
-    "author":{type: String, ref: "users"},
+    "author":String,
+    "name":{type: String, ref: "users"},
     "postDate":{type:Date, default: Date.now},
     "editDate":{type:Date, default: Date.now},
     "title":String,
