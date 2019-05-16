@@ -68,13 +68,14 @@
                     </div>
                 </div>
             <% }); %>
-            <% include templates/comment.ejs %>
-            <div id="user">
-                <header>
-                    <h2><%= post.title %></h2>
-                </header>
-            </div>
+
         </section>
+        <% include templates/comment.ejs %>
+        <div id="user">
+            <header>
+                <h2><%= post.title %></h2>
+            </header>
+        </div>
     </div>
 </div>
 

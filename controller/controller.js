@@ -44,7 +44,7 @@ function varified(obj, usr, res) {
             return res.sendStatus(400);
         }
     });
-    res.cookie('username',user._id.toString(), {maxAge: 900000, httpOnly: true});
+    res.cookie('username',user._id.toString(), {httpOnly: true});
     // res.redirect('/');
     res.end();
 }
@@ -64,7 +64,7 @@ function login (req, res) {
                 return res.sendStatus(401);
             } else {
                 // console.log("yes");
-                res.cookie("username", usr._id.toString(), {maxAge: 900000, httpOnly: true});
+                res.cookie("username", usr._id.toString(), {httpOnly: true});
                 var redir = req.query.orig ? req.query.orig : "/";
                 res.redirect(redir);
                 res.end();
@@ -171,7 +171,7 @@ function forum(req, res) {
                 storiesArray.push(element);
             }
         });
-        if (req.cookies.username) {
+        if (req.cookies.username && req.cookies.username !== "") {
             viewer.then(
                 function(result) {
                     return res.render('forumpage', {
@@ -218,7 +218,7 @@ function stories(req, res) {
             storiesArray.push(array[i]);
         }
 
-        if (req.cookies.username) {
+        if (req.cookies.username && req.cookies.username!== "") {
             viewer.then(
                 function(result) {
                     return res.render('forum', {
@@ -269,7 +269,7 @@ function artifacts(req, res) {
         for (var i = (req.query.page - 1)  * 9; i < req.query.page * 9 && i < array.length; i++) {
             artifactsArray.push(array[i]);
         }
-        if (req.cookies.username) {
+        if (req.cookies.username && req.cookies.username!== "") {
             viewer.then(
                 function(result) {
                     return res.render('forum', {
@@ -327,7 +327,7 @@ function postpage(req, res) {
                     })
                 });
 
-                if (req.cookies.username) {
+                if (req.cookies.username && req.cookies.username!=="") {
                     viewer.then(
                         function(result) {
                             return res.render('post', {

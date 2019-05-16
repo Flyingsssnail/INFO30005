@@ -50,6 +50,13 @@ var storage = multer.diskStorage({
 
 const upload = multer({storage : storage});
 
+router.get('/logout', function (req,res) {
+    console.log(req.query);
+    res.cookie('username', '');
+    res.redirect(req.query.orig);
+    res.end();
+});
+
 router.post('/upload', upload.single('image'), (req, res) => {
     // console.log(res.mimetype);
 
