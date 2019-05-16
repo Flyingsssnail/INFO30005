@@ -75,32 +75,31 @@ function login (req, res) {
 }
 
 function createPost(req,res){
-    var a = findViewerInfo(req).then(function (result) {
-        return result.name;
-    });
-    console.log(a);
-    // set cookie command in browser document.cookie="username=123456"
-    // console.log(req);
-    // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
-    var post = new Posts({
-        "author":req.cookies.username,
-        "name" : "temp author",
-        "title":req.body.title,
-        "content":req.body.post_edit,
-        "type": req.body.type,
-    });
 
-    Posts.create(post, function(err){
-        if (err) {
-            return res.sendStatus(400);
-        }
-    });
+    Users.findOne({_id: req.cookies.username}, function (err, user) {
+        // set cookie command in browser document.cookie="username=123456"
+        // console.log(req);
+        // var usr = Users.findOne({_id: req.headers.cookies.username}, function (err, usr) {return usr});
+        var post = new Posts({
+            "author":req.cookies.username,
+            "name" : user.name,
+            "title":req.body.title,
+            "content":req.body.post_edit,
+            "type": req.body.type,
+        });
 
-    findPostInfo(post);
-    console.log(post);
-    var redir = util.format('/forum/post?postid=%s', post._id);
-    res.redirect(redir);
-    res.end();
+        Posts.create(post, function(err){
+            if (err) {
+                return res.sendStatus(400);
+            }
+        });
+
+        findPostInfo(post);
+        var redir = util.format('/forum/post?postid=%s', post._id);
+        res.redirect(redir);
+        res.end();
+
+    });
 
 }
 
@@ -416,6 +415,15 @@ module.exports.editprofile = editprofile;
 
 
 function test(req, res) {
-    Posts.find({ _id: "5cdd65a83370f5312807bdab" }).remove( );
+    Posts.find({ _id: "5cdd68b467d398317f7a99b0" }).remove();
+    var a = findViewerInfo(req)
+    var x = a.then(function (result) {
+        b = result.name;
+        console.log(b);
+        return b;
+    });
+    console.log(x);
+    res.send('233');
+    res.end();
 }
 module.exports.test = test;
