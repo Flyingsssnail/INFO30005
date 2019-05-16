@@ -1,0 +1,82 @@
+body {
+    height: 500px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.fav {
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.fav svg {
+    transform-origin: center center;
+    transition: all .15s ease-out;
+
+    width: 50px;
+    height: 80px;
+}
+
+
+.fav.favPress svg {
+    transform: scale(0.8);
+}
+
+.floatHeart {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.stableHeart {
+    stroke: #bdc3c7;
+    fill: none;
+}
+
+.favd .stableHeart {
+    stroke: #ff827a;
+    fill: #ff827a;
+    opacity: 1;
+}
+
+.fav:not(.favd):hover .stableHeart {
+    stroke: #ff827a;
+    opacity: 0.75;
+}
+
+.fav.favPress .stableHeart {
+    opacity: 1;
+}
+
+.floatHeart {
+    fill: none;
+
+    opacity: 0;
+}
+
+.fav:hover .floatHeart {
+    stroke: #ff827a;
+    fill: #ff827a;
+}
+
+.fav.favd .floatHeart {
+    animation-duration: 800ms;
+    animation-name: poof;
+}
+
+@keyframes poof {
+    from {
+        top: 0;
+        opacity: 0.6;
+    }
+
+    to {
+        top: -150%;
+        opacity: 0;
+    }
+}

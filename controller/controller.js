@@ -71,9 +71,7 @@ function login (req, res) {
                 return true;
             }
         });
-
     });
-
 }
 
 function createPost(req,res){
