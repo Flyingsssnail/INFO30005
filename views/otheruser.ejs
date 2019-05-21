@@ -18,41 +18,26 @@
                     <%= element.name%>
                 <% })%>
             </h3>
+            <br><br>
             <div class="info cf">
                 <div class="four col"><span class="number">
                         <% result.forEach(function(element) { %>
                             <%= element.post%>
                         <% })%>
                     </span>Posts</div>
-                <div class="four col"><span class="number">
-                        <% result.forEach(function(element) { %>
-                            <%= element.collect%>
-                        <% })%>
-                    </span>Collects</div>
+
                 <div class="four col"><span class="number">
                         <% result.forEach(function(element) { %>
                             <%= element.likes%>
                         <% })%>
                     </span>Likes</div>
+                <div class="four col"><span class="number">
+                        <% result.forEach(function(element) { %>
+                            <%= element.rank%>
+                        <% })%>
+                    </span>Rank</div>
             </div>
             <br><br>
-            <div class="info cf">
-                <div class="four col"><span class="number">
-                        <% result.forEach(function(element) { %>
-                            <%= element.following%>
-                        <% })%>
-                    </span>Following</div>
-                <div class="four col"><span class="number">
-                        <% result.forEach(function(element) { %>
-                            <%= element.followers%>
-                        <% })%>
-                    </span>Followers</div>
-                <div class="four col"><span class="number">
-                        <% result.forEach(function(element) { %>
-                            <%= element.liked%>
-                        <% })%>
-                    </span>Liked</div>
-            </div>
         </div>
 
         <div id="card2" class="card four col">
@@ -62,7 +47,9 @@
                 <h3 class="name">About me</h3>
 
                 <div class="info">
-                    <p>This man is lazy, leaving nothing behind...</p>
+                    <p><% result.forEach(function(element) { %>
+                            <%= element.aboutme%>
+                        <% })%></p>
                 </div>
             </div>
         </div>
@@ -74,9 +61,13 @@
             </div>
             <div class="options">
                 <ul>
-                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Rank:
+                    <li><span class="icon"><i class="fa fa-plus" ></i></span>First name:
                         <% result.forEach(function(element) { %>
-                            <%= element.rank%>
+                            <%= element.firstname%>
+                        <% })%></li>
+                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Last name:
+                        <% result.forEach(function(element) { %>
+                            <%= element.lastname%>
                         <% })%></li>
                     <li><span class="icon"><i class="fa fa-envelope" ></i></span>Level:
                         <% result.forEach(function(element) { %>
@@ -86,18 +77,12 @@
                         <% result.forEach(function(element) { %>
                             <%= element.gender%>
                         <% })%></li>
-                    <li><span class="icon"><i class="fa fa-plus" ></i></span>Phone:
-                        <% result.forEach(function(element) { %>
-                            <%= element.phone%>
-                        <% })%></li>
+
                     <li><span class="icon"><i class="fa fa-envelope" ></i></span>E-mail:
                         <% result.forEach(function(element) { %>
                             <%= element.email%>
                         <% })%></li>
-                    <li><span class="icon"><i class="fa fa-envelope" ></i></span>BD:
-                        <% result.forEach(function(element) { %>
-                            <%= element.BD%>
-                        <% })%></li>
+
 
                 </ul>
             </div>
