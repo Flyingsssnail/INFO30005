@@ -58,10 +58,13 @@ function login (req, res) {
             // TODO encrypt password
             console.log(usr);
 
-            if (err || (obj.password !== usr.password)) {
+            if (err || !usr || (obj.password !== usr.password)) {
                 // console.log("no");
                 return res.sendStatus(401);
             } else {
+                gainexp(5, usr);
+                console.log("gugugu"+usr.exp);
+
                 // console.log("yes");
                 res.cookie("username", usr._id.toString(), {httpOnly: true});
                 var redir = req.query.orig ? req.query.orig : "/";
@@ -87,7 +90,7 @@ function createPost(req,res){
             "content":req.body.post_edit,
             "type": req.body.type,
         });
-
+        gainexp( 5, user);
         Posts.create(post, function(err){
             if (err) {
                 return res.sendStatus(400);
@@ -125,6 +128,19 @@ function searching(req, res) {
     }
 }
 
+function gainexp(exp, user) {
+
+    user.exp += exp;
+    if (user.exp >= 100) {
+        user.exp -= 100;
+        user.rank ++;
+    }
+    Users.findOneAndUpdate({_id:user._id}, {$set: {exp:user.exp, rank: user.rank}}, function (err, res) {
+        console.log("NMDWSM");
+    });
+}
+
+
 function addreply(req, res) {
 
     var reply = new Reply({
@@ -133,14 +149,26 @@ function addreply(req, res) {
         "content":req.body.content,
     });
 
-    Posts.findOne({_id: req.query.postid}), function (err, user) {
+    Posts.findOne({_id: req.query.postid}, function (err, post) {
         console.log('find5');
 
-        if (err) {
+        if (err || !post) {
             return res.sendStatus(404);
         }
-        user.reply.append(reply._id);
-    };
+
+        Users.findOne({_id:req.cookies.username}, function (err, u1) {
+            gainexp(1, u1);
+            reply++;
+
+        });
+        Users.findOne({_id:post.author}, function (err, u1) {
+            gainexp(1, u1);
+        });
+
+        // TODO find ID and update post
+        post.reply.append(reply._id);
+
+    });
     Reply.create(reply, function(err){
         if (err) {
             return res.sendStatus(400);
@@ -209,7 +237,7 @@ function forum(req, res) {
         }
     });
 }
-// open stories section
+// open stories sectionf
 function stories(req, res) {
     // add logged in information
     var viewer = (req.cookies.username && req.cookies.username !== "")? findViewerInfo(req) : null;

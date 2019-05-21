@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><%= post.title %> | <%= (post.type === "artifacts" ? "Artifacts" : "Stories") %> | Forum | Building A Better Life</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/searchBar.css">
     <link rel="stylesheet" href="/forum.css">
     <link rel="stylesheet" href="/post.css">
@@ -18,7 +18,7 @@
     <% include templates/background.ejs %>
     <% include templates/root.ejs %>
 
-    <div id="content">
+    <div id="content" style="padding-bottom: 50px">
         <% include templates/comment.ejs %>
         <section id="post">
             <header>
@@ -38,11 +38,11 @@
                     <h5>Rank: <%= author_info.rank %></h5>
                     <h5>EXP: <%= author_info.exp %></h5>
                     <!--<h5><%= post.likes %></h5>-->
+                    <a href="#gotoreply"><button id="reply">Reply</button></a>
                 </div>
+
                 <div id="post-section">
-                    <form id="reply">
-                        <p>Reply</p>
-                    </form>
+
                     <br>
                     <p>
                         <%- post.content %>
@@ -71,11 +71,33 @@
 
         </section>
         <% include templates/comment.ejs %>
-        <div id="user">
+        <section id="gotoreply" style="width: 100%; margin-top: 50px">
+
+
+
             <header>
-                <h2><%= post.title %></h2>
+                <h2>Comment</h2>
             </header>
-        </div>
+            <% if (viewer) { %>
+                <form>
+                    <textarea placeholder="Leave a comment" style="width: 100%" rows="10"></textarea>
+                    <button style="float: right; padding: 10px;" type="submit" value="Reply">Reply</button>
+                </form>
+            <% } else { %>
+                <p style="font-size: 1.3em; text-align: center">To comment one must <span><a id="loginreply" href="/login?orig=" style="">login</a></span> first!</p>
+                <script>
+                    var login = document.getElementById("loginreply");
+                    var currHref = login.getAttribute('href');
+                    login.setAttribute('href', currHref + window.location.pathname+window.location.search);
+                </script>
+            <% } %>
+
+
+
+        </section>
+
+
+
     </div>
 </div>
 
