@@ -8,12 +8,13 @@ var UserSchema = mongoose.Schema({
     "exp":{type:Number, default: 0},
     "rank":{type:Number, default: 0},
     "email":String,
-    "collect": {type:Number, default: 0},
-    "favorites":{type:Number, default: 0},
+    "likes": {type:Number, default: 0},
+    "post":{type:Number, default: 0},
     "pots":{type:[String], default:[]},
     "reply":{type:Number, default:0},
     "password":String,
     "avatar":{type:String, default: '/images/default.png'},
+    "aboutme":{type:String, default: 'This man is lazy, leaving nothing behind..'}
     }
 );
 
