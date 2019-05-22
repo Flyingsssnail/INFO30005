@@ -1,0 +1,91 @@
+body{
+    background:#a5b0a2;
+}
+
+.all, .ebook, .video, .whitepaper, .infographic, .toolkit{
+                                                     float:left !important;
+                                                 }
+
+.resource-menu{
+    width:1000px;
+    margin:25px auto;
+    display: block;
+    float:none;
+    text-align: center;
+
+    background:rgb(43, 48, 48);
+}
+
+.resource-menu p{
+    float:left;
+    margin:0 auto;
+    padding:10px 20px;
+    display: block;
+    background:rgb(43, 48, 48);
+    font-family:"roboto", sans-serif;
+    font-weight:300;
+    text-transform:uppercase;
+    font-size:15px;
+    text-align: center;
+    color:#FFF;
+}
+
+.resource-menu p:hover{
+    cursor:pointer;
+    background:#77bc62;
+    color:#FFF;
+}
+
+
+.resource-container {
+    margin: 0px auto;
+    text-align: left;
+    width: 100%;
+    max-width: 1070px;
+    float: none;
+    clear: both;
+    display: block;
+}
+
+.resource-row {
+    display: block;
+}
+
+.resource{
+    width: 225px;
+    height: 225px;
+    border: 1px solid #77bc62;
+    margin: 25px 20px;
+    float:left;
+    background:rgb(43, 48, 48);
+}
+
+.resource-img{
+    display: block;
+    width: 225px;
+    background: #77bc62;
+    margin: 0 auto;
+    height: 95px;
+    margin-top:0px;
+}
+
+.resource-img img{
+    width:230px;
+    height:95px;
+}
+
+.resource-info{
+    width: 210px;
+    margin: -10px 10px;
+    color:#77bc62;
+    font-family:"roboto", sans-serif;
+}
+
+.resource-info p{
+    font-size:12px !important;
+    margin-top:-15px;
+}
+
+.resource-info p:last-child{
+    color:#FFF;
+}
