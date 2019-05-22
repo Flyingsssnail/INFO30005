@@ -79,8 +79,8 @@
                 <h2>Comment</h2>
             </header>
             <% if (viewer) { %>
-                <form>
-                    <textarea placeholder="Leave a comment" style="width: 100%" rows="10"></textarea>
+                <form method="post">
+                    <textarea name="usrreply" placeholder="Leave a comment" style="width: 100%" rows="10"></textarea>
                     <button style="float: right; padding: 10px;" type="submit" value="Reply">Reply</button>
                 </form>
             <% } else { %>

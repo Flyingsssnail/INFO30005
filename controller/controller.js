@@ -143,12 +143,14 @@ function gainexp(exp, user) {
 
 
 function addreply(req, res) {
-
-    var reply = new Reply({
+    // console.log(req);
+    var userreply = new Reply({
         "author":req.cookies.username,
         "parentPost":req.query.postid,
-        "content":req.body.content,
+        "content":req.body.usrreply,
     });
+
+    console.log(userreply);
 
     Posts.findOne({_id: req.query.postid}, function (err, post) {
         console.log('find5');
@@ -159,21 +161,33 @@ function addreply(req, res) {
 
         Users.findOne({_id:req.cookies.username}, function (err, u1) {
             gainexp(1, u1);
-            reply++;
-
+            u1.reply++;
         });
         Users.findOne({_id:post.author}, function (err, u1) {
             gainexp(1, u1);
         });
 
-        // TODO find ID and update post
-        post.reply.append(reply._id);
+        Reply.create(userreply, function(err){
+            if (err) {
+                return res.sendStatus(400);
+            }
+        });
 
-    });
-    Reply.create(reply, function(err){
-        if (err) {
-            return res.sendStatus(400);
-        }
+        // CCC
+        // console.log(post);
+        // console.log(post.reply);
+        // relist.append(reply._id);
+        Posts.findOneAndUpdate({_id:post._id}, {$push: {reply : userreply._id}}, function (err, result) {
+            console.log("Added reply");
+            if (err || !result ) {
+                return res.sendStatus(404);
+            }
+            findReplyInfo(userreply);
+            res.redirect('back');
+            console.log(result);
+            res.end();
+
+        });
     });
 }
 
@@ -458,6 +472,10 @@ function postpage(req, res) {
 
         });
     });
+}
+
+async function findReplyInfo(reply) {
+    return await Reply.findOne({_id: reply._id});
 }
 
 async function findViewerInfo(req) {
