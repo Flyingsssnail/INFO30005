@@ -4,6 +4,7 @@ const util = require('util');
 const Users = mongoose.model('users');
 const Posts = mongoose.model('posts');
 const Reply = mongoose.model('reply');
+const Tips = mongoose.model('tips');
 
 const genderArray = ["female", "male", "hidden", "other"];
 
@@ -185,6 +186,48 @@ function userprofile(req,res){
         res.render('otheruser',{result: result });
     });
 }
+
+//library render
+function library(req,res){
+    var elecArray = [];
+    var plasArray = [];
+    var furnArray = [];
+    var glasArray = [];
+    var otheArray = [];
+    Tips.find(function(err, tips){
+      console.log('find tips');
+      if (err) {
+          return res.sendStatus(404);
+      }
+      tips.forEach(function (element) {
+          if (element.type === "electric") {
+              elecArray.push(element);
+          }
+          if (element.type === "plastic") {
+              plasArray.push(element);
+          }
+          if (element.type === "furniture") {
+              furnArray.push(element);
+          }
+          if (element.type === "other") {
+              otheArray.push(element);
+          }
+          if (element.type === "glass") {
+              glasArray.push(element);
+          }
+      });
+
+      return res.render('library', {
+          elecArray:elecArray,
+          plasArray:plasArray,
+          furnArray:furnArray,
+          glasArray:glasArray,
+          otheArray:otheArray
+
+      });
+    });
+}
+
 
 function editprofile(req, res) {
     Users.findOne({_id: req.cookies.username}, function(err, result) {
@@ -440,7 +483,7 @@ module.exports.forum = forum;
 module.exports.artifacts = artifacts;
 module.exports.stories = stories;
 module.exports.editprofile = editprofile;
-
+module.exports.library = library;
 
 function test(req, res) {
     Posts.find({ _id: "5cdd68b467d398317f7a99b0" }).remove();

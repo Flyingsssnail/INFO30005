@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel = "stylesheet" href="/library.css">
+</head>
+<body>
+<div class="resource-menu" >
+    <p data-rel="all">All tips</p>
+    <p data-rel="video">Plastic</p>
+    <p data-rel="infographic">Electric items</p>
+    <p data-rel="ebook">Furniture</p>
+    <p data-rel="whitepaper">Glasses</p>
+    <p data-rel="toolkit">Others</p>
+</div>
+
+<div class="scroll-body">
+    <div class="resource-container">
+        <div class="resource-row">
+            <% elecArray.forEach(function (element) { %>
+            <div class="resource all infographic">
+                <div class="resource-img"></div>
+                <div class="resource-info">
+                    <a href="/tippages.html" style="color: #9E9E9E"><h4><%= element.title%></h4></a>
+                    <p><%= element.author%></p>
+                </div>
+            </div>
+            <% }); %>
+            <!-- -->
+                <% plasArray.forEach(function (element) { %>
+            <div class="resource all video">
+                <div class="resource-img"></div>
+                <div class="resource-info">
+                    <a href="/tippages.html" style="color: #9E9E9E"><h4><%= element.title%></h4></a>
+                    <p><%= element.author%></p>
+                </div>
+            </div>
+                <% }); %>
+            <!-- -->
+                <% furnArray.forEach(function (element) { %>
+            <div class="resource all ebook">
+                <div class="resource-img"></div>
+                <div class="resource-info">
+                    <a href="/tippages.html" style="color: #9E9E9E"><h4><%= element.title%></h4></a>
+                    <p><%= element.author%></p>
+                </div>
+            </div>
+                <% }); %>
+            <!-- -->
+                <% otheArray.forEach(function (element) { %>
+            <div class="resource all toolkit">
+                <div class="resource-img"></div>
+                <div class="resource-info">
+                    <a href="/tippages.html" style="color: #9E9E9E"><h4><%= element.title%></h4></a>
+                    <p><%= element.author%></p>
+                </div>
+            </div>
+                <% }); %>
+
+                <% glasArray.forEach(function (element) { %>
+                    <div class="resource all whitepaper">
+                        <div class="resource-img"></div>
+                        <div class="resource-info">
+                            <a href="/tippages.html" style="color: #9E9E9E"><h4><%= element.title%></h4></a>
+                            <p><%= element.author%></p>
+                        </div>
+                    </div>
+                <% }); %>
+        </div>
+        <!--                                         -->
+
+    </div>
+</div>
+</body>
+<script src="/library.js"></script>
+</html>
