@@ -400,6 +400,22 @@ function artifacts(req, res) {
         }
     });
 }
+
+
+function tipspage(req,res){
+    console.log(req.query.tipsid);
+    Tips.findOne({id:req.query.tipsid},function(err,tips){
+        console.log('find tipsid');
+        if (err) return res.sendStatus(404);
+        return res.render('tippages', {
+
+            tips: tips,
+
+
+        });
+
+    });
+}
 // open single post page
 function postpage(req, res) {
     // add logged in information
@@ -502,7 +518,7 @@ module.exports.artifacts = artifacts;
 module.exports.stories = stories;
 module.exports.editprofile = editprofile;
 module.exports.library = library;
-
+module.exports.tipspage = tipspage;
 function test(req, res) {
     Posts.find({ _id: "5cdd68b467d398317f7a99b0" }).remove();
     var a = findViewerInfo(req)

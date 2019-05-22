@@ -17,6 +17,7 @@ router.get('/forum/post', controller.postpage);
 router.get('/profile/edit', controller.editprofile);
 router.get('/test', controller.test);
 router.get('/library',controller.library);
+router.get('/library/tippages',controller.tipspage);
 // find user or posts
 //router.get('/search', controller.searching);
 //router.get('/search', controller.searchPage);
