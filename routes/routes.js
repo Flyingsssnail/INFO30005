@@ -7,6 +7,7 @@ var path = require('path');
 
 
 // get section
+router.get('/viewProfile', controller.viewProfile);
 router.get('/', function (req, res) { res.sendFile(path.join(__dirname + '/../public/main.html')) });
 router.get('/profile', controller.userprofile);
 router.get('/login', function (req, res) { res.sendFile(path.join(__dirname + '/../public/login.html')) });

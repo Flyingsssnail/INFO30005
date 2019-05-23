@@ -30,7 +30,9 @@
                     <img src=<%= author_info.avatar %> width="80" height="80" alt="user token">
                     <br>
                     <br>
-                    <h3><%= author_info.name %></h3>
+                    <a href="/viewProfile?id=<%= author_info._id %>">
+                        <h3><%= author_info.name %></h3>
+                    </a>
                     <% if (author_info.gender != 'hidden') { %>
                         <h5><%= author_info.gender %></h5>
                     <% } %>

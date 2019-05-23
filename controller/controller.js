@@ -197,8 +197,15 @@ function userprofile(req,res){
     Users.find({_id: req.cookies.username}, function(err, result){
         //console.log(result);
         console.log('find6');
-        res.render('otheruser',{result: result });
+        res.render('otheruser',{result: result, myself: true  });
     });
+}
+
+function viewProfile(req, res) {
+    Users.find({_id: req.query.id}, function (err, result) {
+        console.log('find6.1');
+        res.render('otheruser', {result: result, myself: false });
+    })
 }
 
 //library render
@@ -532,3 +539,4 @@ function test(req, res) {
     res.end();
 }
 module.exports.test = test;
+module.exports.viewProfile = viewProfile;

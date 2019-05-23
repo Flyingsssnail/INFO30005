@@ -1,9 +1,9 @@
 body{
-    background:#a5b0a2;
+    background:#ffffff;
 }
 
 .all, .ebook, .video, .whitepaper, .infographic, .toolkit{
-                                                     float:left !important;
+                                                     float:left;
                                                  }
 
 .resource-menu{
@@ -12,8 +12,7 @@ body{
     display: block;
     float:none;
     text-align: center;
-
-    background:rgb(43, 48, 48);
+    background-color: #34ac98;
 }
 
 .resource-menu p{
@@ -32,7 +31,7 @@ body{
 
 .resource-menu p:hover{
     cursor:pointer;
-    background:#77bc62;
+    background:#34ac98;
     color:#FFF;
 }
 
@@ -54,17 +53,16 @@ body{
 .resource{
     width: 225px;
     height: 225px;
-    border: 1px solid #77bc62;
+    border: 1px solid #34ac98;
     margin: 25px 20px;
     float:left;
-    background:rgb(43, 48, 48);
+    background-color: lightgoldenrodyellow;
 }
 
 .resource-img{
     display: block;
     width: 225px;
-    background: #77bc62;
-    margin: 0 auto;
+    background: #34ac98;
     height: 95px;
     margin-top:0px;
 }
@@ -77,15 +75,12 @@ body{
 .resource-info{
     width: 210px;
     margin: -10px 10px;
-    color:#77bc62;
+    color:#34ac98;
     font-family:"roboto", sans-serif;
 }
 
 .resource-info p{
-    font-size:12px !important;
+    font-size:12px;
     margin-top:-15px;
 }
 
-.resource-info p:last-child{
-    color:#FFF;
-}
