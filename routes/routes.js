@@ -7,6 +7,7 @@ var path = require('path');
 
 
 // get section
+router.get('/viewProfile', controller.viewProfile);
 router.get('/', function (req, res) { res.sendFile(path.join(__dirname + '/../public/main.html')) });
 router.get('/profile', controller.userprofile);
 router.get('/login', function (req, res) { res.sendFile(path.join(__dirname + '/../public/login.html')) });
@@ -16,6 +17,8 @@ router.get('/forum/artifacts', controller.artifacts);
 router.get('/forum/post', controller.postpage);
 router.get('/profile/edit', controller.editprofile);
 router.get('/test', controller.test);
+router.get('/library',controller.library);
+router.get('/library/tippages',controller.tipspage);
 // find user or posts
 //router.get('/search', controller.searching);
 //router.get('/search', controller.searchPage);

@@ -18,3 +18,4 @@ mongoose.connect(uri, { useNewUrlParser: true }, function(err) {
 require('./users.js');
 require('./posts.js');
 require('./reply.js');
+require('./tips.js');
