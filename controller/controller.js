@@ -95,13 +95,9 @@ function createPost(req,res){
             if (err) {
                 return res.sendStatus(400);
             }
+            var redir = util.format('/forum/post?postid=%s', post._id);
+            res.redirect(redir);
         });
-
-        findPostInfo(post);
-        var redir = util.format('/forum/post?postid=%s', post._id);
-        res.redirect(redir);
-        res.end();
-
     });
 
 }
@@ -170,23 +166,17 @@ function addreply(req, res) {
             if (err) {
                 return res.sendStatus(400);
             }
+            Posts.findOneAndUpdate({_id:post._id}, {$push: {reply : userreply._id}}, function (err, result) {
+                console.log("Added reply");
+                if (err || !result ) {
+                    return res.sendStatus(404);
+                }
+                res.redirect('back');
+                console.log(result);
+            });
         });
 
-        // CCC
-        // console.log(post);
-        // console.log(post.reply);
-        // relist.append(reply._id);
-        Posts.findOneAndUpdate({_id:post._id}, {$push: {reply : userreply._id}}, function (err, result) {
-            console.log("Added reply");
-            if (err || !result ) {
-                return res.sendStatus(404);
-            }
-            findReplyInfo(userreply);
-            res.redirect('back');
-            console.log(result);
-            res.end();
 
-        });
     });
 }
 
