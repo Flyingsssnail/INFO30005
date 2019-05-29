@@ -17,10 +17,10 @@
 
 
 #part1 .addtriangle:after { /* specific color */
-    border-top-color: seagreen;
+    border-top-color: antiquewhite;
 }
 #part2 .addtriangle:after { /* specific color */
-    border-top-color: lightseagreen;
+    border-top-color: navajowhite;
 }
 
 
@@ -29,7 +29,8 @@
 body {
     width: 100%;
     height: 100%;
-    background-color: darkseagreen;
+    background-color: antiquewhite;
+
 }
 .part {
     width: 100%;
@@ -45,13 +46,13 @@ body {
 }
 
 #part1 {
-    background-color: seagreen;
+    background-color: antiquewhite;
 }
 #part2 {
-    background-color: lightseagreen;
+    background-color: navajowhite;
 }
 #part3 {
-    background-color: mediumseagreen;
+    background-color: papayawhip;
 }
 
 #part1 .content {
@@ -59,7 +60,7 @@ body {
 }
 
 h1, h2 {
-    color: seagreen;
+    color: black;
     margin: 0;
 }
 #part1 h1 {

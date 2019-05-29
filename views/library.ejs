@@ -21,7 +21,7 @@
         <div class="resource-row">
             <% elecArray.forEach(function (element) { %>
             <div class="resource all infographic">
-                <div class="resource-img"></div>
+                <div class="resource-img-ele"></div>
                 <div class="resource-info">
                     <a href="/library/tippages?tipsid=<%= element.id %>" style="color: black"><h4><%= element.title%></h4></a>
                     <p><%= element.author%></p>
@@ -31,7 +31,7 @@
             <!-- -->
                 <% plasArray.forEach(function (element) { %>
             <div class="resource all video">
-                <div class="resource-img"></div>
+                <div class="resource-img-pla"></div>
                 <div class="resource-info">
                     <a href="/library/tippages?tipsid=<%= element.id %>" style="color: black"><h4><%= element.title%></h4></a>
                     <p><%= element.author%></p>
@@ -41,7 +41,7 @@
             <!-- -->
                 <% furnArray.forEach(function (element) { %>
             <div class="resource all ebook">
-                <div class="resource-img"></div>
+                <div class="resource-img-fu"></div>
                 <div class="resource-info">
                     <a href="/library/tippages?tipsid=<%= element.id %>" style="color: black"><h4><%= element.title%></h4></a>
                     <p><%= element.author%></p>
@@ -51,7 +51,7 @@
             <!-- -->
                 <% otheArray.forEach(function (element) { %>
             <div class="resource all toolkit">
-                <div class="resource-img"></div>
+                <div class="resource-img-oth"></div>
                 <div class="resource-info">
                     <a href="/library/tippages?tipsid=<%= element.id %>" style="color: black"><h4><%= element.title%></h4></a>
                     <p><%= element.author%></p>
@@ -61,7 +61,7 @@
 
                 <% glasArray.forEach(function (element) { %>
                     <div class="resource all whitepaper">
-                        <div class="resource-img"></div>
+                        <div class="resource-img-gla"></div>
                         <div class="resource-info">
                             <a href="/library/tippages?tipsid=<%= element.id %>" style="color: black"><h4><%= element.title%></h4></a>
                             <p><%= element.author%></p>
