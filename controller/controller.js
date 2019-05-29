@@ -8,6 +8,33 @@ const Tips = mongoose.model('tips');
 
 const genderArray = ["female", "male", "hidden", "other"];
 
+const multer = require('multer');
+var path = require('path');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        console.log(file.mimetype);
+        cb(null, Date.now() + path.extname(file.originalname)) //Appending .jpg
+    }
+});
+
+const upload = multer({storage : storage}).single('image');
+
+function uploadimg(req, res) {
+    upload(req, res, function (err) {
+        if (err) return res.sendStatus(404);
+        if(req.file) {
+            res.json(req.file);
+        }
+    })
+}
+
+function main(req, res) { res.sendFile(path.join(__dirname + '/../public/main.html')) }
+function getlogin(req, res) { res.sendFile(path.join(__dirname + '/../public/login.html')) }
+
 // register user
 function createUser(req,res){
 
@@ -76,6 +103,13 @@ function login (req, res) {
             }
         });
     });
+}
+
+function logout(req,res) {
+    console.log(req.query);
+    res.cookie('username', '');
+    res.redirect(req.query.orig);
+    res.end();
 }
 
 function createPost(req,res){
@@ -176,8 +210,6 @@ function addreply(req, res) {
                 console.log(result);
             });
         });
-
-
     });
 }
 
@@ -412,6 +444,15 @@ function tipspage(req,res){
 
     });
 }
+
+function postedit(req, res) {
+    if (!req.cookies.username) {
+        res.redirect('/login?orig=/post_edit');
+    } else {
+        res.sendFile(path.join(__dirname + '/../public/post_edit.html'));
+    }
+}
+
 // open single post page
 function postpage(req, res) {
     // add logged in information
@@ -445,6 +486,7 @@ async function findViewerInfo(req) {
 }
 
 module.exports.login = login;
+module.exports.logout = logout;
 module.exports.createUser = createUser;
 module.exports.userprofile = userprofile;
 
@@ -452,6 +494,7 @@ module.exports.searching = searching;
 
 module.exports.createPost = createPost;
 module.exports.postpage = postpage;
+module.exports.postedit = postedit;
 
 module.exports.addreply = addreply;
 
@@ -463,3 +506,10 @@ module.exports.library = library;
 module.exports.tipspage = tipspage;
 
 module.exports.viewProfile = viewProfile;
+
+module.exports.uploadimg = uploadimg;
+
+module.exports.main = main;
+module.exports.getlogin = getlogin;
+
+
