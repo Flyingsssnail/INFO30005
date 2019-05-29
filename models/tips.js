@@ -5,7 +5,7 @@ var TipSchema = mongoose.Schema({
         "paragraph1":String,
         "paragraph2":String,
         "type": String,
-        "author":String,
+        "author":{ type: mongoose.Schema.Types.ObjectId, ref: 'users' },
         "id":Number
 
     }

@@ -416,87 +416,33 @@ function tipspage(req,res){
 // open single post page
 function postpage(req, res) {
     // add logged in information
-    var viewer = (req.cookies.username && req.cookies.username !== "")? findViewerInfo(req) : null;
     console.log(req.query.postid);
-    Posts.findOne({_id: req.query.postid}, function(err, post){
+    Posts.findOne({_id: req.query.postid}).populate({path:'reply', populate: {path:'author', model: Users}}).populate('author').exec( function(err, post){
         console.log('find11');
-
         if (err) return res.sendStatus(404);
 
-        var currentpage = req.query.page;
-        var total = 0;
-        var commentsArray = [];
-        var array_info = [];
-        var author_info;
-
         // get the author information
-        Users.findOne({_id: post.author}, function(err, user) {
+        Users.findOne({_id: req.cookies.username},function(err, user) {
             console.log('find12');
-
-            if (err) return res.sendStatus(404);
-
-            author_info = user;
-
-            // get all the replies
-            Reply.find(function(err, comments) {
-                console.log('find13');
-
-                // find the post's comments and record the number
-                comments.forEach(function(comment) {
-                    if (comment.parentPost === post._id) {
-                        total++;
-                        commentsArray.push(comment);
-                    }
-                    Users.find({_id: comment.author}, function(err, user) {
-                        console.log('find14');
-
-                        array_info.push(user);
-                    })
+            if (err || !user) {
+                return res.render('post', {
+                    post: post,
+                    viewer: false
                 });
-
-                if (viewer) {
-                    viewer.then(
-                        function(result) {
-                            return res.render('post', {
-                                author_info: author_info,
-                                array_info: array_info,
-                                post: post,
-                                commentsArray: commentsArray,
-                                currentpage: currentpage,
-                                total: total,
-                                viewer: true,
-                                viewerName: result.name,
-                                viewerAvatar: result.avatar
-                            });
-                        }
-                    );
-                } else {
-                    return res.render('post', {
-                        author_info: author_info,
-                        array_info: array_info,
-                        post: post,
-                        commentsArray: commentsArray,
-                        currentpage: currentpage,
-                        total: total,
-                        viewer: false
-                    });
-                }
-            });
-
-        });
+            } else {
+                return res.render('post', {
+                    post: post,
+                    viewer: true,
+                    viewerName: user.name,
+                    viewerAvatar: user.avatar
+                });
+            }
+        })
     });
-}
-
-async function findReplyInfo(reply) {
-    return await Reply.findOne({_id: reply._id});
 }
 
 async function findViewerInfo(req) {
     return await Users.findOne({_id: req.cookies.username});
-}
-
-async function findPostInfo(post) {
-    return await Posts.findOne({_id: post._id});
 }
 
 module.exports.login = login;
@@ -516,17 +462,5 @@ module.exports.stories = stories;
 module.exports.editprofile = editprofile;
 module.exports.library = library;
 module.exports.tipspage = tipspage;
-function test(req, res) {
-    Posts.find({ _id: "5cdd68b467d398317f7a99b0" }).remove();
-    var a = findViewerInfo(req)
-    var x = a.then(function (result) {
-        b = result.name;
-        console.log(b);
-        return b;
-    });
-    console.log(x);
-    res.send('233');
-    res.end();
-}
-module.exports.test = test;
+
 module.exports.viewProfile = viewProfile;

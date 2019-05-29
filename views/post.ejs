@@ -27,18 +27,18 @@
 <!--            main post section-->
             <div id="user">
                 <div id="description">
-                    <img src=<%= author_info.avatar %> width="80" height="80" alt="user token">
+                    <img src=<%= post.author.avatar %> width="80" height="80" alt="user token">
                     <br>
                     <br>
-                    <a href="/viewProfile?id=<%= author_info._id %>">
-                        <h3><%= author_info.name %></h3>
+                    <a href="/viewProfile?id=<%= post.author._id %>">
+                        <h3><%= post.author.name %></h3>
                     </a>
-                    <% if (author_info.gender != 'hidden') { %>
-                        <h5><%= author_info.gender %></h5>
+                    <% if (post.author.gender != 'hidden') { %>
+                        <h5><%= post.author.gender %></h5>
                     <% } %>
 
-                    <h5>Rank: <%= author_info.rank %></h5>
-                    <h5>EXP: <%= author_info.exp %></h5>
+                    <h5>Rank: <%= post.author.rank %></h5>
+                    <h5>EXP: <%= post.author.exp %></h5>
                     <!--<h5><%= post.likes %></h5>-->
                     <a href="#gotoreply"><button id="reply">Reply</button></a>
                 </div>
@@ -52,12 +52,12 @@
                 </div>
             </div>
 <!--            reply section-->
-            <% array_info.forEach(function(user) { %>
+            <% post.reply.forEach(function(reply) { %>
                 <div id="user">
                     <div id="description">
-                        <h3><%= user.name %></h3>
-                        <h5><%= user.gender %> | <%= user.rank %> | <%= user.exp %></h5>
-                        <h5><%= user.post %> | <%= user.likes %> | </h5>
+                        <h3><%= reply.author.name %></h3>
+                        <h5><%= reply.author.gender %> | <%= reply.author.rank %> | <%= reply.author.exp %></h5>
+                        <h5><%= reply.author.post %> | <%= reply.author.likes %> | </h5>
                     </div>
                     <div id="comment">
                         <form id="reply">
@@ -65,7 +65,7 @@
                         </form>
                         <br>
                         <p>
-                            <%= commentsArray.content %>
+                            <%= reply.content %>
                         </p>
                     </div>
                 </div>
