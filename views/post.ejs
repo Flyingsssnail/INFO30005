@@ -51,10 +51,17 @@
                     </p>
                 </div>
             </div>
-<!--            reply section-->
-            <% post.reply.forEach(function(reply) { %>
+
+
+        </section>
+        <% include templates/comment.ejs %>
+        <br>
+        <!--            reply section-->
+        <% post.reply.forEach(function(reply) { %>
+            <section id="post">
                 <div id="user">
                     <div id="description">
+                        <img src=<%= reply.author.avatar %> width="80" height="80" alt="user token">
                         <h3><%= reply.author.name %></h3>
                         <h5><%= reply.author.gender %> | <%= reply.author.rank %> | <%= reply.author.exp %></h5>
                         <h5><%= reply.author.post %> | <%= reply.author.likes %> | </h5>
@@ -69,13 +76,9 @@
                         </p>
                     </div>
                 </div>
-            <% }); %>
-
-        </section>
-        <% include templates/comment.ejs %>
+            </section>
+        <% }); %>
         <section id="gotoreply" style="width: 100%; margin-top: 50px">
-
-
 
             <header>
                 <h2>Comment</h2>
@@ -93,12 +96,7 @@
                     login.setAttribute('href', currHref + window.location.pathname+window.location.search);
                 </script>
             <% } %>
-
-
-
         </section>
-
-
 
     </div>
 </div>
