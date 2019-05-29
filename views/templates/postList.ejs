@@ -2,7 +2,7 @@
     <a href="/forum/post?postid=<%= element._id %>&page=1">
         <span style="font-size: 1.3em;"><%= element.title %></span> | (<%= element.reply.length %>) replies
         <br>
-        By <% if (element.name) { %><%= element.name %><% } else { %><%= element.author %><% } %>
+        By <%= element.author.name %>
         <!--<span><p><%= element.content %></p></span>-->
     </a>
 </li>

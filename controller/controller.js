@@ -254,7 +254,7 @@ function forum(req, res) {
     var artifactsArray = [];
     var storiesArray = [];
     // find post
-    Posts.find(function (err, posts) {
+    Posts.find({}).populate('author').exec(function (err, posts) {
         console.log('find8');
 
         if (err) {
@@ -270,7 +270,6 @@ function forum(req, res) {
             }
         });
         if (viewer) {
-            console.log(viewer);
             viewer.then(
                 function(result) {
                     return res.render('forumpage', {
@@ -299,7 +298,7 @@ function stories(req, res) {
     var total = 0;
     var array = [];
     var storiesArray = [];
-    Posts.find(function (err, posts) {
+    Posts.find({}).populate('author').exec( function (err, posts) {
         console.log('find9');
 
         if (err) {
@@ -352,7 +351,7 @@ function artifacts(req, res) {
     var total = 0;
     var array = [];
     var artifactsArray = [];
-    Posts.find(function (err, posts) {
+    Posts.find({}).populate('author').exec(function (err, posts) {
         console.log('find10');
 
         if (err) {
