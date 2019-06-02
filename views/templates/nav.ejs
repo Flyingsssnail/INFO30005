@@ -1,3 +1,5 @@
+<!-- the navigation section -->
+
 <div id="topnav">
 	<a href="/">Main</a>
 	<a href="/library">Library</a>
@@ -7,6 +9,7 @@
 		<button type="submit">Search</button>
 	</form>
 
+<!--	if logined in already, show create new post button-->
 	<a href="/post_edit" style="float: right; background-color: #34ac98; color: white; height: 45px;">New Post</a>
 	<% if (viewer) { %>
 		<button id="logout" onclick="" style="float: right; border-radius: 8px; height: 45px; background-color: #34ac98; color: white; border-style: none;" >Log Out</button>
@@ -19,6 +22,7 @@
 			};
 		</script>
 	<% } else { %>
+<!--	if not login in, show register and login buttons-->
 		<a href="/register.html" style="float: right;">Register</a>
 		<a id="login" href="/login?orig=" style="float: right;">Login</a>
 		<script>
