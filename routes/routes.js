@@ -1,30 +1,36 @@
 var express = require('express');
 var router = express.Router();
 var controller = require('../controller/controller.js');
+var fourmcontrol = require('../controller/forum_controller.js');
+var usercontrol = require('../controller/user_controller.js');
 
 // get section
-router.get('/viewProfile', controller.viewProfile);
 router.get('/', controller.main);
-router.get('/profile', controller.userprofile);
-router.get('/login', controller.getlogin);
-router.post('/login', controller.login);
-router.get('/logout', controller.logout);
-router.get('/forum', controller.forum);
-router.get('/forum/stories', controller.stories);
-router.get('/forum/artifacts', controller.artifacts);
-router.get('/forum/post', controller.postpage);
-router.get('/profile/edit', controller.editprofile);
+router.post('/upload', controller.uploadimg);
+
+// users
+router.get('/login', usercontrol.getlogin);
+router.post('/login', usercontrol.login);
+router.get('/logout', usercontrol.logout);
+router.get('/viewProfile', usercontrol.viewProfile);
+router.get('/profile', usercontrol.userprofile);
+
+// forum
+router.get('/forum', fourmcontrol.forum);
+router.get('/forum/stories', fourmcontrol.stories);
+router.get('/forum/artifacts', fourmcontrol.artifacts);
+router.get('/forum/post', fourmcontrol.postpage);
+router.get('/profile/edit', usercontrol.editprofile);
+
+// library and tips
 router.get('/library',controller.library);
 router.get('/library/tippages',controller.tipspage);
 
-router.get('/post_edit', controller.postedit);
-
 // post section
-router.post('/register.html', controller.createUser);
-router.post('/post_edit', controller.createPost);
-router.post('/forum/post', controller.addreply);
-
-router.post('/upload', controller.uploadimg);
+router.post('/register.html', usercontrol.createUser);
+router.post('/post_edit', fourmcontrol.createPost);
+router.post('/forum/post', fourmcontrol.addreply);
+router.get('/post_edit', fourmcontrol.postedit);
 
 // export
 module.exports = router;
